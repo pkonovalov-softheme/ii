@@ -1,0 +1,10 @@
+c:\users\user\documents\visual studio 2010\Projects\ai3\ai3\bin\Debug\ai3.exe
+c:\users\user\documents\visual studio 2010\Projects\ai3\ai3\obj\x86\Debug\ResolveAssemblyReference.cache
+c:\users\user\documents\visual studio 2010\Projects\ai3\ai3\obj\x86\Debug\ai3.Properties.Resources.resources
+c:\users\user\documents\visual studio 2010\Projects\ai3\ai3\obj\x86\Debug\GenerateResource.read.1.tlog
+c:\users\user\documents\visual studio 2010\Projects\ai3\ai3\obj\x86\Debug\GenerateResource.write.1.tlog
+c:\users\user\documents\visual studio 2010\Projects\ai3\ai3\obj\x86\Debug\ai3.exe
+c:\users\user\documents\visual studio 2010\Projects\ai3\ai3\obj\x86\Debug\ai3.pdb
+C:\GitHub\ii\ai3\bin\Debug\ai3.exe.config
+C:\GitHub\ii\ai3\obj\x86\Debug\ai3.exe
+C:\GitHub\ii\ai3\obj\x86\Debug\ai3.pdb
