@@ -6,8 +6,9 @@ using System.Text;
 using System.Timers;
 using System.Diagnostics;
 using System.Drawing;
+using ai3;
 
-namespace ai3
+namespace AI
 {
     static class Program
     {
