@@ -1,6 +1,9 @@
-*/bin
-*/obj
+*/bin/
+*/obj/
 *.suo
 *.user
 ./Resharp*
 Thumbs.db
+/*.suo
+/*.suo
+obj
