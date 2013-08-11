@@ -8,12 +8,14 @@ namespace AI.Core.Operators
     /// </summary>
     public abstract class Operator
     {
-        public ExitContact ExitContact { get; protected set; }
-        public List<EnterContact> EnterContacts { get; protected set; }
+        public Channel ExitContact { get; protected set; }
+        public List<Channel> EnterContacts { get; protected set; }
+        protected ushort EnterContactsCount;
 
         protected Operator() 
         {
-            ExitContact = new ExitContact();
+            ExitContact = new Channel();
+            EnterContacts = new List<Channel>(EnterContactsCount);
         }
 
         public abstract void Action();

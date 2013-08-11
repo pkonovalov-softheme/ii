@@ -40,10 +40,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Channel.cs" />
-    <Compile Include="EnterContact.cs" />
-    <Compile Include="ExitContact.cs" />
+    <Compile Include="Operators\Division.cs" />
+    <Compile Include="Operators\Equal.cs" />
+    <Compile Include="Operators\If.cs" />
+    <Compile Include="Operators\Minus.cs" />
+    <Compile Include="Operators\Multiplication.cs" />
+    <Compile Include="Operators\One.cs" />
     <Compile Include="Operators\Operator.cs" />
     <Compile Include="Operators\Plus.cs" />
+    <Compile Include="Operators\Power.cs" />
+    <Compile Include="Operators\Time.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

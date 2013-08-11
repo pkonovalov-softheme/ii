@@ -8,15 +8,14 @@ namespace AI.Core.Operators
 {
     class Plus : Operator
     {
-        public const ushort EnterContactsCount = 2;
         public Plus()
         {
-            EnterContacts = new List<EnterContact>(EnterContactsCount);
+            EnterContactsCount = 2;
         }
 
-        public Action()
+        public override void Action()
         {
-            ExitContact = 
+            ExitContact.Value = EnterContacts[0].Value + EnterContacts[1].Value;
         }
     }
 }
