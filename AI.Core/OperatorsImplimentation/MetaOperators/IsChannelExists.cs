@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace AI.Core.OperatorsImplimentation
+namespace AI.Core.OperatorsImplimentation.MetaOperators
 {
     class IsChannelExists : ChannelOperator
     {
@@ -17,7 +13,7 @@ namespace AI.Core.OperatorsImplimentation
         {
             try
             {
-                if (Entity[FromEntity].ExitContacts == Entity[ToEntity].EnterContacts[ToEntityContactNumber])
+                if (Entity[FromOperatorId].ExitContacts == Entity[ToOperatorId].EnterContacts[ToEntityContactNumber])
                 {
                     ExitContacts.SetValue(1);
                     return;

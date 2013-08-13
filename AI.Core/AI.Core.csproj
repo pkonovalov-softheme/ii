@@ -39,26 +39,28 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Channel.cs" />
-    <Compile Include="Channels.cs" />
-    <Compile Include="OperatorsImplimentation\ChannelOperator.cs" />
-    <Compile Include="OperatorsImplimentation\CreateChannel.cs" />
-    <Compile Include="OperatorsImplimentation\DeleteChannel.cs" />
-    <Compile Include="OperatorsImplimentation\Division.cs" />
-    <Compile Include="OperatorsImplimentation\Equal.cs" />
-    <Compile Include="OperatorsImplimentation\If.cs" />
-    <Compile Include="OperatorsImplimentation\IsChannelExists.cs" />
-    <Compile Include="OperatorsImplimentation\Minus.cs" />
-    <Compile Include="OperatorsImplimentation\Multiplication.cs" />
-    <Compile Include="OperatorsImplimentation\One.cs" />
+    <Compile Include="ChannelsImplimentation\Channel.cs" />
+    <Compile Include="ChannelsImplimentation\Channels.cs" />
+    <Compile Include="ChannelsImplimentation\ChannelsTable.cs" />
+    <Compile Include="Contact.cs" />
+    <Compile Include="OperatorsImplimentation\MetaOperators\ChannelOperator.cs" />
+    <Compile Include="OperatorsImplimentation\MetaOperators\CreateChannel.cs" />
+    <Compile Include="OperatorsImplimentation\MetaOperators\DeleteChannel.cs" />
+    <Compile Include="OperatorsImplimentation\BasicOperators\Division.cs" />
+    <Compile Include="OperatorsImplimentation\BasicOperators\Equal.cs" />
+    <Compile Include="OperatorsImplimentation\BasicOperators\If.cs" />
+    <Compile Include="OperatorsImplimentation\MetaOperators\IsChannelExists.cs" />
+    <Compile Include="OperatorsImplimentation\BasicOperators\Minus.cs" />
+    <Compile Include="OperatorsImplimentation\BasicOperators\Multiplication.cs" />
+    <Compile Include="OperatorsImplimentation\BasicOperators\One.cs" />
     <Compile Include="OperatorsImplimentation\Operator.cs" />
-    <Compile Include="Operators.cs" />
-    <Compile Include="OperatorsImplimentation\Plus.cs" />
-    <Compile Include="OperatorsImplimentation\Power.cs" />
-    <Compile Include="OperatorsImplimentation\Random.cs" />
-    <Compile Include="OperatorsImplimentation\Time.cs" />
+    <Compile Include="OperatorsImplimentation\Operators.cs" />
+    <Compile Include="OperatorsImplimentation\BasicOperators\Plus.cs" />
+    <Compile Include="OperatorsImplimentation\BasicOperators\Power.cs" />
+    <Compile Include="OperatorsImplimentation\BasicOperators\Random.cs" />
+    <Compile Include="OperatorsImplimentation\BasicOperators\Time.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="World.cs" />
+    <Compile Include="Entity.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

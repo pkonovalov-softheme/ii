@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
-using AI.Core.OperatorsImplimentation;
 
-namespace AI.Core
+namespace AI.Core.OperatorsImplimentation
 {
     /// <summary>
     /// Dictionary collection of Entity Operators

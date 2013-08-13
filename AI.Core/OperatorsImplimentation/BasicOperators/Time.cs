@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AI.Core.OperatorsImplimentation
+namespace AI.Core.OperatorsImplimentation.BasicOperators
 {
     class Time : Operator
     {
