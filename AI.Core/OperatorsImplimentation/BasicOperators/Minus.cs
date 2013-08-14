@@ -2,8 +2,8 @@
 {
     class Minus : Operator
     {
-        public Minus(ulong id, Operators opers)
-            : base(id, opers)
+        public Minus(Entity thisEntity)
+            : base(thisEntity)
         {
             EnterContactsCount = 2;
         }

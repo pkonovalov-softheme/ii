@@ -5,8 +5,8 @@
         /// <summary>
         /// Always 1
         /// </summary>
-        public One(ulong id, Operators opers)
-            : base(id, opers)
+        public One(Entity thisEntity)
+            : base(thisEntity)
         {
             ExitContacts.SetValue(1);
         }

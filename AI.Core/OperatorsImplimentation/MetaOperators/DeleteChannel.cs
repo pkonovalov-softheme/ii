@@ -9,7 +9,8 @@ namespace AI.Core.OperatorsImplimentation.MetaOperators
         /// <summary>
         /// Delete Channel
         /// </summary>
-        public DeleteChannel(ulong id, Entity entity) : base(id, entity) {}
+        public DeleteChannel(Entity thisEntity)
+            : base(thisEntity){}
 
         public override void Action()
         {
@@ -19,13 +20,13 @@ namespace AI.Core.OperatorsImplimentation.MetaOperators
                 var chktey = new ChannelTableKey(FromOperator, ToOperator);
                 try
                 {
-                    channel = Entity.ChannelsTable[chktey];
+                    channel = ThisEntity.ChannelsTable[chktey];
                 }
                 catch (KeyNotFoundException) {return;}
 
                 FromOperator.ExitContacts[channel.FromContact.ContactNumber] = null;
                 ToOperator.EnterContacts[channel.ToContact.ContactNumber] = null;
-                Entity.ChannelsTable[chktey] = null;
+                ThisEntity.ChannelsTable[chktey] = null;
             }
             catch (ArgumentOutOfRangeException){}
         }

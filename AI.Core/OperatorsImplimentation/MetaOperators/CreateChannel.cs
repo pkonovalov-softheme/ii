@@ -8,7 +8,8 @@ namespace AI.Core.OperatorsImplimentation.MetaOperators
         /// <summary>
         /// Creates Channel between two Entities
         /// </summary>
-        public CreateChannel(ulong id, Entity entity) : base(id, entity) {}
+        public CreateChannel(Entity thisEntity)
+            : base(thisEntity) {}
 
         public override void Action()
         {
@@ -23,7 +24,7 @@ namespace AI.Core.OperatorsImplimentation.MetaOperators
                 var channel = new Channel(fromContact, toContact);
                 FromOperator.ExitContacts.Add(channel);
                 ToOperator.EnterContacts[ToOperatorContactNumber] = channel;
-                Entity.ChannelsTable.Add(new ChannelTableKey(FromOperator, ToOperator), channel);
+                ThisEntity.ChannelsTable.Add(new ChannelTableKey(FromOperator, ToOperator), channel);
             }
             catch (ArgumentOutOfRangeException) {}
         }

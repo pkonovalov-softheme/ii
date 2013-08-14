@@ -6,8 +6,12 @@ using System.Threading.Tasks;
 
 namespace AI.Core.OperatorsImplimentation.MetaOperators
 {
-    class MetaOperator : Dictionary<ulong, Operator>
+    public abstract class MetaOperator : Operator
     {
-        public MetaOperator
+        protected MetaOperator(Entity thisEntity)
+            : base(thisEntity)
+        {
+            EnterContactsCount = 1;
+        }
     }
 }

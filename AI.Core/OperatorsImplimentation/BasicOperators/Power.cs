@@ -4,8 +4,8 @@ namespace AI.Core.OperatorsImplimentation.BasicOperators
 {
     class Power : Operator
     {
-        public Power(ulong id, Operators opers)
-            : base(id, opers)
+        public Power(Entity thisEntity)
+            : base(thisEntity)
         {
             EnterContactsCount = 2;
         }

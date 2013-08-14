@@ -2,8 +2,8 @@
 {
     class Division : Operator
     {
-        public Division(ulong id, Operators opers)
-            : base(id, opers)
+        public Division(Entity thisEntity)
+            : base(thisEntity)
         {
             EnterContactsCount = 2;
         }

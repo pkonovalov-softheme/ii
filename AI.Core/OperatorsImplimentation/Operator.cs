@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using AI.Core.ChannelsImplimentation;
+using AI.Core.OperatorsImplimentation.BasicOperators;
 
 namespace AI.Core.OperatorsImplimentation
 {
@@ -9,7 +10,12 @@ namespace AI.Core.OperatorsImplimentation
     /// </summary>
     public abstract class Operator
     {
-        protected Entity Entity { get; private set; }
+        protected enum OperatorsTypes
+        {
+            Division, Equal, If, Minus, Multiplication, One, Plus, Power, RandomNumber, Time, CreateChannel, CreateOperator, DeleteChannel, GetTypeOfOperator,
+            IsChannelExists,  RemoveOperator
+        };
+        protected Entity ThisEntity { get; private set; }
         public ulong Id { get; protected set; }
         public ulong OperatorType { get; protected set; }
         public Channels ExitContacts; //To do: Add safe thread logic for external setter
@@ -21,12 +27,11 @@ namespace AI.Core.OperatorsImplimentation
         /// <summary>
         /// Initialize new Operator
         /// </summary>
-        /// <param name="id">Unique number for Operator identification</param>
-        /// <param name="entity">Operators collection of the Entity</param>
-        protected Operator(ulong id, Entity entity)
+        /// <param name="thisEntity">Operators collection of the Entity</param>
+        protected Operator(Entity thisEntity)
         {
-            Id = id;
-            Entity = entity;
+            Id = ThisEntity.Operators.GetNewUniqueId();
+            ThisEntity = thisEntity;
             ExitContacts = new Channels(1);
             EnterContacts = new Channels(EnterContactsCount);
         }

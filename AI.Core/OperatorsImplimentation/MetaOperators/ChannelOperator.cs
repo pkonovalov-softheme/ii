@@ -13,7 +13,7 @@
 
         protected Operator FromOperator
         {
-            get { return Entity.Operators[FromOperatorId]; }
+            get { return ThisEntity.Operators[FromOperatorId]; }
             set { FromOperatorId = value.Id; }
         }
 
@@ -25,7 +25,7 @@
 
         protected Operator ToOperator
         {
-            get { return Entity.Operators[ToOperatorId]; }
+            get { return ThisEntity.Operators[ToOperatorId]; }
             set { ToOperatorId = value.Id; }
         }
 
@@ -35,8 +35,8 @@
             set { EnterContacts[2].Value = value; }
         }
 
-        protected ChannelOperator(ulong id, Entity entity)
-            : base(id, entity)
+        protected ChannelOperator(Entity thisEntity)
+            : base(thisEntity)
         {
             EnterContactsCount = 3;
         }

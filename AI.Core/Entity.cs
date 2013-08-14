@@ -13,11 +13,13 @@ namespace AI.Core
     /// </summary>
     public class Entity
     {
+        public Framework Framework { get; private set; }
         private readonly ChannelsTable _channelsTable;
         private readonly Operators _operators;
 
-        public Entity()
+        public Entity(Framework framework)
         {
+            Framework = framework;
             _operators = new Operators();
             _channelsTable = new ChannelsTable();
         }

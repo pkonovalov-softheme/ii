@@ -6,7 +6,22 @@ using System.Threading.Tasks;
 
 namespace AI.Core.OperatorsImplimentation.MetaOperators
 {
-    class GetTypeOfOperator
+    class GetTypeOfOperator : ChannelOperator
     {
+        public GetTypeOfOperator(Entity thisEntity) 
+            : base(thisEntity)
+        {
+            EnterContactsCount = 1;
+        }
+
+        public override void Action()
+        {
+            ExitContacts.SetValue(ThisEntity.Operators[TargetOperatorId].OperatorType);
+        }
+
+        private ulong TargetOperatorId
+        {
+            get { return EnterContacts[0].Value; }
+        }
     }
 }

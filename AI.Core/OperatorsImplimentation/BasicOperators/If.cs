@@ -2,8 +2,8 @@
 {
     class If : Operator
     {
-        public If(ulong id, Operators opers)
-            : base(id, opers)
+        public If(Entity thisEntity)
+            : base(thisEntity)
         {
             EnterContactsCount = 3;
         }

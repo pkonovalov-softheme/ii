@@ -5,8 +5,8 @@
         /// <summary>
         /// Just repeats Enter on exit
         /// </summary>
-        public Equal(ulong id, Operators opers)
-            : base(id, opers)
+        public Equal(Entity thisEntity)
+            : base(thisEntity)
         {
             EnterContactsCount = 1;
         }

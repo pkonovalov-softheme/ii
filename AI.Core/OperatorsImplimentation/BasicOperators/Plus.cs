@@ -2,8 +2,8 @@
 {
     class Plus : Operator
     {
-        public Plus(ulong id, Operators opers)
-            : base(id, opers)
+        public Plus(Entity thisEntity)
+            : base(thisEntity)
         {
             EnterContactsCount = 2;
         }

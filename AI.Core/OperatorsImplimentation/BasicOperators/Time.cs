@@ -7,8 +7,8 @@ namespace AI.Core.OperatorsImplimentation.BasicOperators
         /// <summary>
         /// Returns UTC ticks
         /// </summary>
-        public Time(ulong id, Operators opers)
-            : base(id, opers)
+        public Time(Entity thisEntity)
+            : base(thisEntity)
         {
             EnterContactsCount = 0;
         }

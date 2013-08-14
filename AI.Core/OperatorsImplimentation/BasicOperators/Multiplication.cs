@@ -2,8 +2,8 @@
 {
     class Multiplication : Operator
     {
-        public Multiplication(ulong id, Operators opers)
-            : base(id, opers)
+        public Multiplication(Entity thisEntity)
+            : base(thisEntity)
         {
             EnterContactsCount = 2;
         }
