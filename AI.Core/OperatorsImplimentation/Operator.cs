@@ -11,6 +11,7 @@ namespace AI.Core.OperatorsImplimentation
     {
         protected Entity Entity { get; private set; }
         public ulong Id { get; protected set; }
+        public ulong OperatorType { get; protected set; }
         public Channels ExitContacts; //To do: Add safe thread logic for external setter
         public Channels EnterContacts; //To do: Add safe thread logic for external setter
         protected ushort EnterContactsCount;
