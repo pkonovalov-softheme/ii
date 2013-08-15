@@ -43,7 +43,6 @@
     <Compile Include="ChannelsImplimentation\Channels.cs" />
     <Compile Include="ChannelsImplimentation\ChannelsTable.cs" />
     <Compile Include="Contact.cs" />
-    <Compile Include="Framework.cs" />
     <Compile Include="OperatorsImplimentation\MetaOperators\ChannelOperator.cs" />
     <Compile Include="OperatorsImplimentation\MetaOperators\CreateChannel.cs" />
     <Compile Include="OperatorsImplimentation\MetaOperators\CreateOperator.cs" />
@@ -51,12 +50,12 @@
     <Compile Include="OperatorsImplimentation\BasicOperators\Division.cs" />
     <Compile Include="OperatorsImplimentation\BasicOperators\Equal.cs" />
     <Compile Include="OperatorsImplimentation\BasicOperators\If.cs" />
+    <Compile Include="OperatorsImplimentation\MetaOperators\GetOperatorId.cs" />
     <Compile Include="OperatorsImplimentation\MetaOperators\GetTypeOfOperator.cs" />
     <Compile Include="OperatorsImplimentation\MetaOperators\IsChannelExists.cs" />
     <Compile Include="OperatorsImplimentation\BasicOperators\Minus.cs" />
     <Compile Include="OperatorsImplimentation\BasicOperators\Multiplication.cs" />
     <Compile Include="OperatorsImplimentation\BasicOperators\One.cs" />
-    <Compile Include="OperatorsImplimentation\MetaOperators\MetaOperator.cs" />
     <Compile Include="OperatorsImplimentation\MetaOperators\RemoveOperator.cs" />
     <Compile Include="OperatorsImplimentation\Operator.cs" />
     <Compile Include="OperatorsImplimentation\Operators.cs" />

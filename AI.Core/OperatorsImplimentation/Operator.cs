@@ -13,7 +13,7 @@ namespace AI.Core.OperatorsImplimentation
         protected enum OperatorsTypes
         {
             Division, Equal, If, Minus, Multiplication, One, Plus, Power, RandomNumber, Time, CreateChannel, CreateOperator, DeleteChannel, GetTypeOfOperator,
-            IsChannelExists,  RemoveOperator
+            IsChannelExists, RemoveOperator, GetOperatorId 
         };
         protected Entity ThisEntity { get; private set; }
         public ulong Id { get; protected set; }

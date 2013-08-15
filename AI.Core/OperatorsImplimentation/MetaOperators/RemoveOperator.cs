@@ -21,7 +21,7 @@ namespace AI.Core.OperatorsImplimentation.MetaOperators
 
         public override void Action()
         {
-            ThisEntity.Operators.Remove(OperatorIdToRemove);
+            ExitContacts.SetValue(Convert.ToUInt64(ThisEntity.Operators.Remove(OperatorIdToRemove)));
         }
     }
 }

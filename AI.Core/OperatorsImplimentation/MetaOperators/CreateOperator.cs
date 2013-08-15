@@ -66,6 +66,10 @@ namespace AI.Core.OperatorsImplimentation.MetaOperators
                     return new IsChannelExists(ThisEntity);
                 case (OperatorsTypes.RemoveOperator):
                     return new RemoveOperator(ThisEntity);
+                case (OperatorsTypes.GetOperatorId):
+                    return new GetOperatorId(ThisEntity);
+                default:
+                    return null;
             }
         }
     }

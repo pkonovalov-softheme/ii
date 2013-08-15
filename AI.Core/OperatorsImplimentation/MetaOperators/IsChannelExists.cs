@@ -1,4 +1,5 @@
 ﻿using System;
+using AI.Core.ChannelsImplimentation;
 
 namespace AI.Core.OperatorsImplimentation.MetaOperators
 {
@@ -12,16 +13,8 @@ namespace AI.Core.OperatorsImplimentation.MetaOperators
 
         public override void Action()
         {
-            try
-            {
-                if (ThisEntity[FromOperatorId].ExitContacts == ThisEntity[ToOperatorId].EnterContacts[ToEntityContactNumber])
-                {
-                    ExitContacts.SetValue(1);
-                    return;
-                }
-            }
-            catch (ArgumentOutOfRangeException) { }
-            ExitContacts.SetValue(0);
+            bool result = ThisEntity.ChannelsTable.ContainsKey(new ChannelTableKey(FromOperator, ToOperator));
+            ExitContacts.SetValue(Convert.ToUInt64(result));
         }
     }
 }
