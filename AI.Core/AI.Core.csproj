@@ -51,6 +51,7 @@
     <Compile Include="OperatorsImplimentation\BasicOperators\Equal.cs" />
     <Compile Include="OperatorsImplimentation\BasicOperators\If.cs" />
     <Compile Include="OperatorsImplimentation\MetaOperators\GetOperatorId.cs" />
+    <Compile Include="OperatorsImplimentation\MetaOperators\GetOperatorTypeContactsCount.cs" />
     <Compile Include="OperatorsImplimentation\MetaOperators\GetTypeOfOperator.cs" />
     <Compile Include="OperatorsImplimentation\MetaOperators\IsChannelExists.cs" />
     <Compile Include="OperatorsImplimentation\BasicOperators\Minus.cs" />

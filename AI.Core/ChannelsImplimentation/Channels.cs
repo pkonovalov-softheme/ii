@@ -4,8 +4,12 @@ namespace AI.Core.ChannelsImplimentation
 {
     public sealed class Channels : List<Channel>
     {
-        public Channels(int capacity) : base(capacity) {}
-        
+        public Channels(int capacity) : base(capacity) 
+        {
+            for (int i = 0; i < capacity; i++)
+                this.Add(null);
+        }
+
         /// <summary>
         /// Setting up values for all channels
         /// </summary>

@@ -18,9 +18,20 @@ namespace AI.Core.OperatorsImplimentation
         protected Entity ThisEntity { get; private set; }
         public ulong Id { get; protected set; }
         public ulong OperatorType { get; protected set; }
-        public Channels ExitContacts; //To do: Add safe thread logic for external setter
+        public Channel[] ExitContacts; //To do: Add safe thread logic for external setter
         public Channels EnterContacts; //To do: Add safe thread logic for external setter
-        protected ushort EnterContactsCount;
+        private ushort _enterContactsCount;
+
+        public ushort EnterContactsCount
+        {
+            get { return _enterContactsCount; }
+            protected set 
+            {
+                
+                EnterContacts = new Channels(value);
+                _enterContactsCount = value; 
+            }
+        }
 
         public abstract void Action();
 
@@ -30,10 +41,9 @@ namespace AI.Core.OperatorsImplimentation
         /// <param name="thisEntity">Operators collection of the Entity</param>
         protected Operator(Entity thisEntity)
         {
-            Id = ThisEntity.Operators.GetNewUniqueId();
             ThisEntity = thisEntity;
+            Id = ThisEntity.Operators.GetNewUniqueId();
             ExitContacts = new Channels(1);
-            EnterContacts = new Channels(EnterContactsCount);
         }
     }
 }

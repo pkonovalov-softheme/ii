@@ -1,6 +1,6 @@
 ﻿namespace AI.Core.OperatorsImplimentation.BasicOperators
 {
-    class Division : Operator
+    public class Division : Operator
     {
         public Division(Entity thisEntity)
             : base(thisEntity)

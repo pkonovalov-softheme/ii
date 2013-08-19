@@ -22,6 +22,7 @@ namespace AI.Core.OperatorsImplimentation.MetaOperators
         public override void Action()
         {
             Operator oper = CreateOperatorInternal();
+            //oper.OperatorType = OperatorTypeToAdd;
             ThisEntity.Operators.Add(oper.Id, CreateOperatorInternal());
             ExitContacts.SetValue(oper.Id);
         }

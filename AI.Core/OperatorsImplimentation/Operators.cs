@@ -17,7 +17,7 @@ namespace AI.Core.OperatorsImplimentation
             do
             {
                 _currentId++;
-            } while (!ContainsKey(_currentId));
+            } while (ContainsKey(_currentId));
 
             return _currentId;
         }
