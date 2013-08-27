@@ -1,13 +1,17 @@
 ﻿using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using System.Runtime.InteropServices;
 
 namespace AI.Core.ChannelsImplimentation
 {
-    public sealed class Channels : List<Channel>
+    public sealed class Channels
     {
-        public Channels(int capacity) : base(capacity) 
+        private readonly List<Channel> _rawChannels;
+
+        public Channels(int capacity)
         {
-            for (int i = 0; i < capacity; i++)
-                this.Add(null);
+            _rawChannels = Enumerable.Repeat((Channel)null, capacity).ToList();
         }
 
         /// <summary>
@@ -15,7 +19,7 @@ namespace AI.Core.ChannelsImplimentation
         /// </summary>
         public void SetValue(ulong value)
         {
-            foreach (Channel currentChannel in this)
+            foreach (Channel currentChannel in _rawChannels)
             {
                 currentChannel.Value = value;
             }
@@ -28,12 +32,25 @@ namespace AI.Core.ChannelsImplimentation
         {
             get
             {
-                return this[(int)index];
+                return _rawChannels[(int)index];
             }
             set
             {
-                this[(int) index] = value;
+                _rawChannels[(int)index] = value;
             }
+        }
+
+        public ulong Count
+        {
+            get
+            {
+                return (ulong)_rawChannels.Count;
+            }
+        }
+
+        public void Add(Channel channel)
+        {
+            _rawChannels.Add(channel);
         }
     }
 }

@@ -2,18 +2,20 @@
 
 namespace AI.Core.OperatorsImplimentation.BasicOperators
 {
-    class RandomNumber : Operator
+    public class RandomNumber : Operator
     {
+        private readonly Random _rnd;
+
         public RandomNumber(Entity thisEntity)
             : base(thisEntity)
         {
             EnterContactsCount = 1;
+            _rnd = new Random();
         }
 
         public override void Action()
         {
-            var rnd = new Random();
-            var value = (ulong)(rnd.NextDouble() * ulong.MaxValue);
+            var value = (ulong)(_rnd.NextDouble() * EnterContacts[0].Value);
             ExitContacts.SetValue(value);
         }
     }

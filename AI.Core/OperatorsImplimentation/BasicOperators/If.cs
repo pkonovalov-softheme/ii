@@ -1,6 +1,6 @@
 ﻿namespace AI.Core.OperatorsImplimentation.BasicOperators
 {
-    class If : Operator
+    public class If : Operator
     {
         public If(Entity thisEntity)
             : base(thisEntity)

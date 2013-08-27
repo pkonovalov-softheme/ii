@@ -1,6 +1,8 @@
-﻿namespace AI.Core.OperatorsImplimentation.BasicOperators
+﻿using AI.Core.ChannelsImplimentation;
+
+namespace AI.Core.OperatorsImplimentation.BasicOperators
 {
-    class Multiplication : Operator
+    public class Multiplication : Operator
     {
         public Multiplication(Entity thisEntity)
             : base(thisEntity)

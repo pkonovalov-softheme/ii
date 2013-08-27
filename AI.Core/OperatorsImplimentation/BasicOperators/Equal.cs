@@ -1,6 +1,6 @@
 ﻿namespace AI.Core.OperatorsImplimentation.BasicOperators
 {
-    class Equal : Operator
+    public class Equal : Operator
     {
         /// <summary>
         /// Just repeats Enter on exit

@@ -1,8 +1,9 @@
 ﻿using System;
+using AI.Core.ChannelsImplimentation;
 
 namespace AI.Core.OperatorsImplimentation.BasicOperators
 {
-    class Power : Operator
+    public class Power : Operator
     {
         public Power(Entity thisEntity)
             : base(thisEntity)

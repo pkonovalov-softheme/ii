@@ -2,7 +2,7 @@
 
 namespace AI.Core.OperatorsImplimentation.BasicOperators
 {
-    class Time : Operator
+    public class Time : Operator
     {
         /// <summary>
         /// Returns UTC ticks

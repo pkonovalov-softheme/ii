@@ -1,6 +1,8 @@
-﻿namespace AI.Core.OperatorsImplimentation.BasicOperators
+﻿using AI.Core.ChannelsImplimentation;
+
+namespace AI.Core.OperatorsImplimentation.BasicOperators
 {
-    class Plus : Operator
+    public class Plus : Operator
     {
         public Plus(Entity thisEntity)
             : base(thisEntity)

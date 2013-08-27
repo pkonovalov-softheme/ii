@@ -1,15 +1,15 @@
-﻿namespace AI.Core.OperatorsImplimentation.BasicOperators
+﻿using AI.Core.ChannelsImplimentation;
+
+namespace AI.Core.OperatorsImplimentation.BasicOperators
 {
-    class One : Operator
+    public class One : Operator
     {
         /// <summary>
         /// Always 1
         /// </summary>
         public One(Entity thisEntity)
             : base(thisEntity)
-        {
-            ExitContacts.SetValue(1);
-        }
+        {}
 
         public override void Action()
         {
