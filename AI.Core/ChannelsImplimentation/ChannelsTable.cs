@@ -18,5 +18,11 @@ namespace AI.Core.ChannelsImplimentation
       }
     }
 
-    public class ChannelsTable : Dictionary<ChannelTableKey, Channel> { }
+    public class ChannelsTable
+    {
+        private Channel[] _channels;
+
+        
+    }
+
 }

@@ -10,7 +10,7 @@ namespace AI.Core.OperatorsImplimentation.MetaOperators
     /// <summary>
     /// Returns Id of operator from witch channel is enter. Value in channel is ignored.
     /// </summary>
-    class GetOperatorId : Operator
+    public class GetOperatorId : Operator
     {
         public GetOperatorId(Entity thisEntity)
             : base(thisEntity)

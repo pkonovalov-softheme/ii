@@ -4,7 +4,7 @@ using AI.Core.ChannelsImplimentation;
 
 namespace AI.Core.OperatorsImplimentation.MetaOperators
 {
-    class DeleteChannel : ChannelOperator
+    public class DeleteChannel : ChannelOperator
     {
         /// <summary>
         /// Delete Channel

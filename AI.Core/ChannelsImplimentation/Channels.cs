@@ -5,13 +5,13 @@ using System.Runtime.InteropServices;
 
 namespace AI.Core.ChannelsImplimentation
 {
-    public sealed class Channels
+    public sealed class Channels : List<Channel>
     {
-        private readonly List<Channel> _rawChannels;
-
         public Channels(int capacity)
         {
-            _rawChannels = Enumerable.Repeat((Channel)null, capacity).ToList();
+            //this. = Enumerable.Repeat((Channel)null, capacity).ToList();
+            for(int i = 0; i < capacity; i++)
+                Add(null);
         }
 
         /// <summary>
@@ -19,7 +19,7 @@ namespace AI.Core.ChannelsImplimentation
         /// </summary>
         public void SetValue(ulong value)
         {
-            foreach (Channel currentChannel in _rawChannels)
+            foreach (Channel currentChannel in this)
             {
                 currentChannel.Value = value;
             }
@@ -32,25 +32,12 @@ namespace AI.Core.ChannelsImplimentation
         {
             get
             {
-                return _rawChannels[(int)index];
+                return this[(int)index];
             }
             set
             {
-                _rawChannels[(int)index] = value;
+                this[(int)index] = value;
             }
-        }
-
-        public ulong Count
-        {
-            get
-            {
-                return (ulong)_rawChannels.Count;
-            }
-        }
-
-        public void Add(Channel channel)
-        {
-            _rawChannels.Add(channel);
         }
     }
 }
