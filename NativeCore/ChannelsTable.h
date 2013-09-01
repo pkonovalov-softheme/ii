@@ -1,5 +1,7 @@
-﻿#include "Entity.h"
-#include "stdafx.h"
+﻿#pragma once
+
+#include "Operator.h"
+#include "Channel.h"
 
 //C# TO C++ CONVERTER TODO TASK: The .NET System namespace is not available from native C++:
 //using namespace System;
@@ -11,25 +13,32 @@
 //using namespace System::Text;
 //C# TO C++ CONVERTER TODO TASK: The .NET System namespace is not available from native C++:
 //using namespace System::Threading::Tasks;
-using namespace AI::Core::ChannelsImplimentation;
 using namespace AI::Core::OperatorsImplimentation;
+
 namespace AI
 {
 	namespace Core
 	{
-
-		Entity::Entity() : _channelsTable(new ChannelsTable()), _operators(new Operators())
+		namespace ChannelsImplimentation
 		{
-		}
+			class ChannelTableKey
+			{
+		  public:
+			  Operator *const FromOperator;
+			  Operator *const ToOperator;
+			  ChannelTableKey(Operator *fromOperator, Operator *toOperator);
+			};
 
-		ChannelsTable &Entity::getChannelsTable()
-		{
-			return _channelsTable;
-		}
+			class ChannelsTable
+			{
+			private:
+//C# TO C++ CONVERTER WARNING: Since the array size is not known in this declaration, C# to C++ Converter has converted this array to a pointer.  You will need to call 'delete[]' where appropriate:
+//ORIGINAL LINE: private Channel[] _channels;
+				Channel *_channels;
 
-		Operators &Entity::getOperators()
-		{
-			return _operators;
+
+			};
+
 		}
 	}
 }

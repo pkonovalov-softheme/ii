@@ -1,4 +1,4 @@
-﻿#include "Entity.h"
+﻿#include "GetOperatorId.h"
 #include "stdafx.h"
 
 //C# TO C++ CONVERTER TODO TASK: The .NET System namespace is not available from native C++:
@@ -12,24 +12,30 @@
 //C# TO C++ CONVERTER TODO TASK: The .NET System namespace is not available from native C++:
 //using namespace System::Threading::Tasks;
 using namespace AI::Core::ChannelsImplimentation;
-using namespace AI::Core::OperatorsImplimentation;
 namespace AI
 {
 	namespace Core
 	{
-
-		Entity::Entity() : _channelsTable(new ChannelsTable()), _operators(new Operators())
+		namespace OperatorsImplimentation
 		{
-		}
+			namespace MetaOperators
+			{
 
-		ChannelsTable &Entity::getChannelsTable()
-		{
-			return _channelsTable;
-		}
+				GetOperatorId::GetOperatorId(Entity *thisEntity) : Operator(thisEntity)
+				{
+					setEnterContactsCount(1);
+				}
 
-		Operators &Entity::getOperators()
-		{
-			return _operators;
+				void GetOperatorId::Action()
+				{
+					ExitContacts->SetValue(getEnterChannel()->getFromContact().getOper()->Id);
+				}
+
+				const AI::Core::ChannelsImplimentation::Channel &GetOperatorId::getEnterChannel() const
+				{
+					return EnterContacts[0];
+				}
+			}
 		}
 	}
 }

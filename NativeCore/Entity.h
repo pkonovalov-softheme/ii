@@ -1,7 +1,7 @@
 ﻿#pragma once
 
-#include "ChannelsImplimentation/ChannelsTable.h"
-#include "OperatorsImplimentation/Operators.h"
+#include "ChannelsTable.h"
+#include "Operators.h"
 
 //C# TO C++ CONVERTER TODO TASK: The .NET System namespace is not available from native C++:
 //using namespace System;

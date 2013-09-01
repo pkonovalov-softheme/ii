@@ -1,5 +1,7 @@
-﻿#include "Entity.h"
-#include "stdafx.h"
+﻿#pragma once
+
+#include "ChannelOperator.h"
+#include "Entity.h"
 
 //C# TO C++ CONVERTER TODO TASK: The .NET System namespace is not available from native C++:
 //using namespace System;
@@ -11,25 +13,26 @@
 //using namespace System::Text;
 //C# TO C++ CONVERTER TODO TASK: The .NET System namespace is not available from native C++:
 //using namespace System::Threading::Tasks;
-using namespace AI::Core::ChannelsImplimentation;
-using namespace AI::Core::OperatorsImplimentation;
+
 namespace AI
 {
 	namespace Core
 	{
-
-		Entity::Entity() : _channelsTable(new ChannelsTable()), _operators(new Operators())
+		namespace OperatorsImplimentation
 		{
-		}
+			namespace MetaOperators
+			{
+				class GetOperatorContactsCount : public ChannelOperator
+				{
+				public:
+					GetOperatorContactsCount(Entity *thisEntity);
 
-		ChannelsTable &Entity::getChannelsTable()
-		{
-			return _channelsTable;
-		}
+					virtual void Action() override;
 
-		Operators &Entity::getOperators()
-		{
-			return _operators;
+				private:
+					const unsigned long long &getTargetOperatorId() const;
+				};
+			}
 		}
 	}
 }
