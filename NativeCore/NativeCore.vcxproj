@@ -99,7 +99,6 @@
     <ClInclude Include="Multiplication.h" />
     <ClInclude Include="One.h" />
     <ClInclude Include="Operator.h" />
-    <ClInclude Include="Operators.h" />
     <ClInclude Include="Plus.h" />
     <ClInclude Include="Power.h" />
     <ClInclude Include="RandomNumber.h" />
@@ -138,7 +137,6 @@
     <ClCompile Include="NativeCore.cpp" />
     <ClCompile Include="One.cpp" />
     <ClCompile Include="Operator.cpp" />
-    <ClCompile Include="Operators.cpp" />
     <ClCompile Include="Plus.cpp" />
     <ClCompile Include="Power.cpp" />
     <ClCompile Include="RandomNumber.cpp" />

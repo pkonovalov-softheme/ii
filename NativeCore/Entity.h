@@ -1,23 +1,13 @@
 ﻿#pragma once
 
-#include "ChannelsTable.h"
-#include "Operators.h"
-
-//C# TO C++ CONVERTER TODO TASK: The .NET System namespace is not available from native C++:
-//using namespace System;
-//C# TO C++ CONVERTER TODO TASK: The .NET System namespace is not available from native C++:
-//using namespace System::Collections::Generic;
-//C# TO C++ CONVERTER TODO TASK: The .NET System namespace is not available from native C++:
-//using namespace System::Linq;
-//C# TO C++ CONVERTER TODO TASK: The .NET System namespace is not available from native C++:
-//using namespace System::Text;
-//C# TO C++ CONVERTER TODO TASK: The .NET System namespace is not available from native C++:
-//using namespace System::Threading::Tasks;
-using namespace AI::Core::ChannelsImplimentation;
-using namespace AI::Core::OperatorsImplimentation;
-
 namespace AI
 {
+	#define mainDataType unsigned int //main data type for all tables(arrays)
+	#define operatorsTableWidth 5// 0 column - operator type, 1 - 3 imput values, 4 - output value
+	#define operatorTypeColumn 1
+	#define outputValueColumn 4
+	#define operatorsMaxCount 300 // maximum acceptable count of operators for one entity
+
 	namespace Core
 	{
 		/// <summary>
@@ -26,15 +16,22 @@ namespace AI
 		class Entity
 		{
 		private:
-			AI::Core::ChannelsImplimentation::ChannelsTable *const _channelsTable;
-			AI::Core::OperatorsImplimentation::Operators *const _operators;
+			mainDataType _operators[operatorsMaxCount][operatorsTableWidth];
+
+			mainDataType _lastOperatorId; //returns IDs of the last used operator
 
 		public:
 			Entity();
 
-			const AI::Core::ChannelsImplimentation::ChannelsTable &getChannelsTable() const;
+			mainDataType GetChannelvalue(mainDataType operatorId, mainDataType contactId); //returns input value of target contact
 
-			const AI::Core::OperatorsImplimentation::Operators &getOperators() const;
+			void SetOperatorOutValue(mainDataType operatorId, mainDataType value); // set value for operator output contact
+
+			void CreateChannel(mainDataType fromOperator, mainDataType toOperator, mainDataType toOperatorContactId); //create new channel between two operators
+
+			void DeleteChannel(mainDataType toOperator, mainDataType toOperatorContactId); //delete existing channel between two operators
+
+			mainDataType GetOperatorType(mainDataType operatorId); //returns type of the target operator
 		};
 	}
 }

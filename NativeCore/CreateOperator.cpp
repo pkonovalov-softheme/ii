@@ -51,6 +51,8 @@ namespace AI
 
 				const unsigned long long &CreateOperator::getOperatorTypeToAdd() const
 				{
+					Channel * chan =  EnterContacts[0];
+
 					return EnterContacts[0]->Value;
 				}
 
