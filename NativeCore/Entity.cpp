@@ -87,8 +87,6 @@ namespace AI
 				return 0; //we should use operators IDs started from 1
 		}
 
-		
-
 		void Entity::mProcessInternal(mainDataType operatorId)
 		{
 			switch (operType)

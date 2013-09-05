@@ -79,44 +79,11 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Channel.h" />
-    <ClInclude Include="ChannelOperator.h" />
-    <ClInclude Include="Channels.h" />
-    <ClInclude Include="ChannelsTable.h" />
-    <ClInclude Include="Contact.h" />
-    <ClInclude Include="CreateChannel.h" />
-    <ClInclude Include="CreateOperator.h" />
-    <ClInclude Include="DeleteChannel.h" />
-    <ClInclude Include="Division.h" />
     <ClInclude Include="Entity.h" />
-    <ClInclude Include="Equal.h" />
-    <ClInclude Include="GetOperatorId.h" />
-    <ClInclude Include="GetOperatorTypeContactsCount.h" />
-    <ClInclude Include="GetTypeOfOperator.h" />
-    <ClInclude Include="If.h" />
-    <ClInclude Include="IsChannelExists.h" />
-    <ClInclude Include="Minus.h" />
-    <ClInclude Include="Multiplication.h" />
-    <ClInclude Include="One.h" />
-    <ClInclude Include="Operator.h" />
-    <ClInclude Include="Plus.h" />
-    <ClInclude Include="Power.h" />
-    <ClInclude Include="RandomNumber.h" />
-    <ClInclude Include="RemoveOperator.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
-    <ClInclude Include="Time.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Channel.cpp" />
-    <ClCompile Include="ChannelOperator.cpp" />
-    <ClCompile Include="Channels.cpp" />
-    <ClCompile Include="ChannelsTable.cpp" />
-    <ClCompile Include="Contact.cpp" />
-    <ClCompile Include="CreateChannel.cpp" />
-    <ClCompile Include="CreateOperator.cpp" />
-    <ClCompile Include="DeleteChannel.cpp" />
-    <ClCompile Include="Division.cpp" />
     <ClCompile Include="dllmain.cpp">
       <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</CompileAsManaged>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -126,26 +93,10 @@
       </PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Entity.cpp" />
-    <ClCompile Include="Equal.cpp" />
-    <ClCompile Include="GetOperatorId.cpp" />
-    <ClCompile Include="GetOperatorTypeContactsCount.cpp" />
-    <ClCompile Include="GetTypeOfOperator.cpp" />
-    <ClCompile Include="If.cpp" />
-    <ClCompile Include="IsChannelExists.cpp" />
-    <ClCompile Include="Minus.cpp" />
-    <ClCompile Include="Multiplication.cpp" />
-    <ClCompile Include="NativeCore.cpp" />
-    <ClCompile Include="One.cpp" />
-    <ClCompile Include="Operator.cpp" />
-    <ClCompile Include="Plus.cpp" />
-    <ClCompile Include="Power.cpp" />
-    <ClCompile Include="RandomNumber.cpp" />
-    <ClCompile Include="RemoveOperator.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="Time.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
