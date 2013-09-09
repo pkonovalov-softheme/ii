@@ -4,13 +4,18 @@ namespace Brans
 {
 	#define mainDataType unsigned int //main data type for all tables(arrays)
 
+	enum OperatorsTypes
+	{
+		//Basic operators:
+		Division, Equal, If, Minus, Multiplication, One, Plus, RandomNumber, Time, 
+		//Meta operators:
+		CreateChannel, CreateOperator, DeleteChannel, GetTypeOfOperator, IsChannelExists, 
+		RemoveOperator, GetOperatorId, GetOperatorContactsCount, Nothing 
+	};
+
 	class Entity
 	{
-		#define operType   _operators[operatorId][0] //type of the operator
-		#define fContValue _operators[operatorId][1] //value of first contact
-		#define sContValue _operators[operatorId][2] //value of second contact
-		#define tContValue _operators[operatorId][3] //value of third contact
-		#define outValue   _operators[operatorId][4] //value of the operators output contact
+	public:
 
 		static const unsigned short operatorTypeColumn = 1;
 		static const unsigned short outputValueColumn = 4;
@@ -18,15 +23,11 @@ namespace Brans
 		static const unsigned short operatorsTypesCount = 18;
 		static const unsigned short operatorsTableWidth = 5; // 0 column - operator type, 1 - 3 input values, 4 - output value
 
-	public:
-
 		Entity(void);
 
 		~Entity(void);
 
 		mainDataType mGetChannelvalue(mainDataType operatorId, mainDataType contactId); //returns input value of target contact
-
-		void mSetOperatorOutValue(mainDataType operatorId, mainDataType value); // set value for operator output contact
 
 		void mCreateChannel(mainDataType fromOperator, mainDataType toOperator, mainDataType toOperatorContactId); //create new channel between two operators
 
@@ -38,23 +39,35 @@ namespace Brans
 
 		void mCreateOperator(mainDataType operatorType); //creates new operator
 
-		enum OperatorsTypes
-		{
-			Division, Equal, If, Minus, Multiplication, One, Plus, RandomNumber, Time, CreateChannel, CreateOperator, DeleteChannel, GetTypeOfOperator,
-			IsChannelExists, RemoveOperator, GetOperatorId, GetOperatorContactsCount, Nothing 
-		};
+		void mProcess(mainDataType operatorId); //Process operator with the given Id calculating and setting up its output value
+
+		void mProcessAll(); //Process all operators
+
+		void Entity::mProcessLast(); //Processes last operator
+
+		mainDataType GetContactValue(mainDataType operatorId, mainDataType contactId); //Returns the value of the specific operator
+
+		void SetContactValue(mainDataType operatorId, mainDataType contactId, mainDataType value); //Set up the value of the specific operator
+
+		mainDataType GetNextOperatorId();// returns last used operator ID = operators count if no one operator was deleted
+		
+		//Set up the input values for the specific operator
+		void SetInputValues(mainDataType operatorId, mainDataType fcontactValue, mainDataType scontactValue, mainDataType tcontactValue); 
+		void SetInputValues(mainDataType operatorId, mainDataType fcontactValue, mainDataType scontactValue); 
+		void SetInputValues(mainDataType operatorId, mainDataType fcontactValue); 
+
+		//Get the input values for the specific operator. Unsafe without any checks!
+		mainDataType GetInputValue(mainDataType operatorId, mainDataType contactId);
 
 	private:
+
 		mainDataType _operators[operatorsMaxCount][operatorsTableWidth];
 
 		mainDataType _operatorTypeContactCount[operatorsMaxCount];
 
 		//Add thread safe logic!
-		mainDataType _lastOperatorId; //returns IDs of the last used operator
-
-		void mProcessInternal(mainDataType operatorId); //Process operator with the given Id calculating and setting up its output value
+		unsigned int _nextOperatorId; //returns IDs of the last used operator
 
 		void InitializeOpTypesCC();
-
 	};
 }

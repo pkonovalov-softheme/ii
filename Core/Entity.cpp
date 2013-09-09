@@ -4,9 +4,9 @@
 
 namespace Brans 
 {
-
-	Entity::Entity(void)
+	Entity::Entity(void) : _operators()
 	{
+		_nextOperatorId = 0;
 		InitializeOpTypesCC();
 	}
 
@@ -32,6 +32,7 @@ namespace Brans
 		_operatorTypeContactCount[OperatorsTypes::Nothing] = 0;
 	}
 
+	//Maybe inline will faster?? Chanek also memory usage
 	mainDataType Entity::mGetChannelvalue(mainDataType operatorId, mainDataType contactId)
 	{
 		return _operators[operatorId][contactId]; 
@@ -44,15 +45,13 @@ namespace Brans
 		//	return *val;
 	}
 
-	void Entity::mSetOperatorOutValue(mainDataType operatorId, mainDataType value)
-	{
-		if (operatorId < operatorsMaxCount)
-		_operators[operatorId][outputValueColumn] = value;
-	}
-
 	void Entity::mCreateChannel(mainDataType fromOperator, mainDataType toOperator, mainDataType toOperatorContactId)
 	{
-		if (fromOperator < operatorsMaxCount && toOperator < operatorsMaxCount && toOperatorContactId < operatorsTableWidth)
+		if (fromOperator > operatorsMaxCount)		    return;
+		if (toOperator   > operatorsMaxCount)		    return;
+		if (toOperatorContactId == 0)				    return;
+		if (toOperatorContactId >= operatorsTableWidth) return;
+
 		_operators[toOperator][toOperatorContactId] = fromOperator;
 	}
 
@@ -72,81 +71,139 @@ namespace Brans
 	}
 
 	//To do: Add thread safe logic!!!
-	void Entity::mCreateOperator(mainDataType operatorType)
+	void Entity::mCreateOperator(mainDataType operatorType)//To do: Add thread safe logic!!!
 	{
-		_lastOperatorId++;
-		_operators[_lastOperatorId][0] = operatorType;
+		_operators[_nextOperatorId][0] = operatorType;
+		_nextOperatorId++;
 	}
 
 	mainDataType Entity::mGetOperatorType(mainDataType operatorId)
 	{
 		if (operatorId < operatorsMaxCount)
-			return operType;
+			return _operators[operatorId][operatorTypeColumn];
 		else
 			return 0; //we should use operators IDs started from 1
 	}
 
-	void Entity::mProcessInternal(mainDataType operatorId)
+	void Entity::mProcess(mainDataType operatorId)
 	{
+		#define fContValue GetInputValue(operatorId, 1) //value of first contact
+		#define sContValue GetInputValue(operatorId, 2) //value of second contact
+		#define tContValue GetInputValue(operatorId, 3) //value of third contact
+
+		#define operType   _operators[operatorId][operatorTypeColumn] //type of the operator
+		#define outValue   _operators[operatorId][outputValueColumn] //value of the operators output contact
+
 		switch (operType)
 		{
-		case (OperatorsTypes::CreateChannel):
+		case (CreateChannel):
 			Entity::mCreateChannel(fContValue, sContValue, tContValue);
 			break;
-		case (OperatorsTypes::CreateOperator):
+		case (CreateOperator):
 			Entity::mCreateOperator(fContValue);
 			break;
-		case (OperatorsTypes::DeleteChannel):
+		case (DeleteChannel):
 			Entity::mDeleteChannel(fContValue, sContValue);
 			break;
-		case (OperatorsTypes::Division):
+		case (Division):
 			if (sContValue > 0) {
 				outValue = fContValue / sContValue;}
 			break;
-		case (OperatorsTypes::Equal):
+		case (Equal):
 				outValue = fContValue;
 			break;
-		case (OperatorsTypes::GetOperatorContactsCount):
+		case (GetOperatorContactsCount):
 				outValue = _operatorTypeContactCount[operType];
 			break;
-		case (OperatorsTypes::GetOperatorId):
+		case (GetOperatorId):
 				outValue = _operatorTypeContactCount[operType];
 			break;
-		case (OperatorsTypes::GetTypeOfOperator):
+		case (GetTypeOfOperator):
 				outValue = operType;
 			break;
-		case (OperatorsTypes::If):
+		case (If):
 			if (fContValue > sContValue){
 				outValue = 1;}
 			else{
 				outValue = 0;}
 			break;
-		case (OperatorsTypes::IsChannelExists):
+		case (IsChannelExists):
 			outValue = mIfChannelExists(fContValue, sContValue, tContValue);
 			break;
-		case (OperatorsTypes::Minus):
+		case (Minus):
 			outValue = fContValue - sContValue;
 			break;
-		case (OperatorsTypes::Multiplication):
+		case (Multiplication):
 			outValue = fContValue * sContValue;
 			break;
-		case (OperatorsTypes::Nothing):
+		case (Nothing):
 			break;
-		case (OperatorsTypes::One):
+		case (One):
 			outValue = 1;
 			break;
-		case (OperatorsTypes::Plus):
+		case (Plus):
 			outValue = fContValue + sContValue;
 			break;
-		case (OperatorsTypes::RandomNumber):
+		case (RandomNumber):
 			//Not implemented!!!!
 			break;
-		case (OperatorsTypes::RemoveOperator):
-			_operators[_lastOperatorId][0] = OperatorsTypes::Nothing;
+		case (RemoveOperator):
+			_operators[_nextOperatorId][0] = OperatorsTypes::Nothing;
 			break;
-		case (OperatorsTypes::Time):
+		case (Time):
 			outValue = time(NULL);
 			break;
+		}
+	}
+
+	void Entity::mProcessLast()
+	{
+		mProcess(_nextOperatorId - 1);
+	}
+
+	mainDataType Entity::GetContactValue(mainDataType operatorId, mainDataType contactId) //Returns the value of the specific operator
+	{
+		return _operators[operatorId][contactId];
+	}
+
+	void Entity::SetContactValue(mainDataType operatorId, mainDataType contactId, mainDataType value) //Set up the value of the specific operator
+	{
+		_operators[operatorId][contactId] = value;
+	}
+
+	void Entity::SetInputValues(mainDataType operatorId, mainDataType fcontactValue, mainDataType scontactValue, mainDataType tcontactValue) //Set up the input values for the specific operator
+	{
+		SetInputValues (operatorId, fcontactValue, scontactValue);
+		SetContactValue(operatorId, 3, tcontactValue);
+	}
+
+	void Entity::SetInputValues(mainDataType operatorId, mainDataType fcontactValue, mainDataType scontactValue) 
+	{
+		SetInputValues (operatorId, fcontactValue);
+		SetContactValue(operatorId, 2, scontactValue);
+	}
+
+	void Entity::SetInputValues(mainDataType operatorId, mainDataType fcontactValue)
+	{
+		SetContactValue(operatorId, 1, fcontactValue);
+	}
+
+	mainDataType Entity::GetInputValue(mainDataType operatorId, mainDataType contactId)
+	{
+		mainDataType refOperId = GetContactValue(operatorId, contactId);
+		return _operators[refOperId][outputValueColumn];
+	}
+
+	mainDataType Entity::GetNextOperatorId()
+	{
+		return _nextOperatorId;
+	}
+
+	void Entity::mProcessAll()
+	{
+		for (mainDataType i = 0; i < operatorsMaxCount; i++)
+		{
+			mProcess(i);
 		}
 	}
 
