@@ -18,7 +18,7 @@ namespace Brans
 		_operatorTypeContactCount[OperatorsTypes::Division] = 2;
 		_operatorTypeContactCount[OperatorsTypes::Equal] = 1;
 		_operatorTypeContactCount[OperatorsTypes::GetOperatorContactsCount] = 1;
-		_operatorTypeContactCount[OperatorsTypes::GetOperatorId] = 1;
+		_operatorTypeContactCount[OperatorsTypes::GetInputOperatorId] = 1;
 		_operatorTypeContactCount[OperatorsTypes::GetTypeOfOperator] = 1;
 		_operatorTypeContactCount[OperatorsTypes::If] = 2;
 		_operatorTypeContactCount[OperatorsTypes::IsChannelExists] = 3;
@@ -70,6 +70,12 @@ namespace Brans
 		_operators[toOperator][toOperatorContactId] = 0;
 	}
 
+	void Entity::mRemoveOperator(mainDataType operatorToRemove)
+	{
+		if (operatorToRemove < operatorsMaxCount)
+			_operators[operatorToRemove][operatorTypeColumn] = OperatorsTypes::Nothing;
+	}
+
 	//To do: Add thread safe logic!!!
 	void Entity::mCreateOperator(mainDataType operatorType)//To do: Add thread safe logic!!!
 	{
@@ -113,10 +119,10 @@ namespace Brans
 				outValue = fContValue;
 			break;
 		case (GetOperatorContactsCount):
-				outValue = _operatorTypeContactCount[operType];
+				outValue = _operatorTypeContactCount[fContValue];
 			break;
-		case (GetOperatorId):
-				outValue = _operatorTypeContactCount[operType];
+		case (GetInputOperatorId): //returns id of the operator witch have channel with the first contact of the GetOperatorId operator
+				outValue = _operators[operatorId][1];
 			break;
 		case (GetTypeOfOperator):
 				outValue = operType;
@@ -148,11 +154,13 @@ namespace Brans
 			//Not implemented!!!!
 			break;
 		case (RemoveOperator):
-			_operators[_nextOperatorId][0] = OperatorsTypes::Nothing;
+			mRemoveOperator(fContValue);
 			break;
 		case (Time):
 			outValue = time(NULL);
 			break;
+		default:
+			throw "Not implemented";
 		}
 	}
 

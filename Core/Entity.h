@@ -10,14 +10,14 @@ namespace Brans
 		Division, Equal, If, Minus, Multiplication, One, Plus, RandomNumber, Time, 
 		//Meta operators:
 		CreateChannel, CreateOperator, DeleteChannel, GetTypeOfOperator, IsChannelExists, 
-		RemoveOperator, GetOperatorId, GetOperatorContactsCount, Nothing 
+		RemoveOperator, GetInputOperatorId, GetOperatorContactsCount, Nothing 
 	};
 
 	class Entity
 	{
 	public:
 
-		static const unsigned short operatorTypeColumn = 1;
+		static const unsigned short operatorTypeColumn = 0;
 		static const unsigned short outputValueColumn = 4;
 		static const unsigned short operatorsMaxCount = 300; // maximum acceptable count of operators for one entity
 		static const unsigned short operatorsTypesCount = 18;
@@ -39,11 +39,13 @@ namespace Brans
 
 		void mCreateOperator(mainDataType operatorType); //creates new operator
 
+		void mRemoveOperator(mainDataType operatorToRemove); //Virtually removes the operator setting up it type to Nothing
+
 		void mProcess(mainDataType operatorId); //Process operator with the given Id calculating and setting up its output value
 
 		void mProcessAll(); //Process all operators
 
-		void Entity::mProcessLast(); //Processes last operator
+		void mProcessLast(); //Processes last operator
 
 		mainDataType GetContactValue(mainDataType operatorId, mainDataType contactId); //Returns the value of the specific operator
 
