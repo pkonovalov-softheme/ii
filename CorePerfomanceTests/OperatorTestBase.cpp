@@ -7,23 +7,28 @@ Entity* entity;
 
 OperatorTestBase::OperatorTestBase(mainDataType operatorType)
 {
-	const unsigned int OperatorsCout = 100;
+	const unsigned int OperatorsCout = 3;
 	entity = new Entity();
 	CreateOper(Nothing);
+	SetValue(0, 1);
 	CreateOper(Nothing);
-	CreateOper(Nothing);
+	SetValue(1, 1);
 	for (int i = 0; i < OperatorsCout; i++)
 	{
 		CreateOper(operatorType);
 		entity->mCreateChannel(0, GetLastOper(), 1);
-		entity->mCreateChannel(1, GetLastOper(), 2);
-		entity->mCreateChannel(GetLastOper() - 1, GetLastOper(), 3);
+		entity->mCreateChannel(GetLastOper() - 1, GetLastOper(), 2);
 	}
 }
 
 void OperatorTestBase::CreateOper(mainDataType operatorType)
 {
 	entity->mCreateOperator(operatorType);
+}
+
+void OperatorTestBase::SetValue(mainDataType operatorId, mainDataType valueToSet)
+{
+	entity->SetContactValue(operatorId, entity->outputValueColumn, valueToSet);
 }
 
 mainDataType OperatorTestBase::GetLastOper()

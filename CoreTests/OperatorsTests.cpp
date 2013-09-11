@@ -15,19 +15,19 @@ namespace CoreTests
 
 		void ProcessArgsValues(mainDataType fContactValue, mainDataType sContactValue, mainDataType tContactValue)
 		{
-			entity->SetContactValue(2, entity->outputValueColumn, tContactValue);
+			entity->SetContactValue(3, entity->outputValueColumn, tContactValue);
 			ProcessArgsValues(fContactValue, sContactValue);
 		}
 
 		void ProcessArgsValues(mainDataType fContactValue, mainDataType sContactValue)
 		{
-			entity->SetContactValue(1, entity->outputValueColumn, sContactValue);
+			entity->SetContactValue(2, entity->outputValueColumn, sContactValue);
 			ProcessArgsValues(fContactValue);
 		}
 
 		void ProcessArgsValues(mainDataType fContactValue)
 		{
-			entity->SetContactValue(0, entity->outputValueColumn, fContactValue);
+			entity->SetContactValue(1, entity->outputValueColumn, fContactValue);
 			Process();
 		}
 
@@ -39,16 +39,16 @@ namespace CoreTests
 		void Process()
 		{
 			mainDataType lastOper = GetLastOper();
-			entity->mCreateChannel(0, lastOper, 1);
-			entity->mCreateChannel(1, lastOper, 2);
-			entity->mCreateChannel(2, lastOper, 3);
+			entity->mCreateChannel(1, lastOper, 1);
+			entity->mCreateChannel(2, lastOper, 2);
+			entity->mCreateChannel(3, lastOper, 3);
 			entity->mProcessLast();
 		}
 
 		mainDataType GetResult()
 		{
 			//We have 3 operators for input value + 1 newly created so 3d is current (0-based)
-			return entity->GetContactValue(3, entity->outputValueColumn);
+			return entity->GetContactValue(GetLastOper(), entity->outputValueColumn);
 		}
 
 		mainDataType GetValue(mainDataType operatorId, mainDataType contactId)
@@ -72,7 +72,6 @@ namespace CoreTests
 		{
 			entity = new Entity();
 			CreateOper(Nothing);
-
 			CreateOper(Nothing);
 			CreateOper(Nothing);
 		}
@@ -84,7 +83,8 @@ namespace CoreTests
 		{
 			CreateOper(Plus);
 			ProcessArgsValues(1, 2);
-			Assert::IsTrue(GetResult() == (1+2));
+			mainDataType result = GetResult();
+			Assert::IsTrue(result == (1+2));
 		}
 
 		TEST_METHOD(TestMinus)
@@ -269,9 +269,10 @@ namespace CoreTests
 		{
 			CreateOper(Plus);
 			CreateOper(GetInputOperatorId);
-			entity->mCreateChannel(3, 4, 1);
+			mainDataType lastOper = GetLastOper();
+			entity->mCreateChannel(lastOper - 1, lastOper, 1);
 			entity->mProcessLast();
-			Assert::IsTrue(GetLastValue() == 3);
+			Assert::IsTrue(GetLastValue() == lastOper - 1);
 		}
 
 		TEST_METHOD(GetOperatorContactsCountTest)

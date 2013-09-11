@@ -10,6 +10,7 @@ public:
 
 private:
 	void CreateOper(mainDataType operatorType);
+	void SetValue(mainDataType operatorId, mainDataType valueToSet);
 	mainDataType GetLastOper();
 };
 

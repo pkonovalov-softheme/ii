@@ -6,7 +6,7 @@ namespace Brans
 {
 	Entity::Entity(void) : _operators()
 	{
-		_nextOperatorId = 0;
+		_nextOperatorId = 1;
 		InitializeOpTypesCC();
 	}
 
@@ -91,7 +91,7 @@ namespace Brans
 			return 0; //we should use operators IDs started from 1
 	}
 
-	void Entity::mProcess(mainDataType operatorId)
+	bool Entity::mProcess(mainDataType operatorId)
 	{
 		#define fContValue GetInputValue(operatorId, 1) //value of first contact
 		#define sContValue GetInputValue(operatorId, 2) //value of second contact
@@ -159,9 +159,12 @@ namespace Brans
 		case (Time):
 			outValue = time(NULL);
 			break;
+		case (Zero):
+			return false;
 		default:
 			throw "Not implemented";
 		}
+		return true;
 	}
 
 	void Entity::mProcessLast()
@@ -199,6 +202,8 @@ namespace Brans
 	mainDataType Entity::GetInputValue(mainDataType operatorId, mainDataType contactId)
 	{
 		mainDataType refOperId = GetContactValue(operatorId, contactId);
+		//if (refOperId == 0) 
+		//	return 0;//test perf
 		return _operators[refOperId][outputValueColumn];
 	}
 
@@ -209,10 +214,7 @@ namespace Brans
 
 	void Entity::mProcessAll()
 	{
-		for (mainDataType i = 0; i < operatorsMaxCount; i++)
-		{
-			mProcess(i);
-		}
+		for (mainDataType i = 0; i < operatorsMaxCount && mProcess(i); i++) {}
 	}
 
 }

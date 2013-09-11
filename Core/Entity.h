@@ -6,8 +6,10 @@ namespace Brans
 
 	enum OperatorsTypes
 	{
-		//Basic operators:
-		Division, Equal, If, Minus, Multiplication, One, Plus, RandomNumber, Time, 
+		/*Zero is restricted system value. After the first zero operator _operators array processing will be stopped. 
+		Value of the zero operator is assuming as zero-only.
+		Basic operators:*/
+		Zero, Division, Equal, If, Minus, Multiplication, One, Plus, RandomNumber, Time, 
 		//Meta operators:
 		CreateChannel, CreateOperator, DeleteChannel, GetTypeOfOperator, IsChannelExists, 
 		RemoveOperator, GetInputOperatorId, GetOperatorContactsCount, Nothing 
@@ -41,7 +43,7 @@ namespace Brans
 
 		void mRemoveOperator(mainDataType operatorToRemove); //Virtually removes the operator setting up it type to Nothing
 
-		void mProcess(mainDataType operatorId); //Process operator with the given Id calculating and setting up its output value
+		bool mProcess(mainDataType operatorId); //Process operator with the given Id calculating and setting up its output value
 
 		void mProcessAll(); //Process all operators
 

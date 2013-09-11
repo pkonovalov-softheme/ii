@@ -8,7 +8,7 @@
 
 using namespace Brans;
 
-const unsigned long long numberOfCycles = 1000;
+const unsigned long long numberOfCycles = 10;
 
 int _tmain(int argc, _TCHAR* argv[])
 {
