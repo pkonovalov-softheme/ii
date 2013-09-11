@@ -202,8 +202,8 @@ namespace Brans
 	mainDataType Entity::GetInputValue(mainDataType operatorId, mainDataType contactId)
 	{
 		mainDataType refOperId = GetContactValue(operatorId, contactId);
-		//if (refOperId == 0) 
-		//	return 0;//test perf
+		if (refOperId == 0) 
+			return 0;//test perf
 		return _operators[refOperId][outputValueColumn];
 	}
 
