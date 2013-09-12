@@ -91,7 +91,7 @@ namespace Brans
 			return 0; //we should use operators IDs started from 1
 	}
 
-	bool Entity::mProcess(mainDataType operatorId)
+	void Entity::mProcess(mainDataType operatorId)
 	{
 		#define fContValue GetInputValue(operatorId, 1) //value of first contact
 		#define sContValue GetInputValue(operatorId, 2) //value of second contact
@@ -159,12 +159,9 @@ namespace Brans
 		case (Time):
 			outValue = time(NULL);
 			break;
-		case (Zero):
-			return false;
 		default:
 			throw "Not implemented";
 		}
-		return true;
 	}
 
 	void Entity::mProcessLast()
@@ -214,7 +211,10 @@ namespace Brans
 
 	void Entity::mProcessAll()
 	{
-		for (mainDataType i = 0; i < operatorsMaxCount && mProcess(i); i++) {}
+		for (mainDataType i = 1; i < _nextOperatorId; i++) 
+		{
+			mProcess(i);
+		}
 	}
 
 }

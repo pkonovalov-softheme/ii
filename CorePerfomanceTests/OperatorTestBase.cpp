@@ -7,16 +7,16 @@ Entity* entity;
 
 OperatorTestBase::OperatorTestBase(mainDataType operatorType)
 {
-	const unsigned int OperatorsCout = 3;
+	const unsigned int OperatorsCout = 1000;
 	entity = new Entity();
 	CreateOper(Nothing);
-	SetValue(0, 1);
-	CreateOper(Nothing);
 	SetValue(1, 1);
+	CreateOper(Nothing);
+	SetValue(2, 1);
 	for (int i = 0; i < OperatorsCout; i++)
 	{
 		CreateOper(operatorType);
-		entity->mCreateChannel(0, GetLastOper(), 1);
+		entity->mCreateChannel(1, GetLastOper(), 1);
 		entity->mCreateChannel(GetLastOper() - 1, GetLastOper(), 2);
 	}
 }

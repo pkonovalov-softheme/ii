@@ -21,7 +21,7 @@ namespace Brans
 
 		static const unsigned short operatorTypeColumn = 0;
 		static const unsigned short outputValueColumn = 4;
-		static const unsigned short operatorsMaxCount = 300; // maximum acceptable count of operators for one entity
+		static const unsigned short operatorsMaxCount = 2000; // maximum acceptable count of operators for one entity
 		static const unsigned short operatorsTypesCount = 18;
 		static const unsigned short operatorsTableWidth = 5; // 0 column - operator type, 1 - 3 input values, 4 - output value
 
@@ -43,7 +43,7 @@ namespace Brans
 
 		void mRemoveOperator(mainDataType operatorToRemove); //Virtually removes the operator setting up it type to Nothing
 
-		bool mProcess(mainDataType operatorId); //Process operator with the given Id calculating and setting up its output value
+		void mProcess(mainDataType operatorId); //Process operator with the given Id calculating and setting up its output value
 
 		void mProcessAll(); //Process all operators
 

@@ -8,13 +8,13 @@
 
 using namespace Brans;
 
-const unsigned long long numberOfCycles = 10;
+const unsigned long long numberOfCycles = 1000000;
 
 int _tmain(int argc, _TCHAR* argv[])
 {
 	OperatorTestBase* opbase = new OperatorTestBase(Plus);
 	opbase->Process(numberOfCycles);
-	std::cout << "Plus result = " << opbase->GetResult() <<"/n"; 
+	std::cout << "Plus result = " << opbase->GetResult() <<"\n"; 
 	return 0;
 }
 
