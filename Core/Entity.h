@@ -15,6 +15,8 @@ namespace Brans
 		RemoveOperator, GetInputOperatorId, GetOperatorContactsCount, Nothing 
 	};
 
+	const unsigned short const OperatorsCount = 19;
+
 	class Entity
 	{
 	public:

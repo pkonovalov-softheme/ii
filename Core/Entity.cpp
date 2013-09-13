@@ -159,6 +159,9 @@ namespace Brans
 		case (Time):
 			outValue = time(NULL);
 			break;
+		case (Zero):
+			throw "Zero operator!";
+			break;
 		default:
 			throw "Not implemented";
 		}
