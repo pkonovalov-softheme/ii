@@ -14,7 +14,6 @@ unsigned long _elapsed;
 
 OperatorTestBase::OperatorTestBase(mainDataType operatorType, mainDataType firstValue, mainDataType secondValue, mainDataType thirdValue)
 {
-	const unsigned int OperatorsCout = 1000;
 	entity = new Entity();
 	CreateOper(Nothing);
 	SetValue(1, firstValue);
@@ -59,6 +58,7 @@ mainDataType OperatorTestBase::GetResult()
 {
 	return (entity->mGetChannelvalue(GetLastOper(), entity->outputValueColumn));
 }
+
 
 void OperatorTestBase::StartWatch()
 {

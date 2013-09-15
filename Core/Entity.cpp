@@ -1,9 +1,11 @@
 #include "stdafx.h"
 #include "Entity.h"
 #include <time.h>
+#include <random>
 
 namespace Brans 
 {
+
 	Entity::Entity(void) : _operators()
 	{
 		_nextOperatorId = 1;
@@ -32,7 +34,10 @@ namespace Brans
 		_operatorTypeContactCount[OperatorsTypes::Nothing] = 0;
 	}
 
-	//Maybe inline will faster?? Chanek also memory usage
+	std::random_device Entity::rd;
+	std::mt19937 Entity::rnb(Entity::rd());
+
+	//Maybe inline will faster?? Check also memory usage
 	mainDataType Entity::mGetChannelvalue(mainDataType operatorId, mainDataType contactId)
 	{
 		return _operators[operatorId][contactId]; 
@@ -79,8 +84,11 @@ namespace Brans
 	//To do: Add thread safe logic!!!
 	void Entity::mCreateOperator(mainDataType operatorType)//To do: Add thread safe logic!!!
 	{
-		_operators[_nextOperatorId][0] = operatorType;
-		_nextOperatorId++;
+		if (_nextOperatorId < operatorsMaxCount)
+		{
+			_operators[_nextOperatorId][0] = operatorType;
+			_nextOperatorId++;
+		}
 	}
 
 	mainDataType Entity::mGetOperatorType(mainDataType operatorId)
@@ -91,6 +99,12 @@ namespace Brans
 			return 0; //we should use operators IDs started from 1
 	}
 
+	mainDataType Entity::mGetNewRandomVal(mainDataType upperLimit)
+	{
+		static std::uniform_int_distribution<int> uniform_dist(1, upperLimit);
+		return uniform_dist(rnb);
+	}
+
 	void Entity::mProcess(mainDataType operatorId)
 	{
 		#define fContValue GetInputValue(operatorId, 1) //value of first contact
@@ -99,6 +113,7 @@ namespace Brans
 
 		#define operType   _operators[operatorId][operatorTypeColumn] //type of the operator
 		#define outValue   _operators[operatorId][outputValueColumn] //value of the operators output contact
+		
 
 		switch (operType)
 		{
@@ -151,7 +166,7 @@ namespace Brans
 			outValue = fContValue + sContValue;
 			break;
 		case (RandomNumber):
-			//Not implemented!!!!
+			outValue = mGetNewRandomVal(fContValue);
 			break;
 		case (RemoveOperator):
 			mRemoveOperator(fContValue);
@@ -219,5 +234,4 @@ namespace Brans
 			mProcess(i);
 		}
 	}
-
 }

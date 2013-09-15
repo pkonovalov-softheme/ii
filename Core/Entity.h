@@ -1,4 +1,5 @@
 #pragma once
+#include <random>
 
 namespace Brans 
 {
@@ -20,10 +21,9 @@ namespace Brans
 	class Entity
 	{
 	public:
-
 		static const unsigned short operatorTypeColumn = 0;
 		static const unsigned short outputValueColumn = 4;
-		static const unsigned short operatorsMaxCount = 2000; // maximum acceptable count of operators for one entity
+		static const unsigned short operatorsMaxCount = 200000; // maximum acceptable count of operators for one entity
 		static const unsigned short operatorsTypesCount = 18;
 		static const unsigned short operatorsTableWidth = 5; // 0 column - operator type, 1 - 3 input values, 4 - output value
 
@@ -64,16 +64,20 @@ namespace Brans
 
 		//Get the input values for the specific operator. Unsafe without any checks!
 		mainDataType GetInputValue(mainDataType operatorId, mainDataType contactId);
+		//Returns value from 1 to upperLimit(inclusive)
+		mainDataType Entity::mGetNewRandomVal(mainDataType upperLimit);
 
 	private:
 
 		mainDataType _operators[operatorsMaxCount][operatorsTableWidth];
 
 		mainDataType _operatorTypeContactCount[operatorsMaxCount];
-
-		//Add thread safe logic!
+		static std::random_device rd;
+		static std::mt19937 rnb;
 		unsigned int _nextOperatorId; //returns IDs of the last used operator
 
 		void InitializeOpTypesCC();
 	};
+
+
 }

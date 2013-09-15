@@ -173,13 +173,29 @@ namespace CoreTests
 			Assert::IsTrue(GetResult() == time(NULL));
 		}
 
-		/* Not implemented
-		TEST_METHOD(RandomNumber)
+
+		TEST_METHOD(TestRandomNumber)
 		{
-			CreateOper(Time);
-			entity->mProcessLast();
-			Assert::IsTrue(GetResult() == time(NULL));
-		}*/ 
+			CreateOper(RandomNumber);
+			int one = 0, two = 0, three = 0;
+			const int cycles = 1000;
+
+			for (int i = 0; i < cycles; i++)
+			{
+				ProcessArgsValues(3);
+				if (GetResult() == 1) one++;
+				if (GetResult() == 2) two++;
+				if (GetResult() == 3) three++;
+			}
+
+			double onePerc = one / (double)cycles;
+			double twoPerc = two / (double)cycles;
+			double threePerc = three / (double)cycles;
+
+			Assert::IsTrue(onePerc > 0.20 && onePerc < 0.40);
+			Assert::IsTrue(twoPerc > 0.20 && twoPerc < 0.40);
+			Assert::IsTrue(threePerc > 0.20 && threePerc < 0.40);
+		}
 
 		/* -------------------------------------------------------------------------------------
 		                               Meta Operators
