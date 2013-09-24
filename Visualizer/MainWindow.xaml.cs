@@ -22,9 +22,10 @@ namespace Visualizer
     /// </summary>
     public partial class MainWindow : Window
     {
-        private static readonly int[,] Operators = { { 0, 0, 0, 0, 0 }, { 1, 0, 0, 0, 4 }, { 2, 1, 1, 0, 0 }, { 3, 1, 2, 0, 0 }};
+        private static readonly int[,] Operators = { { (int)OperatorsTypes.Zero, 0, 0, 0, 0 }, { (int)OperatorsTypes.Equal, 0, 0, 0, 1 }, { (int)OperatorsTypes.Equal, 0, 0, 0, 2 }, { (int)OperatorsTypes.Plus, 1, 2, 0, 0 } };
         private Point[] _opersPoints = new Point[Operators.GetLength(0)];
         private const ushort MaxOperatorsCount = 3;
+        private const ushort OperatorValueColumn = 4;
         private enum OperatorsTypes
         {
             /*Zero is restricted system value. After the first zero operator _operators array processing will be stopped. 
@@ -39,6 +40,9 @@ namespace Visualizer
         private Canvas _canvas;
         private Ellipse _operatorEllipse;
         private const ushort OperatorRadius = 50;
+        private const ushort ConnectionDotD = 6;
+        private const ushort OperatorDiametr = OperatorRadius * 2;
+        private const ushort ArrowLenth = 20;
 
         public MainWindow()
         {
@@ -51,7 +55,7 @@ namespace Visualizer
 
             _canvas = new Canvas();
             DrawOperators();
-            DrawConnections();
+            DrawConnectionsAndValues();
 
             //this.operatorsContent = _canvas;
 
@@ -71,8 +75,28 @@ namespace Visualizer
             _operatorEllipse.Stroke = Brushes.Black;
 
             // Set the width and height of the Ellipse.
-            _operatorEllipse.Width = OperatorRadius;
-            _operatorEllipse.Height = OperatorRadius;
+            _operatorEllipse.Width = OperatorDiametr;
+            _operatorEllipse.Height = OperatorDiametr;
+        }
+
+        private Ellipse GetDot()
+        {
+            var dotEllipse = new Ellipse();
+            // Create a SolidColorBrush with a red color to fill the  
+            // Ellipse with.
+            var mySolidColorBrush = new SolidColorBrush { Color = Color.FromArgb(255, 0, 0, 0) };
+
+            // Describes the brush's color using RGB values.  
+            // Each value has a range of 0-255.
+            dotEllipse.Fill = mySolidColorBrush;
+            dotEllipse.StrokeThickness = 1;
+            dotEllipse.Stroke = Brushes.Black;
+
+            // Set the width and height of the Ellipse.
+            dotEllipse.Width = ConnectionDotD;
+            dotEllipse.Height = ConnectionDotD;
+
+            return dotEllipse;
         }
 
         private int GetOperatorsCount()
@@ -92,25 +116,24 @@ namespace Visualizer
 
             for (uint i = 1; i <= Operators.GetUpperBound(0); i++)
             {
-                uint row = i / gridDim;
-                uint column = i - row*gridDim;
+                uint row = (i - 1) / gridDim; // -1 Because we will miss first always Zero operator
+                uint column = (i - 1) - row*gridDim;
                 Ellipse curOperElips = XamlClone(_operatorEllipse);
-                this.OperatorsCanvas.Children.Add(curOperElips);
-                uint xd = 2 * row * OperatorRadius;
-                uint yd = 2*column*OperatorRadius;
-                var pt = new Point(xd - OperatorRadius, yd - OperatorRadius);// coordinates of the operator's center
+                OperatorsCanvas.Children.Add(curOperElips);
+                uint xd = 2 * row * OperatorDiametr;
+                uint yd = 2 * column * OperatorDiametr;
+                var pt = new Point(xd + OperatorRadius, yd + OperatorRadius);// coordinates of the operator's center
                 _opersPoints[i] = pt;
                 Canvas.SetLeft(curOperElips, xd);
                 Canvas.SetTop(curOperElips, yd);
                 var operText = new TextBlock(new Run(GetOperName((OperatorsTypes)Operators[i, 0])));
-
-                this.OperatorsCanvas.Children.Add(operText);
+                OperatorsCanvas.Children.Add(operText);
                 Canvas.SetLeft(operText, xd + 3);
-                Canvas.SetTop(operText, yd + OperatorRadius / 2 - operText.FontSize);
+                Canvas.SetTop(operText, yd + OperatorRadius -  operText.FontSize);
             }
         }
 
-        private void DrawConnections()
+        private void DrawConnectionsAndValues()
         {
             for (int row = 1; row <= Operators.GetUpperBound(0); row++)
             {
@@ -119,25 +142,87 @@ namespace Visualizer
                     var fromOper = Operators[row, column];
                     if ((fromOper != (int) OperatorsTypes.Zero) && (fromOper != (int) OperatorsTypes.Nothing))
                     {
-                        DrawConnection(fromOper, row, column);
+                        DrawConnectionAndValue(fromOper, row, column);
                     }
                 }
             }
         }
 
-        private void DrawConnection(int fromOper, int toOper, int toOperContactId)
+        private void DrawConnectionAndValue(int fromOper, int toOper, int toOperContactId)
         {
             Point fromP = GetKontactPoint(fromOper, 4);
+            DrawConnectionPoint(fromP);
             Point toP = GetKontactPoint(toOper, toOperContactId);
+            DrawConnectionPoint(toP);
             var connectionL = new Line
             {
-                Stroke = System.Windows.Media.Brushes.LightSteelBlue,
+                Stroke = System.Windows.Media.Brushes.Blue,
                 X1 = fromP.X,
                 Y1 = fromP.Y,
                 X2 = toP.X,
-                Y2 = toP.Y
+                Y2 = toP.Y,
+                StrokeThickness = 1
             };
-            this.OperatorsCanvas.Children.Add(connectionL);
+            OperatorsCanvas.Children.Add(connectionL);
+
+            var val = Operators[fromOper, OperatorValueColumn];
+            DrawValue(fromP, toP, val);
+        }
+
+        private void DrawValue(Point fromP, Point toP, int valueToSet)
+        {
+            //double dx = toP.X - fromP.X;
+            //double dy = toP.Y - fromP.Y;
+
+            //double lineLenth = Math.Sqrt(dx*dx + dy*dy);
+            //double lineXangel = Math.Acos(dx/lineLenth);
+
+            //double xMidl = fromP.X + lineLenth  * Math.Cos(lineXangel);
+            //double yMidl = fromP.Y + lineLenth  * Math.Sin(lineXangel);
+
+            //var operText = new TextBlock(new Run(valueToSet.ToString()));
+            //OperatorsCanvas.Children.Add(operText);
+            //Canvas.SetLeft(operText, xMidl);
+            //Canvas.SetTop(operText, yMidl);
+            var operText = new TextBlock(new Run(valueToSet.ToString()));
+            OperatorsCanvas.Children.Add(operText);
+            Canvas.SetLeft(operText, fromP.X);
+            Canvas.SetTop(operText, fromP.Y);
+        }
+        //not working
+        //private void DrawMidlArrow(Point fromP, Point toP)
+        //{
+        //    double dx = toP.X - fromP.X;
+        //    double dy = toP.Y - fromP.Y;
+
+        //    double lineLenth = Math.Sqrt(dx*dx + dy*dy);
+        //    double lineXangel = Math.Acos(dx/lineLenth);
+
+        //    double xMidl = (dx/2) * Math.Cos(lineXangel);
+        //    double yMidl = (dy/2) * Math.Sin(lineXangel);
+        //    double compAngle = Math.PI/2 - lineXangel;
+        //    double arrowAngle = compAngle - Math.PI/4;
+        //    double arrowEndX = xMidl - ArrowLenth * Math.Cos(arrowAngle);
+        //    double arrowEndY = yMidl - ArrowLenth * Math.Cos(arrowAngle);
+        //    var connectionL = new Line
+        //    {
+        //        Stroke = System.Windows.Media.Brushes.Red,
+        //        X1 = xMidl,
+        //        Y1 = yMidl,
+        //        X2 = arrowEndX,
+        //        Y2 = arrowEndY,
+        //        StrokeThickness = 1
+        //    };
+        //    this.OperatorsCanvas.Children.Add(connectionL);
+
+        //}
+
+        private void DrawConnectionPoint(Point pt)
+        {
+            var dotC = GetDot();
+            OperatorsCanvas.Children.Add(dotC);
+            Canvas.SetLeft(dotC, pt.X - ConnectionDotD/2);
+            Canvas.SetTop(dotC, pt.Y - ConnectionDotD / 2);
         }
 
         private Point GetKontactPoint(int oper, int contactId)
@@ -167,7 +252,7 @@ namespace Visualizer
                     celY = cy;
                     break;
                 default:
-                    throw new NotImplementedException("Not implimented contactId");
+                    throw new NotImplementedException("Not implemented contactId");
             }
 
             return new Point(celX, celY);
