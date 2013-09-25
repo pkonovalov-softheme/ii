@@ -23,7 +23,7 @@ namespace Visualizer
     public partial class MainWindow : Window
     {
         private static readonly int[,] Operators = { { (int)OperatorsTypes.Zero, 0, 0, 0, 0 }, { (int)OperatorsTypes.Equal, 0, 0, 0, 1 }, { (int)OperatorsTypes.Equal, 0, 0, 0, 2 }, { (int)OperatorsTypes.Plus, 1, 2, 0, 0 } };
-        private Point[] _opersPoints = new Point[Operators.GetLength(0)];
+        private readonly Point[] _opersPoints = new Point[Operators.GetLength(0)];
         private const ushort MaxOperatorsCount = 3;
         private const ushort OperatorValueColumn = 4;
         private enum OperatorsTypes
@@ -48,33 +48,19 @@ namespace Visualizer
         {
             InitializeComponent();
             InitOper();
- 
-
-
             _lastOperatorNumber = (uint)GetOperatorsCount();
-
             _canvas = new Canvas();
             DrawOperators();
             DrawConnectionsAndValues();
-
-            //this.operatorsContent = _canvas;
-
         }
 
         private void InitOper()
         {
             _operatorEllipse = new Ellipse();
-            // Create a SolidColorBrush with a red color to fill the  
-            // Ellipse with.
             var mySolidColorBrush = new SolidColorBrush {Color = Color.FromArgb(255, 255, 255, 0)};
-
-            // Describes the brush's color using RGB values.  
-            // Each value has a range of 0-255.
             _operatorEllipse.Fill = mySolidColorBrush;
             _operatorEllipse.StrokeThickness = 1;
             _operatorEllipse.Stroke = Brushes.Black;
-
-            // Set the width and height of the Ellipse.
             _operatorEllipse.Width = OperatorDiametr;
             _operatorEllipse.Height = OperatorDiametr;
         }
@@ -82,20 +68,12 @@ namespace Visualizer
         private Ellipse GetDot()
         {
             var dotEllipse = new Ellipse();
-            // Create a SolidColorBrush with a red color to fill the  
-            // Ellipse with.
             var mySolidColorBrush = new SolidColorBrush { Color = Color.FromArgb(255, 0, 0, 0) };
-
-            // Describes the brush's color using RGB values.  
-            // Each value has a range of 0-255.
             dotEllipse.Fill = mySolidColorBrush;
             dotEllipse.StrokeThickness = 1;
             dotEllipse.Stroke = Brushes.Black;
-
-            // Set the width and height of the Ellipse.
             dotEllipse.Width = ConnectionDotD;
             dotEllipse.Height = ConnectionDotD;
-
             return dotEllipse;
         }
 

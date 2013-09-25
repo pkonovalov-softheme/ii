@@ -27,7 +27,7 @@ namespace Brans
 		static const unsigned short operatorsTypesCount = 18;
 		static const unsigned short operatorsTableWidth = 5; // 0 column - operator type, 1 - 3 input values, 4 - output value
 
-		Entity(void);
+		Entity(mainDataType ExternalInputsCount, mainDataType ExternalOutputsCount);
 
 		~Entity(void);
 
@@ -67,6 +67,11 @@ namespace Brans
 		//Returns value from 1 to upperLimit(inclusive)
 		mainDataType Entity::mGetNewRandomVal(mainDataType upperLimit);
 
+		void SetExternalInputValue(mainDataType inputOperId);
+		//Adds operator 
+		void AddOperator(OperatorsTypes operatorType);
+
+
 	private:
 
 		mainDataType _operators[operatorsMaxCount][operatorsTableWidth];
@@ -77,6 +82,7 @@ namespace Brans
 		unsigned int _nextOperatorId; //returns IDs of the last used operator
 
 		void InitializeOpTypesCC();
+		void InitializeInputsAndOutputs();
 	};
 
 

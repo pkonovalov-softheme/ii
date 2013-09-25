@@ -6,10 +6,16 @@
 namespace Brans 
 {
 
-	Entity::Entity(void) : _operators()
+	Entity::Entity(mainDataType ExternalInputsCount, mainDataType ExternalOutputsCount) : _operators()
 	{
 		_nextOperatorId = 1;
 		InitializeOpTypesCC();
+		InitializeInputsAndOutputs();
+	}
+
+	void Entity::InitializeInputsAndOutputs()
+	{
+
 	}
 
 	void Entity::InitializeOpTypesCC()
@@ -52,8 +58,8 @@ namespace Brans
 
 	void Entity::mCreateChannel(mainDataType fromOperator, mainDataType toOperator, mainDataType toOperatorContactId)
 	{
-		if (fromOperator > operatorsMaxCount)		    return;
-		if (toOperator   > operatorsMaxCount)		    return;
+		if (fromOperator >= operatorsMaxCount)		    return;
+		if (toOperator   >= operatorsMaxCount)		    return;
 		if (toOperatorContactId == 0)				    return;
 		if (toOperatorContactId >= operatorsTableWidth) return;
 
@@ -233,5 +239,15 @@ namespace Brans
 		{
 			mProcess(i);
 		}
+	}
+
+	void Entity::SetExternalInputValue(mainDataType inputOperId)
+	{
+		_operators[_nextOperatorId][operatorTypeColumn] = inputOperId;
+	}
+
+	void Entity::AddOperator(OperatorsTypes operatorType)
+	{
+		_operators[_nextOperatorId][operatorTypeColumn] = operatorType;
 	}
 }
