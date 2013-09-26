@@ -14,7 +14,7 @@ unsigned long _elapsed;
 
 OperatorTestBase::OperatorTestBase(mainDataType operatorType, mainDataType firstValue, mainDataType secondValue, mainDataType thirdValue)
 {
-	entity = new Entity();
+	entity = new Entity(0, 0);
 	CreateOper(Nothing);
 	SetValue(1, firstValue);
 	CreateOper(Nothing);

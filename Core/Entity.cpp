@@ -6,16 +6,20 @@
 namespace Brans 
 {
 
-	Entity::Entity(mainDataType ExternalInputsCount, mainDataType ExternalOutputsCount) : _operators()
+	Entity::Entity(mainDataType externalInputsCount, mainDataType externalOutputsCount) : _operators()
 	{
+		_externalInputsCount = externalInputsCount;
+		_externalOutputsCount = externalOutputsCount;
 		_nextOperatorId = 1;
 		InitializeOpTypesCC();
 		InitializeInputsAndOutputs();
+		_firstOper = _externalInputsCount + _externalOutputsCount + 1;
 	}
 
 	void Entity::InitializeInputsAndOutputs()
 	{
-
+		for (mainDataType i = 0; i <= _externalInputsCount; i++)  {mCreateOperator(ExternalInput);}
+		for (mainDataType i = 0; i <= _externalOutputsCount; i++)  {mCreateOperator(ExternalOutput);}
 	}
 
 	void Entity::InitializeOpTypesCC()
@@ -235,7 +239,7 @@ namespace Brans
 
 	void Entity::mProcessAll()
 	{
-		for (mainDataType i = 1; i < _nextOperatorId; i++) 
+		for (mainDataType i = _firstOper; i < _nextOperatorId; i++) 
 		{
 			mProcess(i);
 		}
@@ -246,8 +250,4 @@ namespace Brans
 		_operators[_nextOperatorId][operatorTypeColumn] = inputOperId;
 	}
 
-	void Entity::AddOperator(OperatorsTypes operatorType)
-	{
-		_operators[_nextOperatorId][operatorTypeColumn] = operatorType;
-	}
 }

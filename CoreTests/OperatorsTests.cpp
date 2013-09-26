@@ -53,7 +53,8 @@ namespace CoreTests
 
 		mainDataType GetValue(mainDataType operatorId, mainDataType contactId)
 		{
-			return entity->GetContactValue(operatorId, contactId);
+			mainDataType result = entity->GetContactValue(operatorId, contactId);
+			return result;
 		}
 
 		mainDataType GetLastOper()
@@ -70,7 +71,7 @@ namespace CoreTests
 	public:
 		TEST_METHOD_INITIALIZE(ClassInitialize)
 		{
-			entity = new Entity();
+			entity = new Entity(0, 0);
 			CreateOper(Nothing);
 			CreateOper(Nothing);
 			CreateOper(Nothing);

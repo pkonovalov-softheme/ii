@@ -13,17 +13,17 @@ namespace Brans
 		Zero, Division, Equal, If, Minus, Multiplication, One, Plus, RandomNumber, Time, 
 		//Meta operators:
 		CreateChannel, CreateOperator, DeleteChannel, GetTypeOfOperator, IsChannelExists, 
-		RemoveOperator, GetInputOperatorId, GetOperatorContactsCount, Nothing 
+		RemoveOperator, GetInputOperatorId, GetOperatorContactsCount, ExternalInput, ExternalOutput, Nothing 
 	};
 
-	const unsigned short const OperatorsCount = 19;
+	const unsigned short OperatorsCount = 19;
 
 	class Entity
 	{
 	public:
 		static const unsigned short operatorTypeColumn = 0;
 		static const unsigned short outputValueColumn = 4;
-		static const unsigned short operatorsMaxCount = 200000; // maximum acceptable count of operators for one entity
+		static const unsigned int operatorsMaxCount = 200000; // maximum acceptable count of operators for one entity
 		static const unsigned short operatorsTypesCount = 18;
 		static const unsigned short operatorsTableWidth = 5; // 0 column - operator type, 1 - 3 input values, 4 - output value
 
@@ -68,9 +68,6 @@ namespace Brans
 		mainDataType Entity::mGetNewRandomVal(mainDataType upperLimit);
 
 		void SetExternalInputValue(mainDataType inputOperId);
-		//Adds operator 
-		void AddOperator(OperatorsTypes operatorType);
-
 
 	private:
 
@@ -83,6 +80,9 @@ namespace Brans
 
 		void InitializeOpTypesCC();
 		void InitializeInputsAndOutputs();
+		mainDataType _externalInputsCount;
+		mainDataType _externalOutputsCount;
+		mainDataType _firstOper; //from there external inputs and outputs ends
 	};
 
 
