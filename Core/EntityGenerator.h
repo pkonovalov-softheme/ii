@@ -1,8 +1,18 @@
 #pragma once
-class EntityGenerator
+#include "Entity.h"
+
+namespace Brans 
 {
-public:
-	EntityGenerator(void);
-	~EntityGenerator(void);
-};
+	class EntityGenerator
+	{
+	public:
+		EntityGenerator(void);
+		~EntityGenerator(void);
+		Entity& GenerateEntity(mainDataType operatorsCount, mainDataType maxExternalInputOperators, 
+										   mainDataType ExternalOutputsOperators);
+	private:
+		EntityGenerator::OperatorsTypes GenerateRandomOperType();
+		mainDataType EntityGenerator::GetNextRandomOperId(mainDataType entityOpersCount);
+	};
+}
 

@@ -1,27 +1,14 @@
 #pragma once
-#include <random>
+#include "BransGlobals.h"
+#include "RandomProvider.h"
 
 namespace Brans 
 {
-	#define mainDataType unsigned int //main data type for all tables(arrays)
-
-	enum OperatorsTypes
-	{
-		/*Zero is restricted system value. After the first zero operator _operators array processing will be stopped. 
-		Value of the zero operator is assuming as zero-only.
-		Basic operators:*/
-		Zero, Division, Equal, If, Minus, Multiplication, One, Plus, RandomNumber, Time, 
-		//Meta operators:
-		CreateChannel, CreateOperator, DeleteChannel, GetTypeOfOperator, IsChannelExists, 
-		RemoveOperator, GetInputOperatorId, GetOperatorContactsCount, ExternalInput, ExternalOutput, Nothing 
-	};
-
-	const unsigned short OperatorsCount = 19;
-
 	class Entity
 	{
 	public:
 		static const unsigned short operatorTypeColumn = 0;
+		static const unsigned short contactsCount = 3;
 		static const unsigned short outputValueColumn = 4;
 		static const unsigned int operatorsMaxCount = 200000; // maximum acceptable count of operators for one entity
 		static const unsigned short operatorsTypesCount = 18;
@@ -69,13 +56,20 @@ namespace Brans
 
 		void SetExternalInputValue(mainDataType inputOperId);
 
+		//Returns operator from witch is starting operators(after external enters and exists)
+		mainDataType GetFirstOperator();
+
+		//Returns operator from witch is starting operators(after external enters and exists)
+		void AddOperator(mainDataType operatorType);
+		mainDataType Entity::GetOperatorsCount();
+
+
 	private:
 
 		mainDataType _operators[operatorsMaxCount][operatorsTableWidth];
 
 		mainDataType _operatorTypeContactCount[operatorsMaxCount];
-		static std::random_device rd;
-		static std::mt19937 rnb;
+
 		unsigned int _nextOperatorId; //returns IDs of the last used operator
 
 		void InitializeOpTypesCC();

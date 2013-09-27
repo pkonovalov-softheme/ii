@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "Entity.h"
 #include <time.h>
-#include <random>
 
 namespace Brans 
 {
@@ -43,9 +42,6 @@ namespace Brans
 		_operatorTypeContactCount[OperatorsTypes::Time] = 0;
 		_operatorTypeContactCount[OperatorsTypes::Nothing] = 0;
 	}
-
-	std::random_device Entity::rd;
-	std::mt19937 Entity::rnb(Entity::rd());
 
 	//Maybe inline will faster?? Check also memory usage
 	mainDataType Entity::mGetChannelvalue(mainDataType operatorId, mainDataType contactId)
@@ -111,8 +107,7 @@ namespace Brans
 
 	mainDataType Entity::mGetNewRandomVal(mainDataType upperLimit)
 	{
-		static std::uniform_int_distribution<int> uniform_dist(1, upperLimit);
-		return uniform_dist(rnb);
+		return RandomProvider::GetNextValue(upperLimit);
 	}
 
 	void Entity::mProcess(mainDataType operatorId)
@@ -248,6 +243,21 @@ namespace Brans
 	void Entity::SetExternalInputValue(mainDataType inputOperId)
 	{
 		_operators[_nextOperatorId][operatorTypeColumn] = inputOperId;
+	}
+
+	mainDataType Entity::GetFirstOperator()
+	{
+		return _firstOper;
+	}
+
+	void Entity::AddOperator(mainDataType operatorType)
+	{
+		_operators[_nextOperatorId][operatorTypeColumn] = operatorType;
+	}
+
+	mainDataType Entity::GetOperatorsCount()
+	{
+		return _nextOperatorId;
 	}
 
 }

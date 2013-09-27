@@ -1,3 +1,4 @@
+#pragma once
 #include "stdafx.h"
 #include "CppUnitTest.h"
 #include "..\Core\Entity.h"
@@ -297,7 +298,7 @@ namespace CoreTests
 			CreateOper(Plus);
 			CreateOper(GetOperatorContactsCount);
 			ProcessArgsValues(GetLastOper() - 1);
-			Assert::IsTrue(GetLastValue() == 2);
+			Assert::IsTrue(GetLastValue() == entity->GetFirstOperator() - 1);
 		}
 
 		TEST_METHOD(NothingTest)
