@@ -52,40 +52,21 @@ namespace Brans
 
 	void ChallengeLine::GenerateRandomInputs()
 	{
-		for (mainDataType i = 0; i < InputsCount; i++)
+		for (mainDataType i = 0; i < ExternalInputsCount; i++)
 		{
 			_inputs[_currentLine][i] = RandomProvider::GetNextValue(5);
 		}
 	}
 
-	void ChallengeLine::GenerateChallenges()
-	{
-		_challenges = new mainDataType*[challangesCount];
-		_correctAnswers = new mainDataType*[_answersCount];
-
-		for (mainDataType i = 0; i < challangesCount; i++)
-		{
-			_challenges[i] = GenerateRandomInputs();
-			FillAnswers(i);
-		}
-	}
-
 	void ChallengeLine::FillAnswers()
 	{
-		for (mainDataType i = 0; i < CorrectAnswersCount; i++)
-		{
-			_correctAnswers[_currentLine][i] = GetCorrectAnswer(i);
-		}
-
-		mainDataType answerId = 0;
-
-		for (mainDataType i = 0; i < InputsCount; i++)
+		for (mainDataType i = 0; i < ExternalInputsCount; i++)
 		{
 			#define fContValue _inputs[_currentLine][i] //value of first contact
 			#define sContValue _inputs[_currentLine][i + 1] //value of second contact
 			#define tContValue _inputs[_currentLine][i + 2] //value of third contact
 
-			#define outValue _correctAnswers[_currentLine][answerId] //value of third contact
+			#define outValue _correctAnswers[_currentLine][_currentLine] //value of third contact
 
 			switch (_challangeType)
 			{
@@ -124,13 +105,13 @@ namespace Brans
 		}
 
 	}
-	//ChallengeLine& ChallengeLine::GenerateNextChalangesLine(mainDataType challangeType, mainDataType answersCount)
-	//{
-	//	ChallengeLine* line = new ChallengeLine(challangeType, answersCount);
-	//	for (mainDataType i = 0; i < answersCount; i++)
-	//	{
 
-	//	}
-	//}
+	ChallengeLine& ChallengeLine::GenerateNextChalangesLine(mainDataType challangeType)
+	{
+		ChallengeLine* chline = new ChallengeLine(challangeType);
+		chline->GenerateRandomInputs();
+		chline->FillAnswers();
+		return *chline;
+	}
 
 }

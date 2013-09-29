@@ -16,4 +16,6 @@ namespace Brans
 	};
 
 	const unsigned short OperatorsCount = 19;
+	static const unsigned short ExternalInputsCount = 10;
+	static const unsigned short ExternalOutputsCount = 10;
 }

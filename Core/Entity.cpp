@@ -5,20 +5,18 @@
 namespace Brans 
 {
 
-	Entity::Entity(mainDataType externalInputsCount, mainDataType externalOutputsCount) : _operators()
+	Entity::Entity() : _operators()
 	{
-		_externalInputsCount = externalInputsCount;
-		_externalOutputsCount = externalOutputsCount;
 		_nextOperatorId = 1;
 		InitializeOpTypesCC();
 		InitializeInputsAndOutputs();
-		_firstOper = _externalInputsCount + _externalOutputsCount + 1;
+		_firstOper = ExternalInputsCount + ExternalOutputsCount + 1;
 	}
 
 	void Entity::InitializeInputsAndOutputs()
 	{
-		for (mainDataType i = 0; i <= _externalInputsCount; i++)  {mCreateOperator(ExternalInput);}
-		for (mainDataType i = 0; i <= _externalOutputsCount; i++)  {mCreateOperator(ExternalOutput);}
+		for (mainDataType i = 0; i <= ExternalInputsCount; i++)  {mCreateOperator(ExternalInput);}
+		for (mainDataType i = 0; i <= ExternalOutputsCount; i++)  {mCreateOperator(ExternalOutput);}
 	}
 
 	void Entity::InitializeOpTypesCC()

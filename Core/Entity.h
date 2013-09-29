@@ -14,7 +14,7 @@ namespace Brans
 		static const unsigned short operatorsTypesCount = 18;
 		static const unsigned short operatorsTableWidth = 5; // 0 column - operator type, 1 - 3 input values, 4 - output value
 
-		Entity(mainDataType ExternalInputsCount, mainDataType ExternalOutputsCount);
+		Entity();
 
 		~Entity(void);
 
@@ -74,8 +74,6 @@ namespace Brans
 
 		void InitializeOpTypesCC();
 		void InitializeInputsAndOutputs();
-		mainDataType _externalInputsCount;
-		mainDataType _externalOutputsCount;
 		mainDataType _firstOper; //from there external inputs and outputs ends
 	};
 

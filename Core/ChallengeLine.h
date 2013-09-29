@@ -15,13 +15,10 @@ namespace Brans
 		mainDataType _challangeType;
 		mainDataType _inputContactsCount;
 
-		static const mainDataType InputsCount = 10;
-		static const mainDataType CorrectAnswersCount = 10;
 		static const mainDataType ChallangesCount = 500;
-		mainDataType _correctAnswers[ChallangesCount][CorrectAnswersCount];
-		mainDataType _inputs[ChallangesCount][InputsCount];
+		mainDataType _correctAnswers[ChallangesCount][ExternalOutputsCount];
+		mainDataType _inputs[ChallangesCount][ExternalInputsCount];
 		mainDataType _currentLine;
-		void GenerateChallenges();
 		ChallengeLine(mainDataType challangeType);
 		void GenerateRandomInputs();
 		void FillAnswers();
@@ -29,8 +26,10 @@ namespace Brans
 		void SetContactsCount();
 
 	public:
+		ChallengeLine& ChallengeLine::GenerateNextChalangesLine(mainDataType challangeType);
 		mainDataType GetChallangeType();
 		mainDataType GetAnswersCount(mainDataType challangeType, mainDataType answersCount);
+		void AddAnswer();
 		~ChallengeLine();
 	};
 }
