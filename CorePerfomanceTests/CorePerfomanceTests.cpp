@@ -46,7 +46,7 @@ void TestOperators()
 	//{
 	//	TestOperator(i);
 	//}
-	Entity *entl = new Entity(0, 0);
+	Entity *entl = new Entity();
 	TestOperator(Division, 8, 2, 0);
 	TestOperator(Equal, 2, 0, 0);
 	TestOperator(If, 2, 1, 0);

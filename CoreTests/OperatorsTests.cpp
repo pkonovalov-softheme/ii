@@ -72,7 +72,7 @@ namespace CoreTests
 	public:
 		TEST_METHOD_INITIALIZE(ClassInitialize)
 		{
-			entity = new Entity(0, 0);
+			entity = new Entity();
 			CreateOper(Nothing);
 			CreateOper(Nothing);
 			CreateOper(Nothing);
@@ -298,7 +298,7 @@ namespace CoreTests
 			CreateOper(Plus);
 			CreateOper(GetOperatorContactsCount);
 			ProcessArgsValues(GetLastOper() - 1);
-			Assert::IsTrue(GetLastValue() == entity->GetFirstOperator() - 1);
+			Assert::IsTrue(GetLastValue() == entity->FirstInternalOper - 1);
 		}
 
 		TEST_METHOD(NothingTest)

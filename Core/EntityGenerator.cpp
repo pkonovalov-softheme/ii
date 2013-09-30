@@ -26,7 +26,7 @@ namespace Brans
 	Entity& EntityGenerator::GenerateEntity(mainDataType operatorsCount, mainDataType maxExternalInputOperators, 
 										   mainDataType ExternalOutputsOperators)
 	{
-		Entity* ent= new Entity(maxExternalInputOperators, ExternalOutputsOperators);
+		Entity* ent= new Entity();
 	
 		for (int curOper = 0; curOper < operatorsCount; curOper++)
 		{

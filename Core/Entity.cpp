@@ -7,16 +7,16 @@ namespace Brans
 
 	Entity::Entity() : _operators()
 	{
+		_chline = nullptr;
 		_nextOperatorId = 1;
 		InitializeOpTypesCC();
 		InitializeInputsAndOutputs();
-		_firstOper = ExternalInputsCount + ExternalOutputsCount + 1;
 	}
 
 	void Entity::InitializeInputsAndOutputs()
 	{
-		for (mainDataType i = 0; i <= ExternalInputsCount; i++)  {mCreateOperator(ExternalInput);}
 		for (mainDataType i = 0; i <= ExternalOutputsCount; i++)  {mCreateOperator(ExternalOutput);}
+		for (mainDataType i = 0; i <= ExternalInputsCount; i++)  {mCreateOperator(ExternalInput);}
 	}
 
 	void Entity::InitializeOpTypesCC()
@@ -180,6 +180,9 @@ namespace Brans
 		case (Zero):
 			throw "Zero operator!";
 			break;
+		case (ExternalInput):
+				outValue = _chline->GetEntityExternalInput(operatorId - 1);
+			break;
 		default:
 			throw "Not implemented";
 		}
@@ -221,7 +224,7 @@ namespace Brans
 	{
 		mainDataType refOperId = GetContactValue(operatorId, contactId);
 		if (refOperId == 0) 
-			return 0;//test perf
+			return 0;//test performance
 		return _operators[refOperId][outputValueColumn];
 	}
 
@@ -232,20 +235,25 @@ namespace Brans
 
 	void Entity::mProcessAll()
 	{
-		for (mainDataType i = _firstOper; i < _nextOperatorId; i++) 
+		const mainDataType firstInput = ExternalOutputsCount + 1;
+
+		//Processing external inputs and all internal operators
+		for (mainDataType i = firstInput; i < _nextOperatorId; i++) 
 		{
 			mProcess(i);
 		}
+
+		//Processing external outputs
+		for (mainDataType i = 1; i < firstInput; i++) 
+		{
+			_chline->SetEntityAnswer(i - ExternalInputsCount, GetInputValue(i, 1));
+		}
+		_chline->NextChallengeLine();
 	}
 
 	void Entity::SetExternalInputValue(mainDataType inputOperId)
 	{
 		_operators[_nextOperatorId][operatorTypeColumn] = inputOperId;
-	}
-
-	mainDataType Entity::GetFirstOperator()
-	{
-		return _firstOper;
 	}
 
 	void Entity::AddOperator(mainDataType operatorType)
@@ -256,6 +264,11 @@ namespace Brans
 	mainDataType Entity::GetOperatorsCount()
 	{
 		return _nextOperatorId;
+	}
+
+	void Entity::StartChallengeLine(ChallengeLine* chline)
+	{
+		_chline = chline;
 	}
 
 }

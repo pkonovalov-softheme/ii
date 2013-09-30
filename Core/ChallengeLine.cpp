@@ -13,9 +13,6 @@ namespace Brans
 	{
 		switch (_challangeType)
 		{
-		case (Zero):
-			_inputContactsCount = 0;
-			break;
 		case (Division):
 			_inputContactsCount = 2;
 			break;
@@ -37,8 +34,6 @@ namespace Brans
 		case (Plus):
 			_inputContactsCount = 2;
 			break;
-		case (Nothing):
-			_inputContactsCount = 0;
 			break;
 		default:
 			throw;
@@ -52,58 +47,63 @@ namespace Brans
 
 	void ChallengeLine::GenerateRandomInputs()
 	{
-		for (mainDataType i = 0; i < ExternalInputsCount; i++)
+		for (mainDataType cline = 0; cline < ChallangesCount; cline++)
 		{
-			_inputs[_currentLine][i] = RandomProvider::GetNextValue(5);
+			for (mainDataType i = 0; i < ExternalInputsCount; i++)
+			{
+				_inputs[cline][i] = RandomProvider::GetNextValue(RandomUpperLimit);
+			}
 		}
 	}
 
 	void ChallengeLine::FillAnswers()
 	{
-		for (mainDataType i = 0; i < ExternalInputsCount; i++)
+		for (mainDataType cline = 0; cline < ChallangesCount; cline++)
 		{
-			#define fContValue _inputs[_currentLine][i] //value of first contact
-			#define sContValue _inputs[_currentLine][i + 1] //value of second contact
-			#define tContValue _inputs[_currentLine][i + 2] //value of third contact
-
-			#define outValue _correctAnswers[_currentLine][_currentLine] //value of third contact
-
-			switch (_challangeType)
+			for (mainDataType i = 0; i < ExternalInputsCount;)
 			{
-			case (Zero):
-				outValue = 0;
-				break;
-			case (Division):
-				outValue = fContValue / sContValue;
-				break;
-			case (Equal):
-				outValue = fContValue;
-				break;
-			case (If):
-				if (fContValue > sContValue){
-					outValue = 1;}
-				else{
-					outValue = 0;}
-				break;
-			case (Minus):
+				#define fContValue _inputs[cline][i] //value of first contact
+				#define sContValue _inputs[cline][i + 1] //value of second contact
+				#define outValue _correctAnswers[cline][i] //value of third contact
+
+				switch (_challangeType)
+				{
+				case (Division):
+					outValue = fContValue / sContValue;
+					i = i + 2;
+					break;
+				case (Equal):
+					outValue = fContValue;
+					i++;
+					break;
+				case (If):
+					if (fContValue > sContValue){
+						outValue = 1;}
+					else{
+						outValue = 0;}
+					i = i + 2;
+					break;
+				case (Minus):
 					outValue = fContValue - sContValue;
-				break;
-			case (Multiplication):
-					outValue = fContValue * sContValue;
-				break;
-			case (One):
+					i = i + 2;
+					break;
+				case (Multiplication):
+						outValue = fContValue * sContValue;
+						i = i + 2;
+					break;
+				case (One):
 					outValue = 1;
-				break;
-			case (Plus):
+					i++;
+					break;
+				case (Plus):
 					outValue = fContValue + sContValue;
-				break;
-			case (Nothing):
-				break;
-			default:
-				throw "Not implemented";
+					i = i + 2;
+					break;
+				default:
+					throw "Not implemented";
+				}
 			}
 		}
-
 	}
 
 	ChallengeLine& ChallengeLine::GenerateNextChalangesLine(mainDataType challangeType)
@@ -113,5 +113,21 @@ namespace Brans
 		chline->FillAnswers();
 		return *chline;
 	}
+
+	mainDataType ChallengeLine::GetEntityExternalInput(mainDataType inputId)
+	{
+		return _inputs[_currentLine][inputId];
+	}
+
+	void ChallengeLine::SetEntityAnswer(mainDataType outputId, mainDataType value)
+	{
+		_inputs[_currentLine][outputId] = value;
+	}
+
+	void ChallengeLine::NextChallengeLine()
+	{
+		_currentLine++;
+	}
+
 
 }
