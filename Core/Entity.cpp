@@ -4,7 +4,7 @@
 
 namespace Brans 
 {
-
+	//Todo: remove _operator initialization with 0 to improve perfomance
 	Entity::Entity() : _operators()
 	{
 		_chline = nullptr;
@@ -15,8 +15,8 @@ namespace Brans
 
 	void Entity::InitializeInputsAndOutputs()
 	{
-		for (mainDataType i = 0; i <= ExternalOutputsCount; i++)  {mCreateOperator(ExternalOutput);}
-		for (mainDataType i = 0; i <= ExternalInputsCount; i++)  {mCreateOperator(ExternalInput);}
+		for (mainDataType i = 0; i < ExternalOutputsCount; i++)  {mCreateOperator(ExternalOutput);}
+		for (mainDataType i = 0; i < ExternalInputsCount; i++)  {mCreateOperator(ExternalInput);}
 	}
 
 	void Entity::InitializeOpTypesCC()
@@ -117,6 +117,7 @@ namespace Brans
 		#define operType   _operators[operatorId][operatorTypeColumn] //type of the operator
 		#define outValue   _operators[operatorId][outputValueColumn] //value of the operators output contact
 		
+		mainDataType targetOp, targetOpType;
 
 		switch (operType)
 		{
@@ -136,8 +137,10 @@ namespace Brans
 		case (Equal):
 				outValue = fContValue;
 			break;
-		case (GetOperatorContactsCount):
-				outValue = _operatorTypeContactCount[fContValue];
+		case (GetOperatorContactsCount) :
+			targetOp = _operators[operatorId][1];
+			targetOpType = _operators[targetOp][0];
+			outValue = _operatorTypeContactCount[targetOpType];
 			break;
 		case (GetInputOperatorId): //returns id of the operator witch have channel with the first contact of the GetOperatorId operator
 				outValue = _operators[operatorId][1];

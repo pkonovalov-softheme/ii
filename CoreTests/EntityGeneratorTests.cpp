@@ -11,8 +11,7 @@ using namespace Brans;
 namespace CoreTests
 {		
 	const mainDataType operatorsCount = 10000;
-	const mainDataType externalEntersCount = 5;
-	const mainDataType externalExitsCount = 7;
+
 
 	TEST_CLASS(TestBasicEntityGenerator) 
 	{
@@ -24,15 +23,19 @@ namespace CoreTests
 		TEST_METHOD_INITIALIZE(ClassInitialize)
 		{
 			entityGenerator = new EntityGenerator();
-			testEntity = &entityGenerator->GenerateEntity(operatorsCount, externalEntersCount, externalExitsCount);
+			testEntity = &entityGenerator->GenerateEntity(operatorsCount);
 		}
 
-		TEST_METHOD(TestExternalEntersCount)
+		TEST_METHOD(TestExternalOutputs)
 		{
-			OperatorsTypes opType = (OperatorsTypes)testEntity->mGetOperatorType(externalEntersCount);
+			OperatorsTypes opType = (OperatorsTypes) testEntity->mGetOperatorType(ExternalOutputsCount);
+			Assert::IsTrue(opType == ExternalOutput);
+		}
+
+		TEST_METHOD(TestExternalInputs)
+		{
+			OperatorsTypes opType = (OperatorsTypes) testEntity->mGetOperatorType(ExternalOutputsCount + ExternalInputsCount);
 			Assert::IsTrue(opType == ExternalInput);
-            opType = (OperatorsTypes)testEntity->mGetOperatorType(externalEntersCount + 1);
-			Assert::IsFalse(opType == ExternalInput);
 		}
 	};
 }

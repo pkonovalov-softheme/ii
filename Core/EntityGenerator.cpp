@@ -23,8 +23,7 @@ namespace Brans
 		return RandomProvider::GetNextValue(entityOpersCount);
 	}
 
-	Entity& EntityGenerator::GenerateEntity(mainDataType operatorsCount, mainDataType maxExternalInputOperators, 
-										   mainDataType ExternalOutputsOperators)
+	Entity& EntityGenerator::GenerateEntity(mainDataType operatorsCount)
 	{
 		Entity* ent= new Entity();
 	

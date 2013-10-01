@@ -2,33 +2,41 @@
 #include "stdafx.h"
 #include "CppUnitTest.h"
 #include "..\Core\Entity.h"
+#include "Windows.h"
 #include <time.h>
+#include <string.h>
+#include <atlstr.h>
+#include <iostream>
+#include <fstream>
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 using namespace Brans;
+using namespace std;
 
 namespace CoreTests
-{		
+{
+
 	TEST_CLASS(TestBasicOperators) 
 	{
 	private:
 		Entity* entity;
-
+		//Here we setting up values of output column for first 3 operators(nothing) then we will create channels between them
+		//and last operators input contacts, so it will process that values
 		void ProcessArgsValues(mainDataType fContactValue, mainDataType sContactValue, mainDataType tContactValue)
 		{
-			entity->SetContactValue(3, entity->outputValueColumn, tContactValue);
+			entity->SetContactValue(Entity::FirstInternalOper + 2, entity->outputValueColumn, tContactValue);
 			ProcessArgsValues(fContactValue, sContactValue);
 		}
 
 		void ProcessArgsValues(mainDataType fContactValue, mainDataType sContactValue)
 		{
-			entity->SetContactValue(2, entity->outputValueColumn, sContactValue);
+			entity->SetContactValue(Entity::FirstInternalOper + 1, entity->outputValueColumn, sContactValue);
 			ProcessArgsValues(fContactValue);
 		}
 
 		void ProcessArgsValues(mainDataType fContactValue)
 		{
-			entity->SetContactValue(1, entity->outputValueColumn, fContactValue);
+			entity->SetContactValue(Entity::FirstInternalOper, entity->outputValueColumn, fContactValue);
 			Process();
 		}
 
@@ -40,9 +48,9 @@ namespace CoreTests
 		void Process()
 		{
 			mainDataType lastOper = GetLastOper();
-			entity->mCreateChannel(1, lastOper, 1);
-			entity->mCreateChannel(2, lastOper, 2);
-			entity->mCreateChannel(3, lastOper, 3);
+			entity->mCreateChannel(Entity::FirstInternalOper, lastOper, 1);
+			entity->mCreateChannel(Entity::FirstInternalOper + 1, lastOper, 2);
+			entity->mCreateChannel(Entity::FirstInternalOper + 2, lastOper, 3);
 			entity->mProcessLast();
 		}
 
@@ -68,10 +76,29 @@ namespace CoreTests
 			return GetValue(GetLastOper(), entity->outputValueColumn);
 		}
 
+		void WriteToDebugWindow(double val)
+		{
+			CString strBuffer;
+			strBuffer.Format(_T("%f"), val);
+			OutputDebugString(strBuffer);
+		}
+
 
 	public:
 		TEST_METHOD_INITIALIZE(ClassInitialize)
 		{
+			OutputDebugString(L"testttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt");
+			OutputDebugString(L"testttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt");
+			OutputDebugString(L"testttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt");
+			OutputDebugString(L"testttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt");
+			OutputDebugString(L"testttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt");
+			OutputDebugString(L"testttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt");
+			OutputDebugString(L"testttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt");
+			OutputDebugString(L"testttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt");
+			OutputDebugString(L"testttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt");
+			OutputDebugString(L"testttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt");
+			OutputDebugString(L"testttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt");
+
 			entity = new Entity();
 			CreateOper(Nothing);
 			CreateOper(Nothing);
@@ -179,22 +206,22 @@ namespace CoreTests
 		TEST_METHOD(TestRandomNumber)
 		{
 			CreateOper(RandomNumber);
-			int one = 0, two = 0, three = 0;
-			const int cycles = 1000;
+			int one = 0, two = 0, three = 0, unlim = 0;
+			const int cycles = 10000;
 
 			for (int i = 0; i < cycles; i++)
 			{
-				ProcessArgsValues(3);
-				if (GetResult() == 1) one++;
-				if (GetResult() == 2) two++;
-				if (GetResult() == 3) three++;
+				mainDataType res = RandomProvider::GetNextValue(3);
+				if (res == 1) one++;
+				if (res == 2) two++;
+				if (res == 3) three++;
 			}
 
 			double onePerc = one / (double)cycles;
 			double twoPerc = two / (double)cycles;
 			double threePerc = three / (double)cycles;
 
-			Assert::IsTrue(onePerc > 0.20 && onePerc < 0.40);
+    		Assert::IsTrue(onePerc > 0.20 && onePerc < 0.40);
 			Assert::IsTrue(twoPerc > 0.20 && twoPerc < 0.40);
 			Assert::IsTrue(threePerc > 0.20 && threePerc < 0.40);
 		}
@@ -297,8 +324,11 @@ namespace CoreTests
 		{
 			CreateOper(Plus);
 			CreateOper(GetOperatorContactsCount);
-			ProcessArgsValues(GetLastOper() - 1);
-			Assert::IsTrue(GetLastValue() == entity->FirstInternalOper - 1);
+			mainDataType plusOperId = GetLastOper() - 1;
+			entity->mCreateChannel(plusOperId, GetLastOper(), 1);
+			entity->mProcessLast();
+			const mainDataType plusContactsCount = 2;
+			Assert::IsTrue(GetLastValue() == plusContactsCount);
 		}
 
 		TEST_METHOD(NothingTest)

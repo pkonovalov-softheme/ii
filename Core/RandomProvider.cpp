@@ -8,7 +8,7 @@ namespace Brans
 
 	mainDataType RandomProvider::GetNextValue(mainDataType upperLimit)
 	{
-		static std::uniform_int_distribution<int> uniform_dist(1, upperLimit);
+		std::uniform_int_distribution<int> uniform_dist(1, upperLimit);
 		return uniform_dist(rnb);
 	}
 }
