@@ -3,12 +3,21 @@
 
 namespace Brans
 {
-	std::random_device RandomProvider::rd;
-	std::mt19937 RandomProvider::rnb(RandomProvider::rd());
+	random_device RandomOperatorsProvider::rd;
+	mt19937 RandomOperatorsProvider::rnb(RandomOperatorsProvider::rd());
+	static uniform_int_distribution<int> operTypes_dist(1, OperatorsCount);
 
-	mainDataType RandomProvider::GetNextValue(mainDataType upperLimit)
+	mainDataType RandomOperatorsProvider::GetNextOperator()
 	{
-		std::uniform_int_distribution<int> uniform_dist(1, upperLimit);
-		return uniform_dist(rnb);
+		return operTypes_dist(rnb);
+	}
+
+	RandomConnectionsProvider::RandomConnectionsProvider(mainDataType operatorsCount) : connections_dist(1, operatorsCount)
+	{
+	}
+
+	mainDataType  RandomConnectionsProvider::GetNextConnectedOper()
+	{
+		return connections_dist(rnb);
 	}
 }
