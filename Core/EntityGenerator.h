@@ -6,12 +6,12 @@ namespace Brans
 	class EntityGenerator
 	{
 	public:
-		EntityGenerator(void);
+		EntityGenerator(mainDataType operatorsCount);
 		~EntityGenerator(void);
-		Entity& GenerateEntity(mainDataType operatorsCounts);
+		Entity& GenerateEntity();
 	private:
-		EntityGenerator::OperatorsTypes GenerateRandomOperType();
-		mainDataType EntityGenerator::GetNextRandomOperId(mainDataType entityOpersCount);
+		RandomValuesProvider* _conProvider;
+		mainDataType _operatorsCount;
 	};
 }
 

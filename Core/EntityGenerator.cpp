@@ -4,38 +4,29 @@
 
 namespace Brans 
 {
-	EntityGenerator::EntityGenerator(void)
+	EntityGenerator::EntityGenerator(mainDataType operatorsCount)
 	{
+		_operatorsCount = operatorsCount;
+		_conProvider = new RandomValuesProvider(operatorsCount);
 	}
 
 	EntityGenerator::~EntityGenerator(void)
 	{
 	}
 
-	OperatorsTypes EntityGenerator::GenerateRandomOperType()
-	{
-		OperatorsTypes result = (OperatorsTypes) RandomProvider::GetNextValue(OperatorsCount);
-		return result;
-	}
-
-	mainDataType EntityGenerator::GetNextRandomOperId(mainDataType entityOpersCount)
-	{
-		return RandomProvider::GetNextValue(entityOpersCount);
-	}
-
-	Entity& EntityGenerator::GenerateEntity(mainDataType operatorsCount)
+	Entity& EntityGenerator::GenerateEntity()
 	{
 		Entity* ent= new Entity();
 	
-		for (int curOper = 0; curOper < operatorsCount; curOper++)
+		for (int curOper = 0; curOper < _operatorsCount; curOper++)
 		{
 			//Creating oper
-			ent->AddOperator(GenerateRandomOperType());
+			ent->AddOperator(RandomOperatorsProvider::GetNextOperator());
 
 			//Creating connections
 			for (int curContact = 0; curContact <= ent->contactsCount; curContact++)
 			{
-				ent->mCreateChannel(GetNextRandomOperId(operatorsCount), curOper, curContact);
+				ent->mCreateChannel(_conProvider->GetNextValue(), curOper, curContact);
 			}
 		}
 

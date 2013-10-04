@@ -211,7 +211,7 @@ namespace CoreTests
 
 			for (int i = 0; i < cycles; i++)
 			{
-				mainDataType res = RandomProvider::GetNextValue(3);
+				mainDataType res = RandomValuesProvider::GetNextValue(3);
 				if (res == 1) one++;
 				if (res == 2) two++;
 				if (res == 3) three++;

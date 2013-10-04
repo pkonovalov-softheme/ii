@@ -22,8 +22,8 @@ namespace CoreTests
 	public:
 		TEST_METHOD_INITIALIZE(ClassInitialize)
 		{
-			entityGenerator = new EntityGenerator();
-			testEntity = &entityGenerator->GenerateEntity(operatorsCount);
+			entityGenerator = new EntityGenerator(operatorsCount);
+			testEntity = &entityGenerator->GenerateEntity();
 		}
 
 		TEST_METHOD(TestExternalOutputs)

@@ -51,7 +51,7 @@ namespace Brans
 		{
 			for (mainDataType i = 0; i < ExternalInputsCount; i++)
 			{
-				_inputs[cline][i] = RandomProvider::GetNextValue(RandomUpperLimit);
+				_inputs[cline][i] = RandomValuesProvider::GetNextValue(RandomUpperLimit);
 			}
 		}
 	}

@@ -13,20 +13,21 @@ namespace Brans
 		static mt19937 rnb;
 	};
 
-	class RandomOperatorsProvider : RandomProviderBase
+	class RandomValuesProvider : public RandomProviderBase
+	{
+	public:
+		RandomValuesProvider(mainDataType upperLimit);
+		mainDataType GetNextValue();
+		static mainDataType GetNextValue(mainDataType upperLimit);
+	private:
+		mainDataType _upperLimit;
+		uniform_int_distribution<int> _values_dist;
+	};
+
+	class RandomOperatorsProvider : public RandomProviderBase
 	{
 	public:
 		static mainDataType GetNextOperator();
-	};
-
-	class RandomConnectionsProvider : RandomProviderBase
-	{
-	public:
-		RandomConnectionsProvider(mainDataType operatorsCount);
-		~RandomConnectionsProvider(void);
-		mainDataType GetNextConnectedOper();
-	private:
-		uniform_int_distribution<int> connections_dist;
 	};
 }
 

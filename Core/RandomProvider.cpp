@@ -12,12 +12,19 @@ namespace Brans
 		return operTypes_dist(rnb);
 	}
 
-	RandomConnectionsProvider::RandomConnectionsProvider(mainDataType operatorsCount) : connections_dist(1, operatorsCount)
+	mainDataType  RandomValuesProvider::GetNextValue(mainDataType upperLimit)
 	{
+		uniform_int_distribution<int> values_dist(1, upperLimit);
+		return values_dist(rnb);
 	}
 
-	mainDataType  RandomConnectionsProvider::GetNextConnectedOper()
+	mainDataType RandomValuesProvider::GetNextValue()
 	{
-		return connections_dist(rnb);
+		return _values_dist(rnb);
+	}
+
+	RandomValuesProvider::RandomValuesProvider(mainDataType upperLimit) : _values_dist(1, _upperLimit)
+	{
+		_upperLimit = upperLimit;
 	}
 }

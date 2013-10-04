@@ -105,7 +105,7 @@ namespace Brans
 
 	mainDataType Entity::mGetNewRandomVal(mainDataType upperLimit)
 	{
-		return RandomProvider::GetNextValue(upperLimit);
+		return RandomValuesProvider::GetNextValue(upperLimit);
 	}
 
 	void Entity::mProcess(mainDataType operatorId)
