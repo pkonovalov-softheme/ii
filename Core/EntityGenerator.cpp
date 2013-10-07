@@ -4,10 +4,9 @@
 
 namespace Brans 
 {
-	EntityGenerator::EntityGenerator(mainDataType operatorsCount)
+	EntityGenerator::EntityGenerator()
 	{
-		_operatorsCount = operatorsCount;
-		_conProvider = new RandomValuesProvider(operatorsCount);
+		_conProvider = new RandomValuesProvider(EntityOperatorsCount);
 	}
 
 	EntityGenerator::~EntityGenerator(void)
@@ -18,7 +17,7 @@ namespace Brans
 	{
 		Entity* ent= new Entity();
 	
-		for (int curOper = 0; curOper < _operatorsCount; curOper++)
+		for (int curOper = 0; curOper < EntityOperatorsCount; curOper++)
 		{
 			//Creating oper
 			ent->AddOperator(RandomOperatorsProvider::GetNextOperator());

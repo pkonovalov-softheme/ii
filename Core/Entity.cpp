@@ -7,7 +7,7 @@ namespace Brans
 	//Todo: remove _operator initialization with 0 to improve perfomance
 	Entity::Entity() : _operators()
 	{
-		_chline = nullptr;
+		_chmanager = nullptr;
 		_nextOperatorId = 1;
 		InitializeOpTypesCC();
 		InitializeInputsAndOutputs();
@@ -184,7 +184,7 @@ namespace Brans
 			throw "Zero operator!";
 			break;
 		case (ExternalInput):
-				outValue = _chline->GetEntityExternalInput(operatorId - 1);
+				outValue = _chmanager->GetEntityExternalInput(operatorId - 1);
 			break;
 		default:
 			throw "Not implemented";
@@ -246,12 +246,22 @@ namespace Brans
 			mProcess(i);
 		}
 
+		bool wasError = false;
+
 		//Processing external outputs
-		for (mainDataType i = 1; i < firstInput; i++) 
+		for (mainDataType i = 1; i <= ExternalOutputsCount; i++) 
 		{
-			_chline->SetEntityAnswer(i - ExternalInputsCount, GetInputValue(i, 1));
+			if (_chmanager->GetCorrectAnswer(i) != GetContactValue(i, outputValueColumn))
+			{
+				wasError = true;
+				break;
+			}
 		}
-		_chline->NextChallengeLine();
+
+		if (wasError)
+			_chmanager->ReportFailure();
+		else
+			_chmanager->ReportSuccess();
 	}
 
 	void Entity::SetExternalInputValue(mainDataType inputOperId)
@@ -269,9 +279,9 @@ namespace Brans
 		return _nextOperatorId;
 	}
 
-	void Entity::StartChallengeLine(ChallengeLine* chline)
+	void Entity::StartChallengeLine(ChallengeManager* chline)
 	{
-		_chline = chline;
+		_chmanager = chline;
 	}
 
 }

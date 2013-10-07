@@ -18,4 +18,8 @@ namespace Brans
 	const unsigned short OperatorsCount = 19;
 	static const unsigned short ExternalInputsCount = 10;
 	static const unsigned short ExternalOutputsCount = 10;
+	const unsigned short EntityProcessCount = 10;
+	const mainDataType EntityOperatorsCount = 1000;
+	const mainDataType TotalChallengesCount = 1000;
+	const mainDataType EntitiesStartPopulation = 100000;
 }

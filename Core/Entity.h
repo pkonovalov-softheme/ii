@@ -1,7 +1,7 @@
 #pragma once
 #include "BransGlobals.h"
 #include "RandomProvider.h"
-#include "ChallengeLine.h"
+#include "ChallengeManager.h"
 
 
 namespace Brans 
@@ -64,7 +64,7 @@ namespace Brans
 
 		mainDataType GetOperatorsCount();
 
-		void StartChallengeLine(ChallengeLine* chline);
+		void StartChallengeLine(ChallengeManager* chline);
 
 
 	private:
@@ -79,7 +79,7 @@ namespace Brans
 
 		void InitializeInputsAndOutputs();
 
-		ChallengeLine* _chline;
+		ChallengeManager* _chmanager;
 	};
 
 
