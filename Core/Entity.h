@@ -55,7 +55,7 @@ namespace Brans
 		//Get the input values for the specific operator. Unsafe without any checks!
 		mainDataType GetInputValue(mainDataType operatorId, mainDataType contactId);
 		//Returns value from 1 to upperLimit(inclusive)
-		mainDataType Entity::mGetNewRandomVal(mainDataType upperLimit);
+		mainDataType mGetNewRandomVal(mainDataType upperLimit);
 
 		void SetExternalInputValue(mainDataType inputOperId);
 

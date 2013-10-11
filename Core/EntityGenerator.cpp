@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "EntityGenerator.h"
-#include "Entity.h"
 
 namespace Brans 
 {

@@ -125,14 +125,14 @@ namespace Brans
 
 	void ChallengeManager::ReportSuccess()
 	{
-		EntityStats* es = _population[_curEntityId];
+		EntityStats* es = &_population[_curEntityId];
 		*es->results[es->curAnswerId]=true;
 		es->curAnswerId++;
 	}
 
 	void ChallengeManager::ReportFailure()
 	{
-		EntityStats* es = _population[_curEntityId];
+		EntityStats* es = &_population[_curEntityId];
 		*es->results[es->curAnswerId]=false;
 		es->curAnswerId++;
 	}
@@ -152,7 +152,7 @@ namespace Brans
 	{
 		for (int i = 0; i < EntitiesStartPopulation; i++)
 		{
-			_population[i]->id = &_entityGenerator->GenerateEntity();
+			_population[i].id = &_entityGenerator.GenerateEntity();
 		}
 	}
 
@@ -162,7 +162,7 @@ namespace Brans
 		{
 			for (int pr = 0; pr < EntityProcessCount; pr++)
 			{
-				_population[i]->id->mProcessAll();
+				_population[i].id->mProcessAll();
 			}
 		}
 	}
@@ -174,10 +174,10 @@ namespace Brans
 			mainDataType sum = 0;
 			for (int ca = 0; ca < TotalChallengesCount; ca++)
 			{
-				sum+=(mainDataType)_population[i]->results[ca];
+				sum+=(mainDataType)_population[i].results[ca];
 			}
 
-			_population[i]->effectiveness = (double)sum/TotalChallengesCount;
+			_population[i].effectiveness = (double)sum/TotalChallengesCount;
 		}
 	}
 }

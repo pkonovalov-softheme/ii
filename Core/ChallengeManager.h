@@ -26,8 +26,8 @@ namespace Brans
 		entities testing. Based on 1, not 0 index!*/
 
 		mainDataType _curChallangeType;
-		EntityStats* _population[EntitiesStartPopulation];
-		EntityGenerator* _entityGenerator;
+		EntityStats _population[EntitiesStartPopulation];
+		EntityGenerator _entityGenerator;
 		void GenerateRandomInputs(); //Filling inputs arrays with random values for all ChallangesCount
 		void FillAnswers(); //Filling correct answers for generated random inputs (GenerateRandomInputs() should be called before)
 		void SetContactsCount();

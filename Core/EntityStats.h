@@ -5,9 +5,9 @@ namespace Brans
 {
 	struct EntityStats
 	{
-		Entity* id;
+		Entity id;
 		double effectiveness;
-		bool* results[TotalChallengesCount]; // 
+		bool results[TotalChallengesCount]; // 
 		mainDataType curAnswerId;
 	};
 }

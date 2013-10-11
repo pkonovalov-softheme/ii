@@ -47,11 +47,9 @@ namespace Brans
 
 		for (int i = 0; i < arrayElementsCount; i++)
 		{
-			double curV = arr[i].effectiveness;
-
-			if (curV >= targetK)
+			if (arr[i].effectiveness >= targetK)
 			{
-				retAr[curRetArIndex] = curV;
+				retAr[curRetArIndex] = arr[i];
 				curRetArIndex++;
 			}
 		}
