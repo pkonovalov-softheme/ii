@@ -144,7 +144,7 @@ namespace Brans
 		GenerateEntities();
 		ProcessEnteties();
 		CalculateEffectiveness();
-		EntityStats* vinners = CustomAlgs::SelectTopNs(_population, 3, EntitiesStartPopulation);
+		EntityStats vinners = *CustomAlgs::SelectTopNs(_population, 3, EntitiesStartPopulation);
 
 	}
 
@@ -152,7 +152,7 @@ namespace Brans
 	{
 		for (int i = 0; i < EntitiesStartPopulation; i++)
 		{
-			//_population[i].id = &_entityGenerator.GenerateEntity();
+			_population[i].id = _entityGenerator.GenerateEntity();
 		}
 	}
 
@@ -162,7 +162,7 @@ namespace Brans
 		{
 			for (int pr = 0; pr < EntityProcessCount; pr++)
 			{
-				//_population[i].id->mProcessAll();
+				_population[i].id.mProcessAll();
 			}
 		}
 	}
