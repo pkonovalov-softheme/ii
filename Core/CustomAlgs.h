@@ -1,5 +1,4 @@
 #pragma once
-#include "BransGlobals.h"
 #include "EntityStats.h"
 
 namespace Brans

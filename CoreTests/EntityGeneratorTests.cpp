@@ -1,9 +1,7 @@
 #pragma once
 #include "stdafx.h"
 #include "CppUnitTest.h"
-#include "..\Core\Entity.h"
 #include "..\Core\EntityGenerator.h"
-#include <time.h>
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 using namespace Brans;

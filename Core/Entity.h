@@ -1,11 +1,13 @@
 #pragma once
 #include "BransGlobals.h"
 #include "RandomProvider.h"
-#include "ChallengeManager.h"
+#include <time.h>
 
 
 namespace Brans 
 {
+	class ChallengeManager;
+
 	class Entity
 	{
 	public:
@@ -64,7 +66,7 @@ namespace Brans
 
 		mainDataType GetOperatorsCount();
 
-		void StartChallengeLine(ChallengeManager* chline);
+		//void StartChallengeLine(ChallengeManager* chline);
 
 
 	private:

@@ -1,5 +1,4 @@
 #pragma once
-#include "BransGlobals.h"
 #include "RandomProvider.h"
 #include "EntityGenerator.h"
 #include "CustomAlgs.h"
