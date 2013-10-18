@@ -17,13 +17,14 @@ namespace Brans
 	{
 		Entity* ent= new Entity();
 	
-		for (int curOper = 0; curOper < EntityOperatorsCount; curOper++)
+		for (int curOper = Entity::FirstInternalOper; curOper < EntityOperatorsCount; curOper++)
 		{
 			//Creating oper
-			ent->AddOperator(RandomOperatorsProvider::GetNextOperator());
+			ent->mCreateOperator(RandomOperatorsProvider::GetNextOperator());
 
+			mainDataType lastOper = ent->mGetOperatorType(Entity::FirstInternalOper + curOper);
 			//Creating connections
-			for (int curContact = 0; curContact <= ent->contactsCount; curContact++)
+			for (int curContact = 0; curContact <= ent->; curContact++)
 			{
 				ent->mCreateChannel(_conProvider->GetNextValue(), curOper, curContact);
 			}

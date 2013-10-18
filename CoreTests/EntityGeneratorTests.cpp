@@ -35,5 +35,18 @@ namespace CoreTests
 			OperatorsTypes opType = (OperatorsTypes) testEntity->mGetOperatorType(ExternalOutputsCount + ExternalInputsCount);
 			Assert::IsTrue(opType == ExternalInput);
 		}
+
+		TEST_METHOD(GeneratedOperatorsAreValid)
+		{
+			for (mainDataType i = Entity::FirstInternalOper; i < EntityOperatorsCount; i++)
+			{
+				OperatorsTypes curOperType = (OperatorsTypes)testEntity->mGetOperatorType(i);
+				if (!(curOperType >  OperatorsTypes::Zero && curOperType < OperatorsTypes::Nothing))
+				{
+					Assert::IsTrue(curOperType >  OperatorsTypes::Zero && curOperType < OperatorsTypes::Nothing);
+				}
+			}
+			Assert::IsTrue(true);
+		}
 	};
 }

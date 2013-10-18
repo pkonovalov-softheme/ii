@@ -61,13 +61,12 @@ namespace Brans
 
 		void SetExternalInputValue(mainDataType inputOperId);
 
-		//Returns operator from witch is starting operators(after external enters and exists)
-		void AddOperator(mainDataType operatorType);
-
 		mainDataType GetOperatorsCount();
 
 		//void StartChallengeLine(ChallengeManager* chline);
 
+		template<>
+		inline int GetOperatorContacts<Zero>() { return 0; }
 
 	private:
 

@@ -269,11 +269,6 @@ namespace Brans
 		_operators[_nextOperatorId][operatorTypeColumn] = inputOperId;
 	}
 
-	void Entity::AddOperator(mainDataType operatorType)
-	{
-		_operators[_nextOperatorId][operatorTypeColumn] = operatorType;
-	}
-
 	mainDataType Entity::GetOperatorsCount()
 	{
 		return _nextOperatorId;
