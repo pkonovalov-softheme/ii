@@ -10,7 +10,7 @@ namespace Brans
 		~EntityGenerator(void);
 		Entity& GenerateEntity();
 	private:
-		//RandomValuesProvider* _conProvider;
+	    RandomValuesProvider* _conProvider;
 	};
 }
 

@@ -23,7 +23,7 @@ namespace Brans
 		return _values_dist(rnb);
 	}
 
-	RandomValuesProvider::RandomValuesProvider(mainDataType upperLimit) : _values_dist(1, _upperLimit)
+	RandomValuesProvider::RandomValuesProvider(mainDataType upperLimit) : _values_dist(1, upperLimit)
 	{
 		_upperLimit = upperLimit;
 	}

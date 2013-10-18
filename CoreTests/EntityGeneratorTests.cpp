@@ -20,7 +20,7 @@ namespace CoreTests
 	public:
 		TEST_METHOD_INITIALIZE(ClassInitialize)
 		{
-			entityGenerator = new EntityGenerator(operatorsCount);
+			entityGenerator = new EntityGenerator();
 			testEntity = &entityGenerator->GenerateEntity();
 		}
 
