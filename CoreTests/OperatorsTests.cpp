@@ -37,21 +37,16 @@ namespace CoreTests
 		void ProcessArgsValues(mainDataType fContactValue)
 		{
 			entity->SetContactValue(Entity::FirstInternalOper, entity->outputValueColumn, fContactValue);
-			Process();
-		}
-
-		void CreateOper(mainDataType operatorType)
-		{
-			entity->mCreateOperator(operatorType);
-		}
-
-		void Process()
-		{
 			mainDataType lastOper = GetLastOper();
 			entity->mCreateChannel(Entity::FirstInternalOper, lastOper, 1);
 			entity->mCreateChannel(Entity::FirstInternalOper + 1, lastOper, 2);
 			entity->mCreateChannel(Entity::FirstInternalOper + 2, lastOper, 3);
 			entity->mProcessLast();
+		}
+
+		void CreateOper(mainDataType operatorType)
+		{
+			entity->mCreateOperator(operatorType);
 		}
 
 		mainDataType GetResult()
@@ -87,18 +82,6 @@ namespace CoreTests
 	public:
 		TEST_METHOD_INITIALIZE(ClassInitialize)
 		{
-			OutputDebugString(L"testttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt");
-			OutputDebugString(L"testttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt");
-			OutputDebugString(L"testttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt");
-			OutputDebugString(L"testttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt");
-			OutputDebugString(L"testttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt");
-			OutputDebugString(L"testttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt");
-			OutputDebugString(L"testttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt");
-			OutputDebugString(L"testttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt");
-			OutputDebugString(L"testttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt");
-			OutputDebugString(L"testttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt");
-			OutputDebugString(L"testttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt");
-
 			entity = new Entity();
 			CreateOper(Nothing);
 			CreateOper(Nothing);
@@ -236,8 +219,8 @@ namespace CoreTests
 			CreateOper(Plus);
 			CreateOper(CreateChannel);
 
-			const mainDataType fromOperator = 3;
-			const mainDataType toOperator = 4;
+			const mainDataType fromOperator = Entity::FirstInternalOper + 3;
+			const mainDataType toOperator = fromOperator + 1;
 			const mainDataType toOperatorContactId = 1;
 
 			ProcessArgsValues(fromOperator, toOperator, toOperatorContactId);
@@ -267,21 +250,34 @@ namespace CoreTests
 
 		TEST_METHOD(DeleteChannelTest)
 		{
-			const mainDataType fromOperator = 1;
-			const mainDataType toOperator = 2;
-			const mainDataType toOperatorContactId = 2;
+			//Same as create channel
+			CreateOper(Plus);
+			CreateOper(Plus);
+			CreateOper(CreateChannel);
 
-			entity->mCreateChannel(fromOperator, toOperator, toOperatorContactId);
+			const mainDataType fromOperator = Entity::FirstInternalOper + 3;
+			const mainDataType toOperator = fromOperator + 1;
+			const mainDataType toOperatorContactId = 1;
+
+			ProcessArgsValues(fromOperator, toOperator, toOperatorContactId);
+			Assert::IsTrue(GetValue(toOperator, toOperatorContactId) == fromOperator);
+			//.
+
 			CreateOper(DeleteChannel);
 			ProcessArgsValues(toOperator, toOperatorContactId);
-			Assert::IsTrue(GetValue(toOperator, toOperatorContactId) == 0);
+			Assert::IsFalse(GetValue(toOperator, toOperatorContactId) == fromOperator);
 		}
 
 		TEST_METHOD(GetTypeOfOperatorTest)
 		{
+			CreateOper(Plus);
+			const mainDataType fromOperator = Entity::FirstInternalOper + 3;
 			CreateOper(GetTypeOfOperator);
-			ProcessArgsValues(GetLastOper());
-			Assert::IsTrue(GetLastValue() == GetTypeOfOperator);
+			const mainDataType toOperator = fromOperator + 1;
+			const mainDataType toOperatorContactId = 1;
+			entity->mCreateChannel(fromOperator, toOperator, toOperatorContactId);
+			entity->mProcessLast();
+			Assert::IsTrue(GetLastValue() == Plus);
 		}
 
 		TEST_METHOD(IsChannelExistsTest)
@@ -290,8 +286,8 @@ namespace CoreTests
 			CreateOper(Plus);
 			CreateOper(IsChannelExists);
 
-			const mainDataType fromOperator = 3;
-			const mainDataType toOperator = 4;
+			const mainDataType fromOperator = Entity::FirstInternalOper + 3;
+			const mainDataType toOperator = fromOperator + 1;
 			const mainDataType toOperatorContactId = 1;
 
 			entity->mCreateChannel(fromOperator, toOperator, toOperatorContactId);

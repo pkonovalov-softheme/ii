@@ -65,9 +65,6 @@ namespace Brans
 
 		//void StartChallengeLine(ChallengeManager* chline);
 
-		template<>
-		inline int GetOperatorContacts<Zero>() { return 0; }
-
 	private:
 
 		mainDataType _operators[operatorsMaxCount][operatorsTableWidth];

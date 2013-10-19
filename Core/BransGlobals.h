@@ -4,14 +4,24 @@ namespace Brans
 {
 	#define mainDataType unsigned int //main data type for all tables(arrays)
 
+	//enum OperatorsTypes
+	//{
+	//	/*Zero is restricted system value. After the first zero operator _operators array processing will be stopped.
+	//	Value of the zero operator is assuming as zero-only.
+	//	Basic operators:*/
+	//	Zero = 0, Division = 12, Equal = 21, If = 32, Minus = 42, Multiplication = 52, One = 60, Plus = 72, RandomNumber = 81, Time = 90,
+	//	//Meta operators:
+	//	CreateChannel = 103, CreateOperator = 111, DeleteChannel = 122, GetTypeOfOperator = , IsChannelExists,
+	//	RemoveOperator, GetInputOperatorId, GetOperatorContactsCount, ExternalInput, ExternalOutput, Nothing
+	//};
 	enum OperatorsTypes
 	{
 		/*Zero is restricted system value. After the first zero operator _operators array processing will be stopped.
 		Value of the zero operator is assuming as zero-only.
 		Basic operators:*/
-		Zero = 0, Division = 12, Equal = 21, If = 32, Minus = 42, Multiplication = 52, One = 60, Plus = 72, RandomNumber = 81, Time = 90,
+		Zero, Division, Equal, If, Minus, Multiplication, One, Plus, RandomNumber, Time,
 		//Meta operators:
-		CreateChannel = 103, CreateOperator = 111, DeleteChannel = 122, GetTypeOfOperator = , IsChannelExists,
+		CreateChannel, CreateOperator, DeleteChannel, GetTypeOfOperator, IsChannelExists,
 		RemoveOperator, GetInputOperatorId, GetOperatorContactsCount, ExternalInput, ExternalOutput, Nothing
 	};
 

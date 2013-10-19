@@ -145,8 +145,8 @@ namespace Brans
 		case (GetInputOperatorId): //returns id of the operator witch have channel with the first contact of the GetOperatorId operator
 				outValue = _operators[operatorId][1];
 			break;
-		case (GetTypeOfOperator):
-				outValue = operType;
+		case (GetTypeOfOperator): //returns the operator type witch have channel with the first contact of this oper
+				outValue = mGetOperatorType(_operators[operatorId][1]);
 			break;
 		case (If):
 			if (fContValue > sContValue){

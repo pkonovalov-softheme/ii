@@ -11,6 +11,7 @@ namespace Brans
 		Entity& GenerateEntity();
 	private:
 	    RandomValuesProvider* _conProvider;
+		static mainDataType GetOperTypeContactsCount(OperatorsTypes ot);
 	};
 }
 
