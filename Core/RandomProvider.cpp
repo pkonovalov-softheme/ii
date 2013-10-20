@@ -15,6 +15,8 @@ namespace Brans
 
 	mainDataType  RandomValuesProvider::GetNextValue(mainDataType upperLimit)
 	{
+		if (upperLimit == 0) return 0;
+
 		uniform_int_distribution<int> values_dist(1, upperLimit);
 		return values_dist(rnb);
 	}
@@ -30,7 +32,5 @@ namespace Brans
 	}
 
 	RandomValuesProvider::RandomValuesProvider(mainDataType upperLimit) : _values_dist(1, upperLimit)
-	{
-		//_upperLimit = upperLimit;
-	}
+	{}
 }

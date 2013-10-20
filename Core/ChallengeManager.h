@@ -32,6 +32,7 @@ namespace Brans
 		void SetContactsCount();
 		void ProcessEnteties();
 		void CalculateEffectiveness();
+		RandomValuesProvider _rvp;
 
 	public:
 		ChallengeManager();

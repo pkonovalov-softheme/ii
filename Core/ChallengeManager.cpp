@@ -4,7 +4,7 @@
 namespace Brans
 {
 	ChallengeManager::ChallengeManager() : _inputs(), 
-		_correctAnswers(), _entityGenerator(), _population()
+		_correctAnswers(), _entityGenerator(), _population(), _rvp(RandomUpperLimit)
 	{
 	}
 
@@ -50,7 +50,7 @@ namespace Brans
 		{
 			for (mainDataType i = 1; i <= ExternalInputsCount; i++)
 			{
-				_inputs[cline][i] = RandomValuesProvider::GetNextValue(RandomUpperLimit);
+				_inputs[cline][i] = _rvp.GetNextValue();
 			}
 		}
 	}

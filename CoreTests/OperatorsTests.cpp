@@ -194,7 +194,9 @@ namespace CoreTests
 
 			for (int i = 0; i < cycles; i++)
 			{
-				mainDataType res = RandomValuesProvider::GetNextValue(3);
+				entity->mProcessLast();
+				ProcessArgsValues(3);
+				mainDataType res = GetLastValue();
 				if (res == 1) one++;
 				if (res == 2) two++;
 				if (res == 3) three++;
