@@ -20,7 +20,7 @@ namespace Brans
 		mainDataType GetNextValue();
 		static mainDataType GetNextValue(mainDataType upperLimit);
 	private:
-		mainDataType _upperLimit;
+		//mainDataType _upperLimit;
 		uniform_int_distribution<int> _values_dist;
 	};
 

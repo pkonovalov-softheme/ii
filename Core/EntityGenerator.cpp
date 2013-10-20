@@ -24,7 +24,7 @@ namespace Brans
 
 			OperatorsTypes lastOperType = (OperatorsTypes)ent->mGetOperatorType(curOper);
 			//Creating connections
-			for (int curContact = 0; curContact <= GetOperTypeContactsCount(lastOperType); curContact++)
+			for (int curContact = 1; curContact <= GetOperTypeContactsCount(lastOperType); curContact++)
 			{
 				ent->mCreateChannel(_conProvider->GetNextValue(), curOper, curContact);
 			}
@@ -37,9 +37,9 @@ namespace Brans
 	{
 		switch (ot)
 		{
-		case Brans::Zero:
-			return 0;
-			break;
+		//case Brans::Zero:
+		//	return 0;
+		//	break;
 		case Brans::Division:
 			return 2;
 			break;
@@ -77,7 +77,7 @@ namespace Brans
 			return 2;
 			break;
 		case Brans::GetTypeOfOperator:
-			return 0;
+			return 1;
 			break;
 		case Brans::IsChannelExists:
 			return 3;
@@ -89,15 +89,16 @@ namespace Brans
 			return 1;
 			break;
 		case Brans::GetOperatorContactsCount:
+			return 1;
 			break;
-		case Brans::ExternalInput:
-			break;
-		case Brans::ExternalOutput:
-			break;
-		case Brans::Nothing:
-			break;
+		//case Brans::ExternalInput:
+		//	break;
+		//case Brans::ExternalOutput:
+		//	break;
+		//case Brans::Nothing:
+		//	break;
 		default:
-			break;
+			throw "Not implemented";
 		}
 	}
 }

@@ -8,9 +8,6 @@ using namespace Brans;
 
 namespace CoreTests
 {		
-	const mainDataType operatorsCount = 10000;
-
-
 	TEST_CLASS(TestBasicEntityGenerator) 
 	{
 	private:
@@ -36,7 +33,7 @@ namespace CoreTests
 			Assert::IsTrue(opType == ExternalInput);
 		}
 
-		TEST_METHOD(GeneratedOperatorsAreValid)
+		TEST_METHOD(GeneratedOperatorsTypesAreValid)
 		{
 			for (mainDataType i = Entity::FirstInternalOper; i < EntityOperatorsCount; i++)
 			{
@@ -46,7 +43,19 @@ namespace CoreTests
 					Assert::IsTrue(curOperType >  OperatorsTypes::Zero && curOperType < OperatorsTypes::Nothing);
 				}
 			}
-			Assert::IsTrue(true);
+		}
+
+		TEST_METHOD(GeneratedOperatorsIdsAreValid)
+		{
+			for (mainDataType curOp = Entity::FirstInternalOper; curOp < EntityOperatorsCount; curOp++)
+			{
+				OperatorsTypes curOperType = (OperatorsTypes)testEntity->mGetOperatorType(curOp);
+				for (int curContact = 1; curContact <= EntityGenerator::GetOperTypeContactsCount(curOperType); curContact++)
+				{
+					mainDataType curVal = testEntity->GetContactValue(curOp, curContact);
+					Assert::IsTrue(curVal > 0 && curVal <= EntityOperatorsCount);
+				}
+			}
 		}
 	};
 }

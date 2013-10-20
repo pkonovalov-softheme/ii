@@ -14,7 +14,6 @@ namespace Brans
 		static const unsigned short operatorTypeColumn = 0;
 		static const unsigned short contactsCount = 3;
 		static const unsigned short outputValueColumn = 4;
-		static const unsigned int operatorsMaxCount = 200; // maximum acceptable count of operators for one entity
 		static const unsigned short operatorsTypesCount = 18;
 		static const unsigned short operatorsTableWidth = 5; // 0 column - operator type, 1 - 3 input values, 4 - output value
 		static const mainDataType FirstInternalOper = ExternalInputsCount + ExternalOutputsCount + 1;

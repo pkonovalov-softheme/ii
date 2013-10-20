@@ -9,9 +9,9 @@ namespace Brans
 		EntityGenerator();
 		~EntityGenerator(void);
 		Entity& GenerateEntity();
+		static mainDataType GetOperTypeContactsCount(OperatorsTypes ot);
 	private:
 	    RandomValuesProvider* _conProvider;
-		static mainDataType GetOperTypeContactsCount(OperatorsTypes ot);
 	};
 }
 
