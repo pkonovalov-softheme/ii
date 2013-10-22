@@ -45,6 +45,7 @@ namespace Brans
 		void StartSelection(); //Start "natural" selection
 
 		void GenerateEntities();
+		friend class ChallengeManagerTests;
 
 	};
 }
