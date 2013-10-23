@@ -6,6 +6,7 @@ namespace Brans
 	ChallengeManager::ChallengeManager() : _inputs(), 
 		_correctAnswers(), _entityGenerator(), _population(), _rvp(RandomUpperLimit)
 	{
+		_curChallangeType = ChallengeTypes::Plus;
 	}
 
 	void ChallengeManager::SetContactsCount()
@@ -48,7 +49,7 @@ namespace Brans
 	{
 		for (mainDataType cline = 0; cline < ChallangesCount; cline++)
 		{
-			for (mainDataType i = 1; i <= ExternalInputsCount; i++)
+			for (mainDataType i = 0; i <= ExternalInputsCount; i++)
 			{
 				_inputs[cline][i] = _rvp.GetNextValue();
 			}

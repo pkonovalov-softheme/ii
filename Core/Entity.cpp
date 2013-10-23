@@ -13,6 +13,11 @@ namespace Brans
 		InitializeInputsAndOutputs();
 	}
 
+	Entity::~Entity() 
+	{
+
+	}
+
 	void Entity::InitializeInputsAndOutputs()
 	{
 		for (mainDataType i = 0; i < ExternalOutputsCount; i++)  {mCreateOperator(ExternalOutput);}
