@@ -10,7 +10,6 @@ namespace CoreTests
 	TEST_CLASS(ChallengeManagerTests)
 	{
 	public:
-		//friend class ChallengeManager;
 
 		TEST_METHOD(RandomInputs)
 		{
@@ -38,8 +37,18 @@ namespace CoreTests
 			}
 		}
 
-		TEST_METHOD(RandomInputs)
+		TEST_METHOD(FillAnswersPlus)
 		{
+			ChallengeManager* cm = new ChallengeManager();
+			cm->GenerateRandomInputs();
+			cm->FillAnswers();
+			for (mainDataType cline = 0; cline < ChallengeManager::ChallangesCount; cline++)
+			{
+				#define inputs cm->_inputs[cline];
+				Assert::IsTrue(inputs[0] + inputs[1] == )
+			}
+
+			
 
 		}
 	};
