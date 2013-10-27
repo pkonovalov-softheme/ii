@@ -8,11 +8,6 @@ namespace Brans
 {
 	class ChallengeManager
 	{
-		enum ChallengeTypes
-		{
-			Division, Equal, If, Minus, Multiplication, One, Plus
-		};
-
 
 	public:
 		ChallengeManager();
@@ -25,9 +20,14 @@ namespace Brans
 		void StartSelection(); //Start "natural" selection
 
 		void GenerateEntities();
+		static ChallengeManager* GetChallangeManager();
 
 		//Should be private(public only for tests):
-		mainDataType _inputContactsCount;
+		enum ChallengeTypes
+		{
+			Division, Equal, If, Minus, Multiplication, One, Plus
+		};
+
 		mainDataType _currentLine; //defines place where next real answers will be inserted
 		mainDataType _curEntityId;
 
@@ -46,6 +46,7 @@ namespace Brans
 		void ProcessEnteties();
 		void CalculateEffectiveness();
 		RandomValuesProvider _rvp;
+		static ChallengeManager* _chManager;
 	};
 }
 

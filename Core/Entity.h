@@ -3,7 +3,6 @@
 #include "RandomProvider.h"
 #include <time.h>
 
-
 namespace Brans 
 {
 	class ChallengeManager;
@@ -62,8 +61,6 @@ namespace Brans
 
 		mainDataType GetOperatorsCount();
 
-		//void StartChallengeLine(ChallengeManager* chline);
-
 	private:
 
 		mainDataType _operators[operatorsMaxCount][operatorsTableWidth];
@@ -76,7 +73,7 @@ namespace Brans
 
 		void InitializeInputsAndOutputs();
 
-		ChallengeManager* _chmanager;
+		/*ChallengeManager* _chmanager;*/
 	};
 
 

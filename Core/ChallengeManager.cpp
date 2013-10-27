@@ -3,41 +3,13 @@
 
 namespace Brans
 {
+	ChallengeManager* ChallengeManager::_chManager;
+
 	ChallengeManager::ChallengeManager() : _inputs(), 
 		_correctAnswers(), _entityGenerator(), _population(), _rvp(RandomUpperLimit)
 	{
 		_curChallangeType = ChallengeTypes::Plus;
-	}
-
-	void ChallengeManager::SetContactsCount()
-	{
-		switch (_curChallangeType)
-		{
-		case (Division):
-			_inputContactsCount = 2;
-			break;
-		case (Equal):
-			_inputContactsCount = 1;
-			break;
-		case (If):
-			_inputContactsCount = 2;
-			break;
-		case (Minus):
-			_inputContactsCount = 2;
-			break;
-		case (Multiplication):
-			_inputContactsCount = 2;
-			break;
-		case (One):
-			_inputContactsCount = 0;
-			break;
-		case (Plus):
-			_inputContactsCount = 2;
-			break;
-			break;
-		default:
-			throw;
-		}
+		_chManager = this;
 	}
 
 	ChallengeManager::~ChallengeManager()
@@ -49,7 +21,7 @@ namespace Brans
 	{
 		for (mainDataType cline = 0; cline < ChallangesCount; cline++)
 		{
-			for (mainDataType i = 0; i <= ExternalInputsCount; i++)
+			for (mainDataType i = 0; i < ExternalInputsCount; i++)
 			{
 				_inputs[cline][i] = _rvp.GetNextValue();
 			}
@@ -69,39 +41,35 @@ namespace Brans
 				switch (_curChallangeType)
 				{
 				case (Division):
-					outValue = fContValue / sContValue;
-					i = i + 2;
+					if (sContValue != 0) {
+						outValue = fContValue / sContValue;
+					}
 					break;
 				case (Equal):
 					outValue = fContValue;
-					i++;
 					break;
 				case (If):
 					if (fContValue > sContValue){
 						outValue = 1;}
 					else{
 						outValue = 0;}
-					i = i + 2;
 					break;
 				case (Minus):
 					outValue = fContValue - sContValue;
-					i = i + 2;
 					break;
 				case (Multiplication):
 						outValue = fContValue * sContValue;
-						i = i + 2;
 					break;
 				case (One):
 					outValue = 1;
-					i++;
 					break;
 				case (Plus):
 					outValue = fContValue + sContValue;
-					i = i + 2;
 					break;
 				default:
-					throw "Not implemented";
+					throw L"Not implemented";
 				}
+				i++;
 			}
 		}
 	}
@@ -153,6 +121,7 @@ namespace Brans
 	{
 		for (int i = 0; i < EntitiesStartPopulation; i++)
 		{
+			//Is it ioptimal structure for perfomance?
 			_population[i].id = _entityGenerator.GenerateEntity();
 		}
 	}
@@ -180,5 +149,10 @@ namespace Brans
 
 			_population[i].effectiveness = (double)sum/TotalChallengesCount;
 		}
+	}
+
+	ChallengeManager* ChallengeManager::GetChallangeManager()
+	{
+		return _chManager;
 	}
 }

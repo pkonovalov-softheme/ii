@@ -10,7 +10,6 @@ namespace CoreTests
 	TEST_CLASS(ChallengeManagerTests)
 	{
 	public:
-
 		TEST_METHOD(RandomInputs)
 		{
 			ChallengeManager* cm = new ChallengeManager();
@@ -39,17 +38,88 @@ namespace CoreTests
 
 		TEST_METHOD(FillAnswersPlus)
 		{
+			FillAnswerBase(ChallengeManager::Plus);
+		}
+
+		TEST_METHOD(FillAnswersMinus)
+		{
+			FillAnswerBase(ChallengeManager::Minus);
+		}
+
+		TEST_METHOD(FillAnswersDivision)
+		{
+			FillAnswerBase(ChallengeManager::Division);
+		}
+
+		TEST_METHOD(FillAnswersIf)
+		{
+			FillAnswerBase(ChallengeManager::If);
+		}
+
+		TEST_METHOD(FillAnswersMultiplication)
+		{
+			FillAnswerBase(ChallengeManager::Multiplication);
+		}
+
+		TEST_METHOD(FillAnswersOne)
+		{
+			FillAnswerBase(ChallengeManager::One);
+		}
+
+		TEST_METHOD(FillAnswersEqual)
+		{
+			FillAnswerBase(ChallengeManager::Equal);
+		}
+
+		void FillAnswerBase(ChallengeManager::ChallengeTypes chType)
+		{
 			ChallengeManager* cm = new ChallengeManager();
+			cm->_curChallangeType = chType;
 			cm->GenerateRandomInputs();
 			cm->FillAnswers();
 			for (mainDataType cline = 0; cline < ChallengeManager::ChallangesCount; cline++)
 			{
-				#define inputs cm->_inputs[cline];
-				Assert::IsTrue(inputs[0] + inputs[1] == )
+				for (mainDataType i = 0; i < ExternalInputsCount; i++)
+				{
+					mainDataType leftOp = cm->_inputs[cline][i];
+					mainDataType rightOp = cm->_inputs[cline][i + 1];
+					mainDataType expr;
+
+					switch (chType)
+					{
+					case Brans::ChallengeManager::Division:
+						if (rightOp != 0)
+							expr = leftOp / rightOp;
+						else
+							expr = 0;
+						break;
+					case Brans::ChallengeManager::Equal:
+						expr = leftOp;
+						break;
+					case Brans::ChallengeManager::If:
+						expr = leftOp > rightOp;
+						break;
+					case Brans::ChallengeManager::Minus:
+						expr = leftOp - rightOp;
+						break;
+					case Brans::ChallengeManager::Multiplication:
+						expr = leftOp * rightOp;
+						break;
+					case Brans::ChallengeManager::One:
+						expr = 1;
+						break;
+					case Brans::ChallengeManager::Plus:
+						expr = leftOp + rightOp;
+						break;
+					default:
+						throw L"Not implemented";
+						break;
+					}
+
+					Assert::IsTrue(expr == cm->_correctAnswers[cline][i]);
+				}
 			}
-
-			
-
+			delete (cm);
 		}
 	};
 }

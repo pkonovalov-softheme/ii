@@ -1,13 +1,13 @@
 #include "stdafx.h"
 #include "Entity.h"
-
+//#include "ChallengeManager.h"
 
 namespace Brans 
 {
 	//Todo: remove _operator initialization with 0 to improve perfomance
 	Entity::Entity() : _operators()
 	{
-		//_chmanager = nullptr;
+		/*_chmanager = ChallengeManager::GetChallangeManager();*/
 		_nextOperatorId = 1;
 		InitializeOpTypesCC();
 		InitializeInputsAndOutputs();
@@ -136,7 +136,7 @@ namespace Brans
 			Entity::mDeleteChannel(fContValue, sContValue);
 			break;
 		case (Division):
-			if (sContValue > 0) {
+			if (sContValue != 0) {
 				outValue = fContValue / sContValue;}
 			break;
 		case (Equal):
@@ -148,16 +148,13 @@ namespace Brans
 			outValue = _operatorTypeContactCount[targetOpType];
 			break;
 		case (GetInputOperatorId): //returns id of the operator witch have channel with the first contact of the GetOperatorId operator
-				outValue = _operators[operatorId][1];
+			outValue = _operators[operatorId][1];
 			break;
 		case (GetTypeOfOperator): //returns the operator type witch have channel with the first contact of this oper
-				outValue = mGetOperatorType(_operators[operatorId][1]);
+			outValue = mGetOperatorType(_operators[operatorId][1]);
 			break;
 		case (If):
-			if (fContValue > sContValue){
-				outValue = 1;}
-			else{
-				outValue = 0;}
+			outValue = fContValue > sContValue;
 			break;
 		case (IsChannelExists):
 			outValue = mIfChannelExists(fContValue, sContValue, tContValue);
@@ -189,7 +186,7 @@ namespace Brans
 			throw "Zero operator!";
 			break;
 		case (ExternalInput):
-				//outValue = _chmanager->GetEntityExternalInput(operatorId - 1);
+			/*outValue = _chmanager->GetEntityExternalInput(operatorId - 1);*/
 			break;
 		default:
 			throw "Not implemented";
@@ -253,20 +250,17 @@ namespace Brans
 
 		bool wasError = false;
 
-		////Processing external outputs
+		//Processing external outputs
 		//for (mainDataType i = 1; i <= ExternalOutputsCount; i++) 
 		//{
 		//	if (_chmanager->GetCorrectAnswer(i) != GetContactValue(i, outputValueColumn))
 		//	{
-		//		wasError = true;
-		//		break;
+		//		_chmanager->ReportFailure();
+		//		return;
 		//	}
 		//}
 
-		//if (wasError)
-		//	_chmanager->ReportFailure();
-		//else
-		//	_chmanager->ReportSuccess();
+		//_chmanager->ReportSuccess();
 	}
 
 	void Entity::SetExternalInputValue(mainDataType inputOperId)
@@ -278,10 +272,4 @@ namespace Brans
 	{
 		return _nextOperatorId;
 	}
-
-	//void Entity::StartChallengeLine(ChallengeManager* chline)
-	//{
-	//	_chmanager = chline;
-	//}
-
 }
