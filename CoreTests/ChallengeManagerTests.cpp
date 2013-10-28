@@ -143,11 +143,10 @@ namespace CoreTests
 			Entity ent1;
 			ent1.mCreateOperator(Minus);
 
-			EntityStats es0 = {};
-			es0.id = ent0;
+			EntityStats es0 = Entity(ent0);
+			
 
-			EntityStats es1 = {};
-			es1.id = ent1;
+			EntityStats es1 = Entity(ent1);
 
 			cm->_population[0] = es0;
 			cm->_population[1] = es1;

@@ -10,11 +10,11 @@ namespace Brans
 		// if from == to we reached the kth element
 		while (from < to) {
 			int r = from, w = to;
-			double mid = arr[(r + w) / 2].effectiveness;
+			double mid = arr[(r + w) / 2].GetEffectiveness();
 
 			// stop if the reader and writer meets
 			while (r < w) {
-				if (arr[r].effectiveness >= mid) { // put the large values at the end
+				if (arr[r].GetEffectiveness() >= mid) { // put the large values at the end
 					EntityStats tmp = arr[w];
 					arr[w] = arr[r];
 					arr[r] = tmp;
@@ -25,7 +25,7 @@ namespace Brans
 			}
 
 			// if we stepped up (r++) we need to step one down
-			if (arr[r].effectiveness > mid)
+			if (arr[r].GetEffectiveness() > mid)
 				r--;
 
 			// the r pointer is on the end of the first k elements
@@ -43,11 +43,11 @@ namespace Brans
 	{
 		EntityStats* retAr = new EntityStats[arrayElementsCount];
 		unsigned short curRetArIndex = 0;
-		double targetK = SelectKth(arr, arrayElementsCount - n, arrayElementsCount).effectiveness;
+		double targetK = SelectKth(arr, arrayElementsCount - n, arrayElementsCount).GetEffectiveness();
 
 		for (int i = 0; i < arrayElementsCount; i++)
 		{
-			if (arr[i].effectiveness >= targetK)
+			if (arr[i].GetEffectiveness() >= targetK)
 			{
 				retAr[curRetArIndex] = arr[i];
 				curRetArIndex++;

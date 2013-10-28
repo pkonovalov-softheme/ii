@@ -186,6 +186,7 @@
     </ClCompile>
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="EntityGenerator.cpp" />
+    <ClCompile Include="EntityStats.cpp" />
     <ClCompile Include="RandomProvider.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

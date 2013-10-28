@@ -3,11 +3,22 @@
 
 namespace Brans
 {
-	struct EntityStats
+	class EntityStats
 	{
-		Entity id;
-		double effectiveness;
-		bool results[TotalChallengesCount]; // 
-		mainDataType curAnswerId;
+	public:
+		EntityStats();
+		EntityStats(Entity id);
+		~EntityStats();
+		void AddAnswer(bool result);
+		Entity GetEntity();
+		void CalculateEffectiveness(mainDataType totalAnswersCount);
+		mainDataType GetEffectiveness();
+		void SetEntity(Entity id);
+
+	private:
+		Entity _id;
+		mainDataType _correctAnswersCount;
+		double _effectiveness;
 	};
 }
+

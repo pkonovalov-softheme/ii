@@ -1,13 +1,13 @@
 #include "stdafx.h"
 #include "Entity.h"
-//#include "ChallengeManager.h"
+#include "ChallengeManager.h"
 
 namespace Brans 
 {
 	//Todo: remove _operator initialization with 0 to improve perfomance
 	Entity::Entity() : _operators()
 	{
-		/*_chmanager = ChallengeManager::GetChallangeManager();*/
+		_chmanager = ChallengeManager::GetChallangeManager();
 		_nextOperatorId = 1;
 		InitializeOpTypesCC();
 		InitializeInputsAndOutputs();
@@ -186,7 +186,7 @@ namespace Brans
 			throw "Zero operator!";
 			break;
 		case (ExternalInput):
-			/*outValue = _chmanager->GetEntityExternalInput(operatorId - 1);*/
+			outValue = _chmanager->GetEntityExternalInput(operatorId - 1);
 			break;
 		default:
 			throw "Not implemented";
@@ -251,16 +251,16 @@ namespace Brans
 		bool wasError = false;
 
 		//Processing external outputs
-		//for (mainDataType i = 1; i <= ExternalOutputsCount; i++) 
-		//{
-		//	if (_chmanager->GetCorrectAnswer(i) != GetContactValue(i, outputValueColumn))
-		//	{
-		//		_chmanager->ReportFailure();
-		//		return;
-		//	}
-		//}
+		for (mainDataType i = 1; i <= ExternalOutputsCount; i++) 
+		{
+			if (_chmanager->GetCorrectAnswer(i) != GetContactValue(i, outputValueColumn))
+			{
+				_chmanager->ReportFailure();
+				return;
+			}
+		}
 
-		//_chmanager->ReportSuccess();
+		_chmanager->ReportSuccess();
 	}
 
 	void Entity::SetExternalInputValue(mainDataType inputOperId)

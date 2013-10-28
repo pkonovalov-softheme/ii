@@ -6,7 +6,7 @@ namespace Brans
 	ChallengeManager* ChallengeManager::_chManager;
 
 	ChallengeManager::ChallengeManager() : _inputs(), 
-		_correctAnswers(), _entityGenerator(), _population(), _rvp(RandomUpperLimit), _curEntityId(0), _currentLine(0)
+		_correctAnswers(), _entityGenerator(), _rvp(RandomUpperLimit), _curEntityId(0), _currentLine(0), _population()
 	{
 		_curChallangeType = ChallengeTypes::Plus;
 		_chManager = this;
@@ -94,16 +94,12 @@ namespace Brans
 
 	void ChallengeManager::ReportSuccess()
 	{
-		EntityStats* es = &_population[_curEntityId];
-		es->results[es->curAnswerId]=true;
-		es->curAnswerId++;
+		_population[_curEntityId].AddAnswer(true);
 	}
 
 	void ChallengeManager::ReportFailure()
 	{
-		EntityStats* es = &_population[_curEntityId];
-		es->results[es->curAnswerId]=false;
-		es->curAnswerId++;
+		_population[_curEntityId].AddAnswer(false);
 	}
 
 	void ChallengeManager::StartSelection()
@@ -122,7 +118,8 @@ namespace Brans
 		for (int i = 0; i < EntitiesStartPopulation; i++)
 		{
 			//Is it ioptimal structure for perfomance?
-			_population[i].id = _entityGenerator.GenerateEntity();
+			_population[i].SetEntity(_entityGenerator.GenerateEntity());
+			
 		}
 	}
 
@@ -132,7 +129,7 @@ namespace Brans
 		{
 			for (int pr = 0; pr < EntityProcessCount; pr++)
 			{
-				_population[_curEntityId].id.mProcessAll();
+				_population[_curEntityId].GetEntity().mProcessAll();
 			}
 		}
 	}
@@ -141,13 +138,7 @@ namespace Brans
 	{
 		for (int i = 0; i < EntitiesStartPopulation; i++)
 		{
-			mainDataType sum = 0;
-			for (int ca = 0; ca < TotalChallengesCount; ca++)
-			{
-				sum+=(mainDataType)_population[i].results[ca];
-			}
-
-			_population[i].effectiveness = (double)sum/TotalChallengesCount;
+			_population[i].CalculateEffectiveness(TotalChallengesCount);
 		}
 	}
 

@@ -73,7 +73,7 @@ namespace Brans
 
 		void InitializeInputsAndOutputs();
 
-		/*ChallengeManager* _chmanager;*/
+		ChallengeManager* _chmanager;
 	};
 
 
