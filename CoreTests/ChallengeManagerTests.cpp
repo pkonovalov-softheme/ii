@@ -34,6 +34,7 @@ namespace CoreTests
 				double freq = stats[i] / (double) totalCount;
 				Assert::IsTrue(freq > 0.7 * avg  && freq < 1.3 * avg);
 			}
+			delete (cm);
 		}
 
 		TEST_METHOD(FillAnswersPlus)
@@ -119,6 +120,45 @@ namespace CoreTests
 					Assert::IsTrue(expr == cm->_correctAnswers[cline][i]);
 				}
 			}
+			delete (cm);
+		}
+
+		TEST_METHOD(Fill11)
+		{
+			//We really should use mocks threre, but i don;t want to add it now, maybe later
+
+			//We will emulate StartSelection method
+			ChallengeManager* cm = new ChallengeManager();
+			//GenerateRandomInputs:
+			cm->_inputs[0][0] = 1;
+			cm->_inputs[0][1] = 2;
+
+			//FillAnswers:
+			cm->_correctAnswers[0][0] = 3;
+
+			//GenerateEntities:
+			Entity ent0;
+			ent0.mCreateOperator(Plus);
+
+			Entity ent1;
+			ent1.mCreateOperator(Minus);
+
+			EntityStats es0 = {};
+			es0.id = ent0;
+
+			EntityStats es1 = {};
+			es1.id = ent1;
+
+			cm->_population[0] = es0;
+			cm->_population[1] = es1;
+
+			//ProcessEntities:
+			cm->ProcessEnteties();
+			cm->CalculateEffectiveness();
+
+			EntityStats vinners = *CustomAlgs::SelectTopNs(cm->_population, 3, EntitiesStartPopulation);
+
+
 			delete (cm);
 		}
 	};

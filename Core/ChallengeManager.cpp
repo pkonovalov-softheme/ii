@@ -6,7 +6,7 @@ namespace Brans
 	ChallengeManager* ChallengeManager::_chManager;
 
 	ChallengeManager::ChallengeManager() : _inputs(), 
-		_correctAnswers(), _entityGenerator(), _population(), _rvp(RandomUpperLimit)
+		_correctAnswers(), _entityGenerator(), _population(), _rvp(RandomUpperLimit), _curEntityId(0), _currentLine(0)
 	{
 		_curChallangeType = ChallengeTypes::Plus;
 		_chManager = this;
@@ -128,11 +128,11 @@ namespace Brans
 
 	void ChallengeManager::ProcessEnteties()
 	{
-		for (int i = 0; i < EntitiesStartPopulation; i++)
+		for (_curEntityId = 0; _curEntityId < EntitiesStartPopulation; _curEntityId++)
 		{
 			for (int pr = 0; pr < EntityProcessCount; pr++)
 			{
-				_population[i].id.mProcessAll();
+				_population[_curEntityId].id.mProcessAll();
 			}
 		}
 	}
