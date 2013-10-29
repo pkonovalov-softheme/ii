@@ -7,12 +7,7 @@ namespace Brans
 	{
 	}
 
-	EntityStats::EntityStats(Entity id)
-	{
-		_id = id;
-	}
-
-	EntityStats::~EntityStats()
+		EntityStats::~EntityStats()
 	{
 	}
 
