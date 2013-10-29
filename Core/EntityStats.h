@@ -12,7 +12,7 @@ namespace Brans
 		void AddAnswer(bool result);
 		Entity GetEntity();
 		void CalculateEffectiveness(mainDataType totalAnswersCount);
-		mainDataType GetEffectiveness();
+		double GetEffectiveness();
 		void SetEntity(Entity id);
 
 	private:

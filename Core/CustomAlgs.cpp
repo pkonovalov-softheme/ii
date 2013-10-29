@@ -3,6 +3,7 @@
 
 namespace Brans
 {
+	//Quick selection alhorithm. Selects the Kth MINIMAL value from the array according to the Effectiveness
 	EntityStats CustomAlgs::SelectKth(EntityStats* arr, mainDataType k, mainDataType arrayElementsCount)
 	{
 		int from = 0, to = arrayElementsCount - 1;
@@ -39,9 +40,10 @@ namespace Brans
 		return arr[k];
 	}
 
+	//Returns n elements array of the EntityStats
 	EntityStats* CustomAlgs::SelectTopNs(EntityStats* arr, mainDataType n, mainDataType arrayElementsCount)
 	{
-		EntityStats* retAr = new EntityStats[arrayElementsCount];
+		EntityStats* retAr = new EntityStats[n];
 		unsigned short curRetArIndex = 0;
 		double targetK = SelectKth(arr, arrayElementsCount - n, arrayElementsCount).GetEffectiveness();
 

@@ -36,7 +36,7 @@ namespace Brans
 		_effectiveness = _correctAnswersCount / (double)totalAnswersCount;
 	}
 
-	mainDataType EntityStats::GetEffectiveness()
+	double EntityStats::GetEffectiveness()
 	{
 		return _effectiveness;
 	}

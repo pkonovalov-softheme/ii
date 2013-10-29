@@ -39,8 +39,8 @@ namespace CoreTests
 			retAr[3] = es4;
 			retAr[0] = es1;
 			EntityStats* esret = CustomAlgs::SelectTopNs(retAr, 2, 4);
-			Assert::IsTrue(esret[0].GetEffectiveness() == 1.0);
-			Assert::IsTrue(esret[1].GetEffectiveness() == 0.5);
+			Assert::IsTrue(esret[0].GetEffectiveness() == 0.5);
+			Assert::IsTrue(esret[1].GetEffectiveness() == 1.0);
 		}
 	};
 }
