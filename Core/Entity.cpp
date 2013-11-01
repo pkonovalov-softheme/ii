@@ -5,10 +5,9 @@
 namespace Brans 
 {
 	//Todo: remove _operator initialization with 0 to improve perfomance
-	Entity::Entity() : _operators()
+	Entity::Entity() : _operators(), _nextOperatorId(1), _correctAnswersCount(0), _effectiveness(0)
 	{
 		_chmanager = ChallengeManager::GetChallangeManager();
-		_nextOperatorId = 1;
 		InitializeOpTypesCC();
 		InitializeInputsAndOutputs();
 	}
@@ -282,5 +281,10 @@ namespace Brans
 	double Entity::GetEffectiveness()
 	{
 		return _effectiveness;
+	}
+
+	void Entity::SetCorrectAnswers(mainDataType count)
+	{
+		_correctAnswersCount = count;
 	}
 }

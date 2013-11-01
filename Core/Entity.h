@@ -65,6 +65,9 @@ namespace Brans
 
 		double GetEffectiveness();
 
+		//Now used only for tests
+		void SetCorrectAnswers(mainDataType count);
+
 	private:
 
 		mainDataType _operators[operatorsMaxCount][operatorsTableWidth];

@@ -46,15 +46,14 @@ namespace Brans
 		std::vector<Entity*> retAr;
 		retAr.reserve(n);
 
-		unsigned short curRetArIndex = 0;
-		double targetK = SelectKth(arr, arrayElementsCount - n, arrayElementsCount)->GetEffectiveness();
+		Entity* targetEntity = SelectKth(arr, arrayElementsCount - n, arrayElementsCount);
+		retAr.push_back(targetEntity);
 
 		for (int i = 0; i < arrayElementsCount; i++)
 		{
-			if (arr[i]->GetEffectiveness() >= targetK)
+			if (arr[i]->GetEffectiveness() > targetEntity->GetEffectiveness())
 			{
-				retAr[curRetArIndex] = arr[i];
-				curRetArIndex++;
+				retAr.push_back(arr[i]);
 			}
 		}
 

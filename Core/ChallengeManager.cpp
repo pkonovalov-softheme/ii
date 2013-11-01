@@ -132,7 +132,7 @@ namespace Brans
 	{
 		for (size_t i = 0, s = _population.size(); i < s; i++)
 		{
-			_population[i]->CalculateEffectiveness(TotalChallengesCount);
+			_population[i]->CalculateEffectiveness(EntityProcessCount);
 		}
 	}
 

@@ -143,12 +143,9 @@ namespace CoreTests
 			Entity ent1;
 			ent1.mCreateOperator(Minus);
 
-			Entity es0(ent0);
 
-			Entity es1(ent1);
-			cm->_population.push_back(&es0);
-			cm->_population.push_back(&es0);
-			cm->_population.push_back(&es1);
+			cm->_population.push_back(&ent0);
+			cm->_population.push_back(&ent1);
 
 			//ProcessEntities:
 			cm->ProcessEnteties();
@@ -158,30 +155,39 @@ namespace CoreTests
 
 			delete (cm);
 		}
-		TEST_METHOD(EntityAnswerIsCorrect)
-		{
-			//We really should use mocks threre, but i don;t want to add it now, maybe later
 
-			//We will emulate StartSelection method
+		TEST_METHOD(CheckEntityCorrectAnswers)
+		{
 			ChallengeManager* cm = new ChallengeManager();
-			//GenerateRandomInputs:
 			cm->_inputs[0][0] = 1;
 
-			//FillAnswers:
 			cm->_correctAnswers[0][0] = 3;
 
-			//GenerateEntities:
 			Entity ent0;
 			ent0.mCreateOperator(Plus);
-			Entity es0(ent0);
-
-			cm->_population.push_back(&es0);
-
-			//ProcessEntities:
-			cm->ProcessEnteties();
-			cm->_population[0]->CalculateEffectiveness(1);
+			cm->_population.push_back(&ent0);
+			ent0.mProcessAll();
+			ent0.CalculateEffectiveness(1);
 
 			Assert::IsTrue(cm->_population[0]->GetEffectiveness() == 1.00);
+
+			delete (cm);
+		}
+
+		TEST_METHOD(CheckEntityIncorrectAnswers)
+		{
+			ChallengeManager* cm = new ChallengeManager();
+			cm->_inputs[0][0] = 1;
+
+			cm->_correctAnswers[0][0] = 3;
+
+			Entity ent0;
+			ent0.mCreateOperator(Minus);
+			cm->_population.push_back(&ent0);
+			ent0.mProcessAll();
+			ent0.CalculateEffectiveness(1);
+
+			Assert::IsTrue(cm->_population[0]->GetEffectiveness() == 0.00);
 
 			delete (cm);
 		}

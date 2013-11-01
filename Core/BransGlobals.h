@@ -31,6 +31,5 @@ namespace Brans
 	const unsigned short EntityProcessCount = 10;
 	const mainDataType EntityOperatorsCount = 1000;
 	const mainDataType operatorsMaxCount = EntityOperatorsCount * 2; // maximum acceptable count of operators for one entity
-	const mainDataType TotalChallengesCount = 1000;
 	const mainDataType EntitiesStartPopulation = 10000;
 }
