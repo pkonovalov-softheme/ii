@@ -13,7 +13,6 @@ namespace Brans
 		Entity GetEntity();
 		void CalculateEffectiveness(mainDataType totalAnswersCount);
 		double GetEffectiveness();
-		void SetEntity(Entity id);
 
 	private:
 		Entity _id;

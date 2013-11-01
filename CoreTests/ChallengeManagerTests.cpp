@@ -143,15 +143,13 @@ namespace CoreTests
 			Entity ent1;
 			ent1.mCreateOperator(Minus);
 
-			EntityStats es0;
-			es0.SetEntity(ent0);
+			EntityStats es0(ent0);
 			
 
-			EntityStats es1;
-			es1.SetEntity(ent1);
+			EntityStats es1(ent1);
 
-			cm->_population[0] = es0;
-			cm->_population[1] = es1;
+			cm->_population.push_back(es0);
+			cm->_population.push_back(es1);
 
 			//ProcessEntities:
 			cm->ProcessEnteties();
@@ -159,6 +157,32 @@ namespace CoreTests
 
 			EntityStats vinners = *CustomAlgs::SelectTopNs(cm->_population, 3, EntitiesStartPopulation);
 
+			delete (cm);
+		}
+		TEST_METHOD(EntityAnswerIsCorrect)
+		{
+			//We really should use mocks threre, but i don;t want to add it now, maybe later
+
+			//We will emulate StartSelection method
+			ChallengeManager* cm = new ChallengeManager();
+			//GenerateRandomInputs:
+			cm->_inputs[0][0] = 1;
+
+			//FillAnswers:
+			cm->_correctAnswers[0][0] = 3;
+
+			//GenerateEntities:
+			Entity ent0;
+			ent0.mCreateOperator(Plus);
+			EntityStats es0(ent0);
+
+			cm->_population.push_back(es0);
+
+			//ProcessEntities:
+			cm->ProcessEnteties();
+			cm->_population[0].CalculateEffectiveness(1);
+
+			Assert::IsTrue(cm->_population[0].GetEffectiveness() == 1.00);
 
 			delete (cm);
 		}

@@ -7,13 +7,13 @@ namespace Brans
 	{
 	}
 
-		EntityStats::~EntityStats()
-	{
-	}
-
-	void EntityStats::SetEntity(Entity id)
+	EntityStats::EntityStats(Entity id) : _correctAnswersCount(0), _effectiveness(0)
 	{
 		_id = id;
+	}
+
+	EntityStats::~EntityStats()
+	{
 	}
 
 	void EntityStats::AddAnswer(bool result)

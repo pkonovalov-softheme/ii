@@ -13,7 +13,8 @@ namespace CoreTests
 		
 		TEST_METHOD(SelectTopNs)
 		{
-			EntityStats retAr[4] = {};
+			std::vector<EntityStats> retAr;
+			retAr.reserve(4);
 
 			EntityStats es1;
 			es1.AddAnswer(true);
@@ -34,10 +35,11 @@ namespace CoreTests
 			es4.AddAnswer(true);
 			es4.CalculateEffectiveness(31);
 
-			retAr[1] = es2;
-			retAr[2] = es3;
-			retAr[3] = es4;
-			retAr[0] = es1;
+			retAr.push_back(es1);
+			retAr.push_back(es2);
+			retAr.push_back(es3);
+			retAr.push_back(es4);
+
 			EntityStats* esret = CustomAlgs::SelectTopNs(retAr, 2, 4);
 			Assert::IsTrue(esret[0].GetEffectiveness() == 0.5);
 			Assert::IsTrue(esret[1].GetEffectiveness() == 1.0);

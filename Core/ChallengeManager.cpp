@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "ChallengeManager.h"
+#include <vector>
 
 namespace Brans
 {
@@ -10,11 +11,15 @@ namespace Brans
 	{
 		_curChallangeType = ChallengeTypes::Plus;
 		_chManager = this;
+		_population.reserve(EntitiesStartPopulation);
 	}
 
 	ChallengeManager::~ChallengeManager()
 	{
-
+		while (!_population.empty()) {
+			delete &_population.back();
+			_population.pop_back();
+		}
 	}
 
 	void ChallengeManager::GenerateRandomInputs()
@@ -118,14 +123,15 @@ namespace Brans
 		for (int i = 0; i < EntitiesStartPopulation; i++)
 		{
 			//Is it ioptimal structure for perfomance?
-			_population[i].SetEntity(_entityGenerator.GenerateEntity());
-			
+			EntityStats* es = new EntityStats(_entityGenerator.GenerateEntity());
+			_population.push_back(*es);
 		}
 	}
 
 	void ChallengeManager::ProcessEnteties()
 	{
-		for (_curEntityId = 0; _curEntityId < EntitiesStartPopulation; _curEntityId++)
+		mainDataType s = _population.size();
+		for (_curEntityId = 0; _curEntityId < s; _curEntityId++)
 		{
 			for (int pr = 0; pr < EntityProcessCount; pr++)
 			{
@@ -136,7 +142,7 @@ namespace Brans
 
 	void ChallengeManager::CalculateEffectiveness()
 	{
-		for (int i = 0; i < EntitiesStartPopulation; i++)
+		for (size_t i = 0, s = _population.size(); i < s; i++)
 		{
 			_population[i].CalculateEffectiveness(TotalChallengesCount);
 		}
