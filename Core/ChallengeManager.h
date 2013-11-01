@@ -15,8 +15,6 @@ namespace Brans
 		~ChallengeManager();
 		mainDataType GetEntityExternalInput(mainDataType inputId); //return value of the external input for entity
 		mainDataType GetCorrectAnswer(mainDataType inputId);
-		void ReportSuccess(); //Entity reports that current answers were correct
-		void ReportFailure(); //Entity reports that current answers were incorrect
 		void StartSelection(); //Start "natural" selection
 
 		void GenerateEntities();
@@ -38,7 +36,7 @@ namespace Brans
 																   entities testing. Based on 1, not 0 index!*/
 
 		mainDataType _curChallangeType;
-		std::vector<EntityStats> _population;
+		std::vector<Entity*> _population;
 		EntityGenerator _entityGenerator;
 		void GenerateRandomInputs(); //Filling inputs arrays with random values for all ChallangesCount
 		void FillAnswers(); //Filling correct answers for generated random inputs (GenerateRandomInputs() should be called before)

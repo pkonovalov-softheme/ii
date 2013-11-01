@@ -143,19 +143,18 @@ namespace CoreTests
 			Entity ent1;
 			ent1.mCreateOperator(Minus);
 
-			EntityStats es0(ent0);
-			
+			Entity es0(ent0);
 
-			EntityStats es1(ent1);
-
-			cm->_population.push_back(es0);
-			cm->_population.push_back(es1);
+			Entity es1(ent1);
+			cm->_population.push_back(&es0);
+			cm->_population.push_back(&es0);
+			cm->_population.push_back(&es1);
 
 			//ProcessEntities:
 			cm->ProcessEnteties();
 			cm->CalculateEffectiveness();
 
-			EntityStats vinners = *CustomAlgs::SelectTopNs(cm->_population, 3, EntitiesStartPopulation);
+			std::vector<Entity*> vinners = CustomAlgs::SelectTopNs(cm->_population, 3, EntitiesStartPopulation);
 
 			delete (cm);
 		}
@@ -174,15 +173,15 @@ namespace CoreTests
 			//GenerateEntities:
 			Entity ent0;
 			ent0.mCreateOperator(Plus);
-			EntityStats es0(ent0);
+			Entity es0(ent0);
 
-			cm->_population.push_back(es0);
+			cm->_population.push_back(&es0);
 
 			//ProcessEntities:
 			cm->ProcessEnteties();
-			cm->_population[0].CalculateEffectiveness(1);
+			cm->_population[0]->CalculateEffectiveness(1);
 
-			Assert::IsTrue(cm->_population[0].GetEffectiveness() == 1.00);
+			Assert::IsTrue(cm->_population[0]->GetEffectiveness() == 1.00);
 
 			delete (cm);
 		}

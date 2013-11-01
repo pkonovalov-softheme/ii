@@ -255,12 +255,13 @@ namespace Brans
 		{
 			if (_chmanager->GetCorrectAnswer(i) != GetContactValue(i, outputValueColumn))
 			{
-				_chmanager->ReportFailure();
+				//_chmanager->ReportFailure();
 				return;
 			}
 		}
 
-		_chmanager->ReportSuccess();
+		//_chmanager->ReportSuccess();
+		_correctAnswersCount++;
 	}
 
 	void Entity::SetExternalInputValue(mainDataType inputOperId)
@@ -271,5 +272,15 @@ namespace Brans
 	mainDataType Entity::GetOperatorsCount()
 	{
 		return _nextOperatorId;
+	}
+
+	void Entity::CalculateEffectiveness(mainDataType totalAnswersCount)
+	{
+		_effectiveness = _correctAnswersCount / (double) totalAnswersCount;
+	}
+
+	double Entity::GetEffectiveness()
+	{
+		return _effectiveness;
 	}
 }

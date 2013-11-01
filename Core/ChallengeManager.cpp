@@ -97,16 +97,6 @@ namespace Brans
 		return _correctAnswers[_currentLine][inputId];
 	}
 
-	void ChallengeManager::ReportSuccess()
-	{
-		_population[_curEntityId].AddAnswer(true);
-	}
-
-	void ChallengeManager::ReportFailure()
-	{
-		_population[_curEntityId].AddAnswer(false);
-	}
-
 	void ChallengeManager::StartSelection()
 	{
 		GenerateRandomInputs();
@@ -114,8 +104,7 @@ namespace Brans
 		GenerateEntities();
 		ProcessEnteties();
 		CalculateEffectiveness();
-		EntityStats vinners = *CustomAlgs::SelectTopNs(_population, 3, EntitiesStartPopulation);
-
+		std::vector<Entity*> vinners = CustomAlgs::SelectTopNs(_population, 3, EntitiesStartPopulation);
 	}
 
 	void ChallengeManager::GenerateEntities()
@@ -123,8 +112,7 @@ namespace Brans
 		for (int i = 0; i < EntitiesStartPopulation; i++)
 		{
 			//Is it ioptimal structure for perfomance?
-			EntityStats* es = new EntityStats(_entityGenerator.GenerateEntity());
-			_population.push_back(*es);
+			_population.push_back(new Entity(_entityGenerator.GenerateEntity()));
 		}
 	}
 
@@ -135,7 +123,7 @@ namespace Brans
 		{
 			for (int pr = 0; pr < EntityProcessCount; pr++)
 			{
-				_population[_curEntityId].GetEntity().mProcessAll();
+				_population[_curEntityId]->mProcessAll();
 			}
 		}
 	}
@@ -144,7 +132,7 @@ namespace Brans
 	{
 		for (size_t i = 0, s = _population.size(); i < s; i++)
 		{
-			_population[i].CalculateEffectiveness(TotalChallengesCount);
+			_population[i]->CalculateEffectiveness(TotalChallengesCount);
 		}
 	}
 

@@ -4,19 +4,19 @@
 namespace Brans
 {
 	//Quick selection alhorithm. Selects the Kth MINIMAL value from the array according to the Effectiveness
-	EntityStats CustomAlgs::SelectKth(std::vector<EntityStats>& arr, mainDataType k, mainDataType arrayElementsCount)
+	Entity* CustomAlgs::SelectKth(std::vector<Entity*>& arr, mainDataType k, mainDataType arrayElementsCount)
 	{
 		int from = 0, to = arrayElementsCount - 1;
 
 		// if from == to we reached the kth element
 		while (from < to) {
 			int r = from, w = to;
-			double mid = arr[(r + w) / 2].GetEffectiveness();
+			double mid = arr[(r + w) / 2]->GetEffectiveness();
 
 			// stop if the reader and writer meets
 			while (r < w) {
-				if (arr[r].GetEffectiveness() >= mid) { // put the large values at the end
-					EntityStats tmp = arr[w];
+				if (arr[r]->GetEffectiveness() >= mid) { // put the large values at the end
+					Entity* tmp = arr[w];
 					arr[w] = arr[r];
 					arr[r] = tmp;
 					w--;
@@ -26,7 +26,7 @@ namespace Brans
 			}
 
 			// if we stepped up (r++) we need to step one down
-			if (arr[r].GetEffectiveness() > mid)
+			if (arr[r]->GetEffectiveness() > mid)
 				r--;
 
 			// the r pointer is on the end of the first k elements
@@ -40,16 +40,18 @@ namespace Brans
 		return arr[k];
 	}
 
-	//Returns n elements array of the EntityStats
-	EntityStats* CustomAlgs::SelectTopNs(std::vector<EntityStats>& arr, mainDataType n, mainDataType arrayElementsCount)
+	//Returns vector n elements of the Entity
+	std::vector<Entity*> CustomAlgs::SelectTopNs(std::vector<Entity*>& arr, mainDataType n, mainDataType arrayElementsCount)
 	{
-		EntityStats* retAr = new EntityStats[n];
+		std::vector<Entity*> retAr;
+		retAr.reserve(n);
+
 		unsigned short curRetArIndex = 0;
-		double targetK = SelectKth(arr, arrayElementsCount - n, arrayElementsCount).GetEffectiveness();
+		double targetK = SelectKth(arr, arrayElementsCount - n, arrayElementsCount)->GetEffectiveness();
 
 		for (int i = 0; i < arrayElementsCount; i++)
 		{
-			if (arr[i].GetEffectiveness() >= targetK)
+			if (arr[i]->GetEffectiveness() >= targetK)
 			{
 				retAr[curRetArIndex] = arr[i];
 				curRetArIndex++;

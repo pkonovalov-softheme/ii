@@ -61,6 +61,10 @@ namespace Brans
 
 		mainDataType GetOperatorsCount();
 
+		void CalculateEffectiveness(mainDataType totalAnswersCount);
+
+		double GetEffectiveness();
+
 	private:
 
 		mainDataType _operators[operatorsMaxCount][operatorsTableWidth];
@@ -74,6 +78,10 @@ namespace Brans
 		void InitializeInputsAndOutputs();
 
 		ChallengeManager* _chmanager;
+
+		mainDataType _correctAnswersCount;
+
+		double _effectiveness;
 	};
 
 

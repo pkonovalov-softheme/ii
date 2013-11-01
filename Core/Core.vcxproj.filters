@@ -42,9 +42,6 @@
     <ClInclude Include="CustomAlgs.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="EntityStats.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -69,9 +66,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="CustomAlgs.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="EntityStats.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
