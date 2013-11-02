@@ -123,7 +123,7 @@ namespace CoreTests
 			delete (cm);
 		}
 
-		TEST_METHOD(Fill11)
+		TEST_METHOD(ComplexEntitySelectionTest)
 		{
 			//We really should use mocks threre, but i don;t want to add it now, maybe later
 
@@ -134,25 +134,29 @@ namespace CoreTests
 			cm->_inputs[0][1] = 2;
 
 			//FillAnswers:
-			cm->_correctAnswers[0][0] = 3;
+			cm->_correctAnswers[0][1] = 3;
 
 			//GenerateEntities:
-			Entity ent0;
-			ent0.mCreateOperator(Plus);
+			Entity* ent1 = GenerateEntity(Plus);
+			Entity* ent2 = GenerateEntity(Minus);
+			Entity* ent3 = GenerateEntity(Multiplication);
+			Entity* ent4 = GenerateEntity(Plus);
+			Entity* ent5 = GenerateEntity(Division);
 
-			Entity ent1;
-			ent1.mCreateOperator(Minus);
-
-
-			cm->_population.push_back(&ent0);
-			cm->_population.push_back(&ent1);
+			cm->_population.push_back(ent1);
+			cm->_population.push_back(ent2);
+			cm->_population.push_back(ent3);
+			cm->_population.push_back(ent4);
+			cm->_population.push_back(ent5);
 
 			//ProcessEntities:
 			cm->ProcessEnteties();
 			cm->CalculateEffectiveness();
 
-			std::vector<Entity*> vinners = CustomAlgs::SelectTopNs(cm->_population, 3, EntitiesStartPopulation);
-
+			std::vector<Entity*> vinners = CustomAlgs::SelectTopNs(cm->_population, 2);
+			Assert::IsTrue(vinners.size() == 2);
+			Assert::IsTrue(vinners[0]->GetContactValue(Entity::FirstInternalOper, 0) == Plus);
+			Assert::IsTrue(vinners[1]->GetContactValue(Entity::FirstInternalOper, 0) == Plus);
 			delete (cm);
 		}
 
@@ -161,21 +165,12 @@ namespace CoreTests
 			ChallengeManager* cm = new ChallengeManager();
 			cm->_inputs[0][0] = 1;
 			cm->_inputs[0][1] = 2;
-
 			cm->_correctAnswers[0][1] = 3;
-
-			Entity* ent0 = new Entity();
-			ent0->mCreateOperator(Plus);
-			ent0->mCreateChannel(ExternalInputsCount + 1, ent0->GetOperatorsCount(), 1);
-			ent0->mCreateChannel(ExternalInputsCount + 2, ent0->GetOperatorsCount(), 2);
-			static const unsigned short outputValueColumn = 4;
-			ent0->mCreateChannel(ent0->GetOperatorsCount(), 1, outputValueColumn);
+			Entity* ent0 = GenerateEntity(Plus);
 			cm->_population.push_back(ent0);
 			ent0->mProcessAll();
 			ent0->CalculateEffectiveness(1);
-
 			Assert::IsTrue(cm->_population[0]->GetEffectiveness() == 1.00);
-
 			delete (cm);
 		}
 
@@ -184,22 +179,24 @@ namespace CoreTests
 			ChallengeManager* cm = new ChallengeManager();
 			cm->_inputs[0][0] = 1;
 			cm->_inputs[0][1] = 2;
-
 			cm->_correctAnswers[0][1] = 3;
+			Entity* ent0 = GenerateEntity(Minus);
+			cm->_population.push_back(ent0);
+			ent0->mProcessAll();
+			ent0->CalculateEffectiveness(1);
+			Assert::IsTrue(cm->_population[0]->GetEffectiveness() == 0.00);
+			delete (cm);
+		}
 
-			Entity* ent0 = new Entity();
-			ent0->mCreateOperator(Minus);
+		Entity* GenerateEntity(OperatorsTypes opT)
+		{
+			Entity* ent0 = new Entity;
+			ent0->mCreateOperator(opT);
 			ent0->mCreateChannel(ExternalInputsCount + 1, ent0->GetOperatorsCount(), 1);
 			ent0->mCreateChannel(ExternalInputsCount + 2, ent0->GetOperatorsCount(), 2);
 			static const unsigned short outputValueColumn = 4;
 			ent0->mCreateChannel(ent0->GetOperatorsCount(), 1, outputValueColumn);
-			cm->_population.push_back(ent0);
-			ent0->mProcessAll();
-			ent0->CalculateEffectiveness(1);
-
-			Assert::IsTrue(cm->_population[0]->GetEffectiveness() == 0.00);
-
-			delete (cm);
+			return ent0;
 		}
 	};
 }

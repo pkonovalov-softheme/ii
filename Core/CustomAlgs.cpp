@@ -4,9 +4,9 @@
 namespace Brans
 {
 	//Quick selection alhorithm. Selects the Kth MINIMAL value from the array according to the Effectiveness
-	Entity* CustomAlgs::SelectKth(std::vector<Entity*>& arr, mainDataType k, mainDataType arrayElementsCount)
+	Entity* CustomAlgs::SelectKth(std::vector<Entity*>& arr, mainDataType k)
 	{
-		int from = 0, to = arrayElementsCount - 1;
+		int from = 0, to = arr.size() - 1;
 
 		// if from == to we reached the kth element
 		while (from < to) {
@@ -41,19 +41,16 @@ namespace Brans
 	}
 
 	//Returns vector n elements of the Entity
-	std::vector<Entity*> CustomAlgs::SelectTopNs(std::vector<Entity*>& arr, mainDataType n, mainDataType arrayElementsCount)
+	std::vector<Entity*> CustomAlgs::SelectTopNs(std::vector<Entity*>& arr, mainDataType n)
 	{
 		std::vector<Entity*> retAr;
 		retAr.reserve(n);
 
-		Entity* targetEntity = SelectKth(arr, arrayElementsCount - n, arrayElementsCount);
-		retAr.push_back(targetEntity);
+		Entity* targetEntity = SelectKth(arr, arr.size() - n);
 
-		for (int i = 0; i < arrayElementsCount; i++)
-		{
-			if (arr[i]->GetEffectiveness() > targetEntity->GetEffectiveness())
-			{
-				retAr.push_back(arr[i]);
+		for (Entity* & ent : arr) {
+			if (ent->GetEffectiveness() >= targetEntity->GetEffectiveness()) {
+				retAr.push_back(ent);
 			}
 		}
 

@@ -39,8 +39,9 @@ namespace Brans
 		{
 			for (mainDataType i = 0; i < ExternalInputsCount;)
 			{
+				mainDataType nextI = i + 1;
 				#define fContValue _inputs[cline][i] //value of first contact
-				#define sContValue _inputs[cline][i + 1] //value of second contact
+				#define sContValue _inputs[cline][nextI] //value of second contact
 				#define outValue _correctAnswers[cline][i] //value of third contact
 
 				switch (_curChallangeType)
@@ -74,7 +75,7 @@ namespace Brans
 				default:
 					throw L"Not implemented";
 				}
-				i++;
+				i = nextI;
 			}
 		}
 	}
@@ -104,7 +105,7 @@ namespace Brans
 		GenerateEntities();
 		ProcessEnteties();
 		CalculateEffectiveness();
-		std::vector<Entity*> vinners = CustomAlgs::SelectTopNs(_population, 3, EntitiesStartPopulation);
+		std::vector<Entity*> vinners = CustomAlgs::SelectTopNs(_population, 3);
 	}
 
 	void ChallengeManager::GenerateEntities()

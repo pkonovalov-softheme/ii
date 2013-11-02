@@ -37,7 +37,7 @@ namespace CoreTests
 			retAr.push_back(&es3);
 			retAr.push_back(&es4);
 
-			std::vector<Entity*> esret = CustomAlgs::SelectTopNs(retAr, 2, 4);
+			std::vector<Entity*> esret = CustomAlgs::SelectTopNs(retAr, 2);
 			Assert::IsTrue(esret[0]->GetEffectiveness() == 0.5);
 			Assert::IsTrue(esret[1]->GetEffectiveness() == 1.0);
 		}

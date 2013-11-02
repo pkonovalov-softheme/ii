@@ -93,6 +93,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	//opbase->StopWatch();
 	//cout << "\nElapsed: " << opbase->GetElapsedMiliseconds() << "ms\n" << std::endl << "one=" << one << std::endl;
 
-	TestOperators();
+	//TestOperators();
 	return 0;
 }
+
