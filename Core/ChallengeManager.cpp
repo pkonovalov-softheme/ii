@@ -9,7 +9,7 @@ namespace Brans
 	ChallengeManager::ChallengeManager() : _inputs(), 
 		_correctAnswers(), _entityGenerator(), _rvp(RandomUpperLimit), _curEntityId(0), _currentLine(0), _population()
 	{
-		_curChallangeType = ChallengeTypes::Plus;
+		_curChallangeType = ChallengeTypes::One;
 		_chManager = this;
 		_population.reserve(EntitiesStartPopulation);
 	}
@@ -20,6 +20,11 @@ namespace Brans
 			delete _population.back();
 			_population.pop_back();
 		}
+	}
+
+	void ChallengeManager::SetChallengeType(ChallengeTypes chType)
+	{
+		_curChallangeType = chType;
 	}
 
 	void ChallengeManager::GenerateRandomInputs()
@@ -35,9 +40,11 @@ namespace Brans
 
 	void ChallengeManager::FillAnswers()
 	{
+		static const unsigned short rex = ExternalOutputsCount - 1;
+
 		for (mainDataType cline = 0; cline < ChallangesCount; cline++)
 		{
-			for (mainDataType i = 0; i < ExternalInputsCount;)
+			for (mainDataType i = 0; i < rex;)
 			{
 				mainDataType nextI = i + 1;
 				#define fContValue _inputs[cline][i] //value of first contact

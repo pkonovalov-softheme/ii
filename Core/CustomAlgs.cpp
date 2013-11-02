@@ -51,6 +51,7 @@ namespace Brans
 		for (Entity* & ent : arr) {
 			if (ent->GetEffectiveness() >= targetEntity->GetEffectiveness()) {
 				retAr.push_back(ent);
+				if (retAr.size() == n) return retAr;
 			}
 		}
 

@@ -75,12 +75,12 @@ namespace CoreTests
 		void FillAnswerBase(ChallengeManager::ChallengeTypes chType)
 		{
 			ChallengeManager* cm = new ChallengeManager();
-			cm->_curChallangeType = chType;
+			cm->SetChallengeType(chType);
 			cm->GenerateRandomInputs();
 			cm->FillAnswers();
 			for (mainDataType cline = 0; cline < ChallengeManager::ChallangesCount; cline++)
 			{
-				for (mainDataType i = 0; i < ExternalInputsCount; i++)
+				for (mainDataType i = 0; i < ExternalInputsCount - 1; i++)
 				{
 					mainDataType leftOp = cm->_inputs[cline][i];
 					mainDataType rightOp = cm->_inputs[cline][i + 1];
@@ -125,8 +125,6 @@ namespace CoreTests
 
 		TEST_METHOD(ComplexEntitySelectionTest)
 		{
-			//We really should use mocks threre, but i don;t want to add it now, maybe later
-
 			//We will emulate StartSelection method
 			ChallengeManager* cm = new ChallengeManager();
 			//GenerateRandomInputs:
@@ -134,7 +132,7 @@ namespace CoreTests
 			cm->_inputs[0][1] = 2;
 
 			//FillAnswers:
-			cm->_correctAnswers[0][1] = 3;
+			cm->_correctAnswers[0][0] = 3;
 
 			//GenerateEntities:
 			Entity* ent1 = GenerateEntity(Plus);
@@ -165,11 +163,24 @@ namespace CoreTests
 			ChallengeManager* cm = new ChallengeManager();
 			cm->_inputs[0][0] = 1;
 			cm->_inputs[0][1] = 2;
-			cm->_correctAnswers[0][1] = 3;
+			cm->_correctAnswers[0][0] = 3;
 			Entity* ent0 = GenerateEntity(Plus);
 			cm->_population.push_back(ent0);
 			ent0->mProcessAll();
 			ent0->CalculateEffectiveness(1);
+			Assert::IsTrue(cm->_population[0]->GetEffectiveness() == 1.00);
+			delete (cm);
+		}
+
+		TEST_METHOD(CheckAllAnswersAreCorrect)
+		{
+			ChallengeManager* cm = new ChallengeManager();
+			cm->SetChallengeType(ChallengeManager::ChallengeTypes::Plus);
+			cm->GenerateRandomInputs();
+			cm->FillAnswers();
+			cm->_population.push_back(GenerateEntityEx(Plus));
+			cm->ProcessEnteties();
+			cm->CalculateEffectiveness();
 			Assert::IsTrue(cm->_population[0]->GetEffectiveness() == 1.00);
 			delete (cm);
 		}
@@ -179,13 +190,26 @@ namespace CoreTests
 			ChallengeManager* cm = new ChallengeManager();
 			cm->_inputs[0][0] = 1;
 			cm->_inputs[0][1] = 2;
-			cm->_correctAnswers[0][1] = 3;
+			cm->_correctAnswers[0][0] = 3;
 			Entity* ent0 = GenerateEntity(Minus);
 			cm->_population.push_back(ent0);
 			ent0->mProcessAll();
 			ent0->CalculateEffectiveness(1);
 			Assert::IsTrue(cm->_population[0]->GetEffectiveness() == 0.00);
 			delete (cm);
+		}
+
+		Entity* GenerateEntityEx(OperatorsTypes opT)
+		{
+			Entity* ent0 = new Entity;
+			for (mainDataType i = 0; i < ExternalInputsCount; i++) {
+				ent0->mCreateOperator(opT);
+				ent0->mCreateChannel(ExternalInputsCount + 1 + i, ent0->GetOperatorsCount(), 1);
+				ent0->mCreateChannel(ExternalInputsCount + 2 + i, ent0->GetOperatorsCount(), 2);
+				static const unsigned short outputValueColumn = 4;
+				ent0->mCreateChannel(ent0->GetOperatorsCount(), 1 + i, outputValueColumn);
+			}
+			return ent0;
 		}
 
 		Entity* GenerateEntity(OperatorsTypes opT)

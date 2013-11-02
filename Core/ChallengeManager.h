@@ -18,6 +18,7 @@ namespace Brans
 		void StartSelection(); //Start "natural" selection
 
 		void GenerateEntities();
+
 		static ChallengeManager* GetChallangeManager();
 
 		//Should be private(public only for tests):
@@ -26,12 +27,14 @@ namespace Brans
 			Division, Equal, If, Minus, Multiplication, One, Plus
 		};
 
+		void SetChallengeType(ChallengeTypes chType);
+
 		mainDataType _currentLine; //defines place where next real answers will be inserted
 		mainDataType _curEntityId;
 
 		static const mainDataType ChallangesCount = 500;
 		static const mainDataType RandomUpperLimit = 10; //max value for random for inputs
-		mainDataType _correctAnswers[ChallangesCount][ExternalOutputsCount];
+		mainDataType _correctAnswers[ChallangesCount][ExternalOutputsCount - 1];
 		mainDataType _inputs[ChallangesCount][ExternalInputsCount];/*Generated random inputs for
 																   entities testing. Based on 1, not 0 index!*/
 

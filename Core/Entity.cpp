@@ -244,16 +244,18 @@ namespace Brans
 			mProcess(i);
 		}
 
-		bool wasError = false;
-
 		//Processing external outputs
-		for (mainDataType i = 1; i <= ExternalOutputsCount; i++) 
+		static const unsigned short rex = ExternalOutputsCount - 1;
+		for (mainDataType i = 0; i < rex;)
 		{
-			if (_chmanager->GetCorrectAnswer(i) != GetInputValue(i, outputValueColumn))
+			mainDataType nextI = i + 1;
+			if (_chmanager->GetCorrectAnswer(i) != GetInputValue(nextI, outputValueColumn))
 			{
 				//_chmanager->ReportFailure();
 				return;
 			}
+
+			i = nextI;
 		}
 
 		//_chmanager->ReportSuccess();
