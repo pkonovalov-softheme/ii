@@ -85,6 +85,8 @@ namespace Brans
 		mainDataType _correctAnswersCount;
 
 		double _effectiveness;
+
+		const unsigned short FirstExtInputPos = ExternalOutputsCount + 1;
 	};
 
 

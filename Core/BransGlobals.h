@@ -26,8 +26,8 @@ namespace Brans
 	};
 
 	const unsigned short OperatorsCount = Nothing + 1;  //with zero and nothing
-	static const unsigned short ExternalInputsCount = 10;
-	static const unsigned short ExternalOutputsCount = 10;
+	static const unsigned short ExternalInputsCount = 10;//External inputs count of the entity
+	static const unsigned short ExternalOutputsCount = 10;//External Outputs count of the entity
 	const unsigned short EntityProcessCount = 10;
 	const mainDataType EntityOperatorsCount = 1000;
 	const mainDataType operatorsMaxCount = EntityOperatorsCount * 2; // maximum acceptable count of operators for one entity

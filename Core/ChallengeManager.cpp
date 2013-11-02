@@ -17,7 +17,7 @@ namespace Brans
 	ChallengeManager::~ChallengeManager()
 	{
 		while (!_population.empty()) {
-			delete &_population.back();
+			delete _population.back();
 			_population.pop_back();
 		}
 	}

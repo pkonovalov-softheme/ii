@@ -160,14 +160,19 @@ namespace CoreTests
 		{
 			ChallengeManager* cm = new ChallengeManager();
 			cm->_inputs[0][0] = 1;
+			cm->_inputs[0][1] = 2;
 
-			cm->_correctAnswers[0][0] = 3;
+			cm->_correctAnswers[0][1] = 3;
 
-			Entity ent0;
-			ent0.mCreateOperator(Plus);
-			cm->_population.push_back(&ent0);
-			ent0.mProcessAll();
-			ent0.CalculateEffectiveness(1);
+			Entity* ent0 = new Entity();
+			ent0->mCreateOperator(Plus);
+			ent0->mCreateChannel(ExternalInputsCount + 1, ent0->GetOperatorsCount(), 1);
+			ent0->mCreateChannel(ExternalInputsCount + 2, ent0->GetOperatorsCount(), 2);
+			static const unsigned short outputValueColumn = 4;
+			ent0->mCreateChannel(ent0->GetOperatorsCount(), 1, outputValueColumn);
+			cm->_population.push_back(ent0);
+			ent0->mProcessAll();
+			ent0->CalculateEffectiveness(1);
 
 			Assert::IsTrue(cm->_population[0]->GetEffectiveness() == 1.00);
 
@@ -178,14 +183,19 @@ namespace CoreTests
 		{
 			ChallengeManager* cm = new ChallengeManager();
 			cm->_inputs[0][0] = 1;
+			cm->_inputs[0][1] = 2;
 
-			cm->_correctAnswers[0][0] = 3;
+			cm->_correctAnswers[0][1] = 3;
 
-			Entity ent0;
-			ent0.mCreateOperator(Minus);
-			cm->_population.push_back(&ent0);
-			ent0.mProcessAll();
-			ent0.CalculateEffectiveness(1);
+			Entity* ent0 = new Entity();
+			ent0->mCreateOperator(Minus);
+			ent0->mCreateChannel(ExternalInputsCount + 1, ent0->GetOperatorsCount(), 1);
+			ent0->mCreateChannel(ExternalInputsCount + 2, ent0->GetOperatorsCount(), 2);
+			static const unsigned short outputValueColumn = 4;
+			ent0->mCreateChannel(ent0->GetOperatorsCount(), 1, outputValueColumn);
+			cm->_population.push_back(ent0);
+			ent0->mProcessAll();
+			ent0->CalculateEffectiveness(1);
 
 			Assert::IsTrue(cm->_population[0]->GetEffectiveness() == 0.00);
 

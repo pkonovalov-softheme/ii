@@ -185,7 +185,7 @@ namespace Brans
 			throw "Zero operator!";
 			break;
 		case (ExternalInput):
-			outValue = _chmanager->GetEntityExternalInput(operatorId - 1);
+			outValue = _chmanager->GetEntityExternalInput(operatorId - FirstExtInputPos);
 			break;
 		default:
 			throw "Not implemented";
@@ -227,8 +227,7 @@ namespace Brans
 	mainDataType Entity::GetInputValue(mainDataType operatorId, mainDataType contactId)
 	{
 		mainDataType refOperId = GetContactValue(operatorId, contactId);
-		if (refOperId == 0) 
-			return 0;//test performance
+		if (refOperId == 0) return 0;//test performance
 		return _operators[refOperId][outputValueColumn];
 	}
 
@@ -239,10 +238,8 @@ namespace Brans
 
 	void Entity::mProcessAll()
 	{
-		const mainDataType firstInput = ExternalOutputsCount + 1;
-
 		//Processing external inputs and all internal operators
-		for (mainDataType i = firstInput; i < _nextOperatorId; i++) 
+		for (mainDataType i = FirstExtInputPos; i < _nextOperatorId; i++)
 		{
 			mProcess(i);
 		}
@@ -252,7 +249,7 @@ namespace Brans
 		//Processing external outputs
 		for (mainDataType i = 1; i <= ExternalOutputsCount; i++) 
 		{
-			if (_chmanager->GetCorrectAnswer(i) != GetContactValue(i, outputValueColumn))
+			if (_chmanager->GetCorrectAnswer(i) != GetInputValue(i, outputValueColumn))
 			{
 				//_chmanager->ReportFailure();
 				return;
@@ -270,7 +267,7 @@ namespace Brans
 
 	mainDataType Entity::GetOperatorsCount()
 	{
-		return _nextOperatorId;
+		return _nextOperatorId - 1;
 	}
 
 	void Entity::CalculateEffectiveness(mainDataType totalAnswersCount)
