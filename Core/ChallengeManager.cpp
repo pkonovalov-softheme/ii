@@ -16,6 +16,11 @@ namespace Brans
 
 	ChallengeManager::~ChallengeManager()
 	{
+		ClearPopulation();
+	}
+
+	void ChallengeManager::ClearPopulation()
+	{
 		while (!_population.empty()) {
 			delete _population.back();
 			_population.pop_back();
@@ -87,14 +92,6 @@ namespace Brans
 		}
 	}
 
-	//ChallengeManager& ChallengeManager::GenerateNextChalangesLine(mainDataType challangeType)
-	//{
-	//	ChallengeManager* cm = new ChallengeManager(challangeType);
-	//	cm->GenerateRandomInputs();
-	//	cm->FillAnswers();
-	//	return *cm;
-	//}
-
 	mainDataType ChallengeManager::GetEntityExternalInput(mainDataType inputId)
 	{
 		return _inputs[_currentLine][inputId];
@@ -109,10 +106,29 @@ namespace Brans
 	{
 		GenerateRandomInputs();
 		FillAnswers();
+		ClearPopulation();
+
 		GenerateEntities();
 		ProcessEnteties();
 		CalculateEffectiveness();
 		std::vector<Entity*> vinners = CustomAlgs::SelectTopNs(_population, 3);
+	}
+
+	Entity* ChallengeManager::AchiveEffectivity(double targetEffectivity)
+	{
+		GenerateRandomInputs();
+		FillAnswers();
+
+		while (true)
+		{
+			GenerateEntities();
+			ProcessEnteties();
+			CalculateEffectiveness();
+			std::vector<Entity*> vinners = CustomAlgs::SelectTopNs(_population, 1);
+			if (vinners[0]->GetEffectiveness() >= targetEffectivity) return vinners[0];
+			ClearPopulation();
+			_population.push_back(vinners[0]);
+		}
 	}
 
 	void ChallengeManager::GenerateEntities()
@@ -126,12 +142,15 @@ namespace Brans
 
 	void ChallengeManager::ProcessEnteties()
 	{
-		mainDataType s = _population.size();
-		for (_curEntityId = 0; _curEntityId < s; _curEntityId++)
+		for (_currentLine = 0; _currentLine < ChallangesCount; _currentLine++)
 		{
-			for (int pr = 0; pr < EntityProcessCount; pr++)
+			mainDataType s = _population.size();
+			for (_curEntityId = 0; _curEntityId < s; _curEntityId++)
 			{
-				_population[_curEntityId]->mProcessAll();
+				for (int pr = 0; pr < EntityProcessCount; pr++)
+				{
+					_population[_curEntityId]->mProcessAll();
+				}
 			}
 		}
 	}
@@ -140,7 +159,8 @@ namespace Brans
 	{
 		for (size_t i = 0, s = _population.size(); i < s; i++)
 		{
-			_population[i]->CalculateEffectiveness(EntityProcessCount);
+			const unsigned int totalTry = ChallangesCount * EntityProcessCount;
+			_population[i]->CalculateEffectiveness(totalTry);
 		}
 	}
 

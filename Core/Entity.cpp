@@ -45,11 +45,28 @@ namespace Brans
 		_operatorTypeContactCount[OperatorsTypes::Nothing] = 0;
 	}
 
+	bool Entity::IsOperIdCorrect(mainDataType operatorId)
+	{
+		return (operatorId >= 0) && (operatorId < _nextOperatorId);
+	}
+
+	bool Entity::IsOperTypeCorrect(mainDataType operatorType)
+	{
+		return (operatorType > Zero) && (operatorType < Nothing);
+	}
+
+	bool Entity::IsContactCorrect(unsigned short contactId)
+	{
+		return (contactId > 0) && (contactId < operatorsTableWidth);
+	}
+
 	//Maybe inline will faster?? Check also memory usage
 	mainDataType Entity::mGetChannelvalue(mainDataType operatorId, mainDataType contactId)
 	{
-		return _operators[operatorId][contactId]; 
+		if (!IsOperIdCorrect(operatorId)) return 0;
+		if (!IsContactCorrect(contactId)) return 0;
 
+		return _operators[operatorId][contactId];
 		//mainDataType* val = (mainDataType*)&_operators[operatorId][contactId]; 
 		//return *val;//need to test
 		//if (val == nullptr)
@@ -60,51 +77,62 @@ namespace Brans
 
 	void Entity::mCreateChannel(mainDataType fromOperator, mainDataType toOperator, mainDataType toOperatorContactId)
 	{
-		if (fromOperator >= operatorsMaxCount)		    return;
-		if (toOperator   >= operatorsMaxCount)		    return;
-		if (toOperatorContactId == 0)				    return;
-		if (toOperatorContactId >= operatorsTableWidth) return;
+		if (!IsOperIdCorrect(fromOperator))		    return;
+		if (!IsOperIdCorrect(toOperator))		    return;
+		if (!IsContactCorrect(toOperatorContactId))	return;
 
+		mCreateChannelUnsafe(fromOperator, toOperator, toOperatorContactId);
+	}
+
+	void Entity::mCreateChannelUnsafe(mainDataType fromOperator, mainDataType toOperator, mainDataType toOperatorContactId)
+	{
 		_operators[toOperator][toOperatorContactId] = fromOperator;
 	}
 
 	mainDataType Entity::mIfChannelExists(mainDataType fromOperator, mainDataType toOperator, mainDataType toOperatorContactId)
 	{
-		if (!(fromOperator < operatorsMaxCount && toOperator < operatorsMaxCount && toOperatorContactId < operatorsTableWidth)) return 0;
-			
-		if (_operators[toOperator][toOperatorContactId] == fromOperator) return 1;
+		if (IsOperIdCorrect(fromOperator) && IsOperIdCorrect(toOperator) && IsContactCorrect(toOperatorContactId)) {
+			if (_operators[toOperator][toOperatorContactId] == fromOperator) return 1;
+		}
 			
 		return 0;
 	}
 
 	void Entity::mDeleteChannel(mainDataType toOperator, mainDataType toOperatorContactId)
 	{
-		if (toOperator < operatorsMaxCount && toOperatorContactId < operatorsTableWidth)
+		if (!IsOperIdCorrect(toOperator))		    return;
+		if (!IsContactCorrect(toOperatorContactId))	return;
+
 		_operators[toOperator][toOperatorContactId] = 0;
 	}
 
 	void Entity::mRemoveOperator(mainDataType operatorToRemove)
 	{
-		if (operatorToRemove < operatorsMaxCount)
-			_operators[operatorToRemove][operatorTypeColumn] = OperatorsTypes::Nothing;
+		if (!IsOperIdCorrect(operatorToRemove))		return;
+
+		_operators[operatorToRemove][operatorTypeColumn] = OperatorsTypes::Nothing;
 	}
 
 	//To do: Add thread safe logic!!!
 	void Entity::mCreateOperator(mainDataType operatorType)//To do: Add thread safe logic!!!
 	{
-		if (_nextOperatorId < operatorsMaxCount)
-		{
-			_operators[_nextOperatorId][0] = operatorType;
-			_nextOperatorId++;
-		}
+		if (!IsOperTypeCorrect(operatorType))	return;
+
+		mCreateOperatorUnsafe(operatorType);
+	}
+
+	//To do: Add thread safe logic!!!
+	void Entity::mCreateOperatorUnsafe(mainDataType operatorType)
+	{
+		_operators[_nextOperatorId][0] = operatorType;
+		_nextOperatorId++;
 	}
 
 	mainDataType Entity::mGetOperatorType(mainDataType operatorId)
 	{
-		if (operatorId < operatorsMaxCount)
-			return _operators[operatorId][operatorTypeColumn];
-		else
-			return 0; //we should use operators IDs started from 1
+		if (!IsOperIdCorrect(operatorId))	return 0;
+
+		return _operators[operatorId][operatorTypeColumn];
 	}
 
 	mainDataType Entity::mGetNewRandomVal(mainDataType upperLimit)
@@ -159,7 +187,11 @@ namespace Brans
 			outValue = mIfChannelExists(fContValue, sContValue, tContValue);
 			break;
 		case (Minus):
-			outValue = fContValue - sContValue;
+			if (fContValue > sContValue){
+				outValue = fContValue - sContValue;
+			}
+			else
+				outValue = 0;
 			break;
 		case (Multiplication):
 			outValue = fContValue * sContValue;

@@ -21,6 +21,12 @@ namespace CoreTests
 			testEntity = &entityGenerator->GenerateEntity();
 		}
 
+		TEST_METHOD_CLEANUP(CleanUp)
+		{
+			delete entityGenerator;
+			delete testEntity;
+		}
+
 		TEST_METHOD(TestExternalOutputs)
 		{
 			OperatorsTypes opType = (OperatorsTypes) testEntity->mGetOperatorType(ExternalOutputsCount);
@@ -47,14 +53,37 @@ namespace CoreTests
 
 		TEST_METHOD(GeneratedOperatorsIdsAreValid)
 		{
-			for (mainDataType curOp = Entity::FirstInternalOper; curOp < EntityOperatorsCount; curOp++)
+			Entity* curEntity;
+			for (size_t i = 0; i < 1000; i++)
 			{
-				OperatorsTypes curOperType = (OperatorsTypes)testEntity->mGetOperatorType(curOp);
-				for (int curContact = 1; curContact <= EntityGenerator::GetOperTypeContactsCount(curOperType); curContact++)
+				curEntity = &entityGenerator->GenerateEntity();
+				for (mainDataType curOp = Entity::FirstInternalOper; curOp < EntityOperatorsCount; curOp++)
 				{
-					mainDataType curVal = testEntity->GetContactValue(curOp, curContact);
-					Assert::IsTrue(curVal > 0 && curVal <= EntityOperatorsCount);
+					OperatorsTypes curOperType = (OperatorsTypes)curEntity->mGetOperatorType(curOp);
+					for (int curContact = 1; curContact <= EntityGenerator::GetOperTypeContactsCount(curOperType); curContact++)
+					{
+						mainDataType curVal = curEntity->GetContactValue(curOp, curContact);
+						if (!(curVal > 0 && curVal < curEntity->GetNextOperatorId()))
+						{
+							curVal = curVal;
+						}
+
+						Assert::IsTrue(curVal > 0 && curVal < curEntity->GetNextOperatorId());
+					}
 				}
+				delete curEntity;
+			}
+		}
+
+		TEST_METHOD(LastGeneratedOperatorIsNotZero)
+		{
+			Entity* curEntity;
+			for (size_t i = 0; i < 1000; i++)
+			{
+				curEntity = &entityGenerator->GenerateEntity();
+				mainDataType lastOpId = curEntity->GetOperatorsCount();
+				Assert::IsTrue(curEntity->GetContactValue(lastOpId, 0) != Zero);
+				delete curEntity;
 			}
 		}
 	};

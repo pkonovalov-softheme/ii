@@ -22,6 +22,14 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Visualizer", "Visualizer\Visualizer.csproj", "{6FFBFD4D-1E78-4F8F-8CFB-84838AAB0DE7}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Runner", "Runner\Runner.vcxproj", "{2FE64477-4E66-43BE-B9F6-46BB5F950620}"
+	ProjectSection(ProjectDependencies) = postProject
+		{8A9CCBAD-571E-4C04-A45E-09F2F9091BB8} = {8A9CCBAD-571E-4C04-A45E-09F2F9091BB8}
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{898AEF08-717A-4BDD-8825-DD248B3A52DA}"
+	ProjectSection(SolutionItems) = preProject
+		OptimizationIdeas.txt = OptimizationIdeas.txt
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

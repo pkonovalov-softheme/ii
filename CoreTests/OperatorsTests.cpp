@@ -24,23 +24,22 @@ namespace CoreTests
 		//and last operators input contacts, so it will process that values
 		void ProcessArgsValues(mainDataType fContactValue, mainDataType sContactValue, mainDataType tContactValue)
 		{
-			entity->SetContactValue(Entity::FirstInternalOper + 2, entity->outputValueColumn, tContactValue);
+			entity->SetContactValue(3, entity->outputValueColumn, tContactValue);
+			entity->mCreateChannel(3, GetLastOper(), 3);
 			ProcessArgsValues(fContactValue, sContactValue);
 		}
 
 		void ProcessArgsValues(mainDataType fContactValue, mainDataType sContactValue)
 		{
-			entity->SetContactValue(Entity::FirstInternalOper + 1, entity->outputValueColumn, sContactValue);
+			entity->SetContactValue(2, entity->outputValueColumn, sContactValue);
+			entity->mCreateChannel(2, GetLastOper(), 2);
 			ProcessArgsValues(fContactValue);
 		}
 
 		void ProcessArgsValues(mainDataType fContactValue)
 		{
-			entity->SetContactValue(Entity::FirstInternalOper, entity->outputValueColumn, fContactValue);
-			mainDataType lastOper = GetLastOper();
-			entity->mCreateChannel(Entity::FirstInternalOper, lastOper, 1);
-			entity->mCreateChannel(Entity::FirstInternalOper + 1, lastOper, 2);
-			entity->mCreateChannel(Entity::FirstInternalOper + 2, lastOper, 3);
+			entity->SetContactValue(1, entity->outputValueColumn, fContactValue);
+			entity->mCreateChannel(1, GetLastOper(), 1);
 			entity->mProcessLast();
 		}
 
@@ -83,9 +82,14 @@ namespace CoreTests
 		TEST_METHOD_INITIALIZE(ClassInitialize)
 		{
 			entity = new Entity();
-			CreateOper(Nothing);
-			CreateOper(Nothing);
-			CreateOper(Nothing);
+			//CreateOper(Nothing);
+			//CreateOper(Nothing);
+			//CreateOper(Nothing);
+		}
+
+		TEST_METHOD_CLEANUP(CleanUp)
+		{
+			delete entity;
 		}
 
 		/* -------------------------------------------------------------------------------------
@@ -110,7 +114,7 @@ namespace CoreTests
 		{
 			CreateOper(Minus);
 			ProcessArgsValues(1, 3);
-			Assert::IsTrue(GetResult() == (1-3));
+			Assert::IsTrue(GetResult() == 0);
 		}
 
 		TEST_METHOD(MultiplicationOp)
@@ -221,7 +225,7 @@ namespace CoreTests
 			CreateOper(Plus);
 			CreateOper(CreateChannel);
 
-			const mainDataType fromOperator = Entity::FirstInternalOper + 3;
+			const mainDataType fromOperator = Entity::FirstInternalOper;
 			const mainDataType toOperator = fromOperator + 1;
 			const mainDataType toOperatorContactId = 1;
 
@@ -250,6 +254,24 @@ namespace CoreTests
 			Assert::IsTrue(entity->GetContactValue(GetLastOper(), entity->operatorTypeColumn) == Plus);
 		}
 
+		TEST_METHOD(CreateZeroOperator)
+		{
+			CreateOper(CreateOperator);
+			int OperatorsCountBeforZero = entity->GetOperatorsCount();
+			ProcessArgsValues(Zero);
+			int OperatorsCountAfterZero = entity->GetOperatorsCount();
+			Assert::IsTrue(OperatorsCountBeforZero == OperatorsCountAfterZero);
+		}
+
+		TEST_METHOD(CreateBadTypeOperator)
+		{
+			CreateOper(CreateOperator);
+			int OperatorsCountBeforZero = entity->GetOperatorsCount();
+			ProcessArgsValues(666);
+			int OperatorsCountAfterZero = entity->GetOperatorsCount();
+			Assert::IsTrue(OperatorsCountBeforZero == OperatorsCountAfterZero);
+		}
+
 		TEST_METHOD(DeleteChannelOp)
 		{
 			//Same as create channel
@@ -257,7 +279,7 @@ namespace CoreTests
 			CreateOper(Plus);
 			CreateOper(CreateChannel);
 
-			const mainDataType fromOperator = Entity::FirstInternalOper + 3;
+			const mainDataType fromOperator = Entity::FirstInternalOper;
 			const mainDataType toOperator = fromOperator + 1;
 			const mainDataType toOperatorContactId = 1;
 
@@ -273,7 +295,7 @@ namespace CoreTests
 		TEST_METHOD(GetTypeOfOperatorOp)
 		{
 			CreateOper(Plus);
-			const mainDataType fromOperator = Entity::FirstInternalOper + 3;
+			const mainDataType fromOperator = Entity::FirstInternalOper;
 			CreateOper(GetTypeOfOperator);
 			const mainDataType toOperator = fromOperator + 1;
 			const mainDataType toOperatorContactId = 1;
@@ -288,7 +310,7 @@ namespace CoreTests
 			CreateOper(Plus);
 			CreateOper(IsChannelExists);
 
-			const mainDataType fromOperator = Entity::FirstInternalOper + 3;
+			const mainDataType fromOperator = Entity::FirstInternalOper;
 			const mainDataType toOperator = fromOperator + 1;
 			const mainDataType toOperatorContactId = 1;
 
@@ -331,7 +353,8 @@ namespace CoreTests
 
 		TEST_METHOD(NothingOp)
 		{
-			CreateOper(Nothing);
+			CreateOper(Plus);//We can't creat Nothing operator directly
+			entity->SetContactValue(entity->GetOperatorsCount(), 0, Nothing);
 			ProcessArgsValues(1,2,3);
 			Assert::IsTrue(GetLastValue() == 0);
 		}

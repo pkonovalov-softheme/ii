@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "CppUnitTest.h"
+//#define RedefChallangesCount
 #include "..\Core\ChallengeManager.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
@@ -15,7 +16,7 @@ namespace CoreTests
 			ChallengeManager* cm = new ChallengeManager();
 			cm->GenerateRandomInputs();
 			mainDataType stats[ChallengeManager::RandomUpperLimit + 1] = {};
-
+			mainDataType test = ChallengeManager::ChallangesCount;
 			for (mainDataType cline = 0; cline < ChallengeManager::ChallangesCount; cline++)
 			{
 				for (mainDataType i = 0; i < ExternalInputsCount; i++)
@@ -224,3 +225,5 @@ namespace CoreTests
 		}
 	};
 }
+
+//#undef RedefChallangesCount

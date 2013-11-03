@@ -16,12 +16,14 @@ namespace Brans
 		mainDataType GetEntityExternalInput(mainDataType inputId); //return value of the external input for entity
 		mainDataType GetCorrectAnswer(mainDataType inputId);
 		void StartSelection(); //Start "natural" selection
-
-		void GenerateEntities();
+		Entity* AchiveEffectivity(double targetEffectivity);
 
 		static ChallengeManager* GetChallangeManager();
 
 		//Should be private(public only for tests):
+		void GenerateEntities();
+		void ClearPopulation();
+
 		enum ChallengeTypes
 		{
 			Division, Equal, If, Minus, Multiplication, One, Plus
@@ -32,7 +34,11 @@ namespace Brans
 		mainDataType _currentLine; //defines place where next real answers will be inserted
 		mainDataType _curEntityId;
 
+		/*#ifdef RedefChallangesCount
 		static const mainDataType ChallangesCount = 500;
+		#else*/
+		static const mainDataType ChallangesCount = 1;
+		/*#endif  */
 		static const mainDataType RandomUpperLimit = 10; //max value for random for inputs
 		mainDataType _correctAnswers[ChallangesCount][ExternalOutputsCount - 1];
 		mainDataType _inputs[ChallangesCount][ExternalInputsCount];/*Generated random inputs for

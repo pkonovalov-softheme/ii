@@ -5,8 +5,9 @@ namespace Brans
 {
 	random_device RandomOperatorsProvider::rd;
 	mt19937 RandomOperatorsProvider::rnb(RandomOperatorsProvider::rd());
-	const unsigned short LastInternalOperType = OperatorsCount - 4; //Excluding Zero, External input, Output and Nothing
-	static uniform_int_distribution<int> operTypes_dist(1, LastInternalOperType);
+	static const unsigned short LastInternalOperType = OperatorsCount - 4; //Excluding Zero, External input, Output and Nothing
+	static const unsigned short LastValidOperType = Nothing - 1;
+	static uniform_int_distribution<int> operTypes_dist(1, LastValidOperType);
 
 	mainDataType RandomOperatorsProvider::GetNextOperator()
 	{
@@ -24,10 +25,6 @@ namespace Brans
 	mainDataType RandomValuesProvider::GetNextValue()
 	{
 		mainDataType ret = _values_dist(rnb);
-		if (ret == 0)
-		{
-			ret = ret;
-		}
 		return ret;
 	}
 

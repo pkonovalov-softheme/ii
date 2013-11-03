@@ -25,6 +25,8 @@ namespace Brans
 
 		void mCreateChannel(mainDataType fromOperator, mainDataType toOperator, mainDataType toOperatorContactId); //create new channel between two operators
 
+		void mCreateChannelUnsafe(mainDataType fromOperator, mainDataType toOperator, mainDataType toOperatorContactId); //create new channel between two operators
+
 		mainDataType mIfChannelExists(mainDataType fromOperator, mainDataType toOperator, mainDataType toOperatorContactId); //returns true if channel exists there
 
 		void mDeleteChannel(mainDataType toOperator, mainDataType toOperatorContactId); //delete existing channel between two operators
@@ -68,7 +70,15 @@ namespace Brans
 		//Now used only for tests
 		void SetCorrectAnswers(mainDataType count);
 
+		void Entity::mCreateOperatorUnsafe(mainDataType operatorType);
+
 	private:
+
+		bool IsOperIdCorrect(mainDataType operatorId);
+
+		bool IsOperTypeCorrect(mainDataType operatorType);
+
+		bool IsContactCorrect(unsigned short contactId);
 
 		mainDataType _operators[operatorsMaxCount][operatorsTableWidth];
 
