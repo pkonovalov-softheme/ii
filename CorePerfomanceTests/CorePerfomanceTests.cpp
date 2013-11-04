@@ -3,10 +3,11 @@
 
 #include "stdafx.h"
 #include "OperatorTestBase.h"
-#include "..\Core\Entity.h"
+#include "..\Core\ChallengeManager.h"
 //#include "C:\Program Files\Microsoft Visual Studio 11.0\VC\include\iostream"
 #include <iostream>
 #include <random>
+#include <vector>
 
 using namespace Brans;
 using namespace std;
@@ -27,15 +28,15 @@ const char const *OperatorsTypes_str[]=
 void TestOperator(unsigned int OperatorId, mainDataType firstValue, mainDataType sValue, mainDataType tValue)
 {
 	cout << "Testing operator " << OperatorsTypes_str[OperatorId];
-	OperatorTestBase* opbase = new OperatorTestBase(OperatorId, firstValue, sValue, tValue);
-	opbase->StartWatch();
-	opbase->Process(numberOfCycles);
-	opbase->StopWatch();
-	unsigned long curPerf = (numberOfCycles * OperatorsCout * 1000)/opbase->GetElapsedMiliseconds();
+	OperatorTestBase opbase(OperatorId, firstValue, sValue, tValue);
+	opbase.StartWatch();
+	opbase.Process(numberOfCycles);
+	opbase.StopWatch();
+	unsigned long curPerf = (numberOfCycles * OperatorsCout * 1000)/opbase.GetElapsedMiliseconds();
 	perfomanceSum += curPerf;
 	perfomanceCount++;
-	result+=opbase->GetResult();
-	cout << "\nElapsed: " << opbase->GetElapsedMiliseconds() << "ms\n"
+	result+=opbase.GetResult();
+	cout << "\nElapsed: " << opbase.GetElapsedMiliseconds() << "ms\n"
 	<< "Performance: " << curPerf << " operations/sec.\n"; 
 }
 
@@ -71,8 +72,103 @@ void TestOperators()
 	cout << "Result: " << result << std::endl;
 }
 
+void TestEntityGenerationAndClear()
+{
+	cout << "Testing enteties generation..." << std::endl;
+	ChallengeManager cm;
+	const mainDataType EntitiesToGenerate = 10000000;
+	const mainDataType cyclesCount = EntitiesToGenerate / EntitiesStartPopulation;
+	OperatorTestBase opbase;
+	opbase.StartWatch();
+
+	for (size_t i = 0; i < cyclesCount; i++)
+	{
+		cm.GenerateEntities();
+		cm.ClearPopulation();
+	}
+
+	opbase.StopWatch();
+	cout << "Average performance: " << EntitiesToGenerate * 1000 / opbase.GetElapsedMiliseconds() << " Enteties/sec." << std::endl;
+}
+
+void TestEntityProcessing()
+{
+	cout << "Testing enteties generation..." << std::endl;
+	ChallengeManager cm;
+	cm.GenerateEntities();
+	const mainDataType EntitiesToGenerate = 80000000;
+	const mainDataType cyclesCount = EntitiesToGenerate / EntitiesStartPopulation;
+	OperatorTestBase opbase;
+	opbase.StartWatch();
+
+	for (size_t i = 0; i < cyclesCount; i++)
+	{
+		cm.ProcessEnteties();
+	}
+
+	opbase.StopWatch();
+	cm.ClearPopulation();
+	cout << "Average performance: " << EntitiesToGenerate * 1000 / opbase.GetElapsedMiliseconds() << " Enteties/sec." << std::endl;
+}
+
+void TestInputsGenerationAndFillingAnswers()
+{
+	cout << "Testing enteties generation..." << std::endl;
+	ChallengeManager cm;
+	const mainDataType OperationCount = 1000000;
+	const mainDataType cyclesCount = OperationCount / ChallengeManager::ChallangesCount*ExternalInputsCount;
+	
+	OperatorTestBase opbase;
+	opbase.StartWatch();
+
+	for (size_t i = 0; i < cyclesCount; i++)
+	{
+		cm.GenerateRandomInputs();
+		cm.FillAnswers();
+	}
+
+	opbase.StopWatch();
+	cm.ClearPopulation();
+	cout << "Average performance: " << OperationCount * 2 * 1000 / opbase.GetElapsedMiliseconds() << " Answers + inputs /sec." << std::endl;
+}
+
+void ComplexAchiveEffectivityTest()
+{
+	cout << "Testing enteties generation..." << std::endl;
+	ChallengeManager cm;
+	const mainDataType EntetiesCount = 1000000;
+	const mainDataType cyclesCount = EntetiesCount / EntitiesStartPopulation;
+
+	OperatorTestBase opbase;
+	opbase.StartWatch();
+
+	cm.GenerateRandomInputs();
+	cm.FillAnswers();
+	for (size_t i = 0; i < cyclesCount; i++)
+	{
+		cm.GenerateEntities();
+		cm.ProcessEnteties();
+		cm.CalculateEffectiveness();
+		std::vector<Entity*> vinners = CustomAlgs::SelectTopNs(cm._population, 1);
+		if (vinners.size() > 0)
+		{
+			if (vinners[0]->GetEffectiveness() >= 1.0) return;
+			cm._population.push_back(vinners[0]);
+		}
+		cm.ClearPopulation();
+	}
+
+	opbase.StopWatch();
+	cm.ClearPopulation();
+	cout << "Average performance: " << EntetiesCount * 1000 / opbase.GetElapsedMiliseconds() << " Enteties /sec." << std::endl;
+}
+
+
+
+
 int _tmain(int argc, _TCHAR* argv[])
 {
+	ComplexAchiveEffectivityTest();
 	//std::random_device rd;
 	//std::mt19937 e1(rd());
 	//std::uniform_int_distribution<int> uniform_dist(1, 3);

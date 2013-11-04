@@ -31,6 +31,11 @@ OperatorTestBase::OperatorTestBase(mainDataType operatorType, mainDataType first
 	}
 }
 
+OperatorTestBase::OperatorTestBase()
+{
+}
+
+
 void OperatorTestBase::CreateOper(mainDataType operatorType)
 {
 	entity->mCreateOperator(operatorType);

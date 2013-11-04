@@ -47,6 +47,7 @@ namespace Brans
 
 		mainDataType _curChallangeType;
 		std::vector<Entity*> _population;
+		std::vector<Entity*> _goodPopulation;
 		EntityGenerator _entityGenerator;
 		void GenerateRandomInputs(); //Filling inputs arrays with random values for all ChallangesCount
 		void FillAnswers(); //Filling correct answers for generated random inputs (GenerateRandomInputs() should be called before)

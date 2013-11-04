@@ -8,6 +8,7 @@ const unsigned int OperatorsCout = 1000;
 class OperatorTestBase
 {
 public:
+	OperatorTestBase::OperatorTestBase();
 	OperatorTestBase(mainDataType operatorType, mainDataType firstValue, mainDataType secondValue, mainDataType thirdValue);
 	void Process(unsigned long long numberOfCycles);
 	mainDataType GetResult();
