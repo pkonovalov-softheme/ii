@@ -19,8 +19,8 @@ namespace Brans
 
 	void Entity::InitializeInputsAndOutputs()
 	{
-		for (mainDataType i = 0; i < ExternalOutputsCount; i++)  {mCreateOperator(ExternalOutput);}
-		for (mainDataType i = 0; i < ExternalInputsCount; i++)  {mCreateOperator(ExternalInput);}
+		for (mainDataType i = 0; i < ExternalOutputsCount; i++)  {mCreateOperatorUnsafe(ExternalOutput); }
+		for (mainDataType i = 0; i < ExternalInputsCount; i++)  {mCreateOperatorUnsafe(ExternalInput); }
 	}
 
 	void Entity::InitializeOpTypesCC()
@@ -52,10 +52,10 @@ namespace Brans
 
 	bool Entity::IsOperTypeCorrect(mainDataType operatorType)
 	{
-		return (operatorType > Zero) && (operatorType < Nothing);
+		return (operatorType > Zero) && (operatorType < ExternalInput);
 	}
 
-	bool Entity::IsContactCorrect(unsigned short contactId)
+	bool Entity::IsContactCorrect(mainDataType contactId)
 	{
 		return (contactId > 0) && (contactId < operatorsTableWidth);
 	}

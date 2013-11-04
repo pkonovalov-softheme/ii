@@ -12,6 +12,7 @@ namespace Brans
 
 	EntityGenerator::~EntityGenerator(void)
 	{
+		delete _conProvider;
 	}
 
 	Entity& EntityGenerator::GenerateEntity()

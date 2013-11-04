@@ -125,9 +125,12 @@ namespace Brans
 			ProcessEnteties();
 			CalculateEffectiveness();
 			std::vector<Entity*> vinners = CustomAlgs::SelectTopNs(_population, 1);
-			if (vinners[0]->GetEffectiveness() >= targetEffectivity) return vinners[0];
+			if (vinners.size() > 0)
+			{
+				if (vinners[0]->GetEffectiveness() >= targetEffectivity) return vinners[0];
+				_population.push_back(vinners[0]);
+			}
 			ClearPopulation();
-			_population.push_back(vinners[0]);
 		}
 	}
 
@@ -136,7 +139,7 @@ namespace Brans
 		for (int i = 0; i < EntitiesStartPopulation; i++)
 		{
 			//Is it ioptimal structure for perfomance?
-			_population.push_back(new Entity(_entityGenerator.GenerateEntity()));
+			_population.push_back(&_entityGenerator.GenerateEntity());
 		}
 	}
 

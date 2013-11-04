@@ -78,7 +78,7 @@ namespace Brans
 
 		bool IsOperTypeCorrect(mainDataType operatorType);
 
-		bool IsContactCorrect(unsigned short contactId);
+		bool IsContactCorrect(mainDataType contactId);
 
 		mainDataType _operators[operatorsMaxCount][operatorsTableWidth];
 

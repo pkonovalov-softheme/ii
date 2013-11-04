@@ -40,18 +40,25 @@ namespace Brans
 		return arr[k];
 	}
 
-	//Returns vector n elements of the Entity
+	//Returns vector's top n elements(by the Effectivity) or zero if Effectivity not bigger then zero.
 	std::vector<Entity*> CustomAlgs::SelectTopNs(std::vector<Entity*>& arr, mainDataType n)
 	{
 		std::vector<Entity*> retAr;
-		retAr.reserve(n);
+		
 
 		Entity* targetEntity = SelectKth(arr, arr.size() - n);
+		if (targetEntity->GetEffectiveness() > 0)
+		{
+			retAr.reserve(n);
+			mainDataType size = arr.size();
 
-		for (Entity* & ent : arr) {
-			if (ent->GetEffectiveness() >= targetEntity->GetEffectiveness()) {
-				retAr.push_back(ent);
-				if (retAr.size() == n) return retAr;
+			for (mainDataType i = 0; i < size; i++) 
+			{
+				if (arr[i]->GetEffectiveness() >= targetEntity->GetEffectiveness()) {
+					retAr.push_back(arr[i]);
+					arr[i] = nullptr; //Because later all vactor's elements will be deleted
+					if (retAr.size() == n) return retAr;
+				}
 			}
 		}
 

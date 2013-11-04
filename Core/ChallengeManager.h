@@ -36,9 +36,10 @@ namespace Brans
 
 		/*#ifdef RedefChallangesCount
 		static const mainDataType ChallangesCount = 500;
+		#undef RedefChallangesCount
 		#else*/
 		static const mainDataType ChallangesCount = 1;
-		/*#endif  */
+		/*#endif */ 
 		static const mainDataType RandomUpperLimit = 10; //max value for random for inputs
 		mainDataType _correctAnswers[ChallangesCount][ExternalOutputsCount - 1];
 		mainDataType _inputs[ChallangesCount][ExternalInputsCount];/*Generated random inputs for

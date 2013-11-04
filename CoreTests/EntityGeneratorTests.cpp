@@ -41,13 +41,16 @@ namespace CoreTests
 
 		TEST_METHOD(GeneratedOperatorsTypesAreValid)
 		{
-			for (mainDataType i = Entity::FirstInternalOper; i < EntityOperatorsCount; i++)
+			for (size_t i = 0; i < 1000; i++)
 			{
-				OperatorsTypes curOperType = (OperatorsTypes)testEntity->mGetOperatorType(i);
-				if (!(curOperType >  OperatorsTypes::Zero && curOperType < OperatorsTypes::Nothing))
+				Entity* curEntity = &entityGenerator->GenerateEntity();
+				for (mainDataType i = Entity::FirstInternalOper; i < EntityOperatorsCount; i++)
 				{
-					Assert::IsTrue(curOperType >  OperatorsTypes::Zero && curOperType < OperatorsTypes::Nothing);
+					OperatorsTypes curOperType = (OperatorsTypes) curEntity->mGetOperatorType(i);
+					Assert::IsTrue(curOperType >  OperatorsTypes::Zero && curOperType < OperatorsTypes::ExternalInput);
 				}
+
+				delete curEntity;
 			}
 		}
 
