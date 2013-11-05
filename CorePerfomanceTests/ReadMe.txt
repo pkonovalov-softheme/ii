@@ -1,12 +1,18 @@
 ﻿Рабочий комп:
 
 ComplexAchiveEffectivity: 62 983
-
+------
 InputsGenerationAndFillingAnswers: 408 673 Answers + inputs /sec.
-
+--------
 Processing: 121023 Enteties/sec.
-
+---------
 EntityGenerationAndClear: 125674 Enteties/sec.
+
+---------
+Testing SelectN...
+Average performance: 11 764 705 Enteties/sec
+After Fix:  17 857 142
+------------
 
 Testing operator Division
 Elapsed: 1720ms

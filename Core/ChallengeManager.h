@@ -8,7 +8,6 @@ namespace Brans
 {
 	class ChallengeManager
 	{
-
 	public:
 		ChallengeManager();
 		//static ChallengeManager& GenerateNextChalangesLine(mainDataType challangeType);

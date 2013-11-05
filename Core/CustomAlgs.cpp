@@ -44,21 +44,16 @@ namespace Brans
 	std::vector<Entity*> CustomAlgs::SelectTopNs(std::vector<Entity*>& arr, mainDataType n)
 	{
 		std::vector<Entity*> retAr;
-		
-
 		Entity* targetEntity = SelectKth(arr, arr.size() - n);
-		if (targetEntity->GetEffectiveness() > 0)
-		{
-			retAr.reserve(n);
-			mainDataType size = arr.size();
+		retAr.reserve(n);
+		mainDataType size = arr.size();
 
-			for (mainDataType i = 0; i < size; i++) 
-			{
-				if (arr[i]->GetEffectiveness() >= targetEntity->GetEffectiveness()) {
-					retAr.push_back(arr[i]);
-					arr[i] = nullptr; //Because later all vactor's elements will be deleted
-					if (retAr.size() == n) return retAr;
-				}
+		for (mainDataType i = 0; i < size; i++) 
+		{
+			if (arr[i]->GetEffectiveness() >= targetEntity->GetEffectiveness()) {
+				retAr.push_back(arr[i]);
+				arr[i] = nullptr; //Because later all vector's elements will be deleted
+				if (retAr.size() == n) return retAr;
 			}
 		}
 

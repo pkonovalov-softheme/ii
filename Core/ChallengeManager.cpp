@@ -6,8 +6,8 @@ namespace Brans
 {
 	ChallengeManager* ChallengeManager::_chManager;
 
-	ChallengeManager::ChallengeManager() : _inputs(), 
-		_correctAnswers(), _entityGenerator(), _rvp(RandomUpperLimit), _curEntityId(0), _currentLine(0), _population()
+	ChallengeManager::ChallengeManager() : _inputs(), _correctAnswers(), _entityGenerator(), _rvp(RandomUpperLimit),
+		_curEntityId(0), _currentLine(0), _population(), _goodPopulation()
 	{
 		_curChallangeType = ChallengeTypes::One;
 		_chManager = this;
@@ -124,12 +124,14 @@ namespace Brans
 			GenerateEntities();
 			ProcessEnteties();
 			CalculateEffectiveness();
-			std::vector<Entity*> vinners = CustomAlgs::SelectTopNs(_population, 1);
+			std::vector<Entity*> vinners = CustomAlgs::SelectTopNs(_goodPopulation, 1);
 			if (vinners.size() > 0)
 			{
 				if (vinners[0]->GetEffectiveness() >= targetEffectivity) return vinners[0];
-				_population.push_back(vinners[0]);
+				//_population.push_back(vinners[0]);
 			}
+
+			//now i don't clear _goodPopulation but in future i need to impliment
 			ClearPopulation();
 		}
 	}
@@ -164,6 +166,10 @@ namespace Brans
 		{
 			const unsigned int totalTry = ChallangesCount * EntityProcessCount;
 			_population[i]->CalculateEffectiveness(totalTry);
+			if (_population[i]->GetEffectiveness() > 0) {
+				_goodPopulation.push_back(_population[i]);
+			}
+			
 		}
 	}
 

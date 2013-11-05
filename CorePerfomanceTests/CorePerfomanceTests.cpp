@@ -158,37 +158,52 @@ void ComplexAchiveEffectivity()
 	cout << "Average performance: " << EntetiesCount * 1000 / opbase.GetElapsedMiliseconds() << " Enteties /sec." << std::endl;
 }
 
+void SelectNTest()
+{
+	cout << "Testing SelectN..." <<  std::endl;
+	EntityGenerator entityGenerator;
+	mainDataType EntitiesCount = 1000000;
+	//mainDataType SelectionCount = 1000;
 
+	ChallengeManager cm;
+	std::vector<Entity*> all;
+	all.reserve(EntitiesCount);
 
+	std::vector<double> vinners;
+
+	for (size_t i = 0; i < EntitiesCount; i++)
+	{
+		Entity& ent = entityGenerator.GenerateEntity();
+		ent.SetCorrectAnswers(RandomValuesProvider::GetNextValue(500));
+		ent.CalculateEffectiveness(700);
+		all.push_back(&ent);
+	}
+
+	OperatorTestBase opbase;
+	opbase.StartWatch();
+	Entity* vinner = CustomAlgs::SelectTopNs(all, 1)[0]; //will be bullprt error
+	vinners.push_back(vinner->GetEffectiveness());
+	opbase.StopWatch();
+
+	cout << "Vinner Effectivnes" << vinners[0] << std::endl;
+	cout << "Average performance: " << /*SelectionCount **/ EntitiesCount * 1000 / opbase.GetElapsedMiliseconds() << "Enteties/sec"
+		 << std::endl;
+
+	while (!all.empty()) {
+		delete all.back();
+		all.pop_back();
+	}
+}
 
 int _tmain(int argc, _TCHAR* argv[])
 {
-	TestOperators();
+	ComplexAchiveEffectivity();
+	//SelectNTest();
+	//TestOperators();
 	//TestEntityGenerationAndClear();
 	//TestEntityProcessing();
 	//TestInputsGenerationAndFillingAnswers();
 	//ComplexAchiveEffectivity();
-	//std::random_device rd;
-	//std::mt19937 e1(rd());
-	//std::uniform_int_distribution<int> uniform_dist(1, 3);
-	//int val = uniform_dist(e1);
-
-
-	//unsigned int one=0, two =0, three = 0;
-
-	//OperatorTestBase* opbase = new OperatorTestBase(0, 0, 0, 0);
-	//opbase->StartWatch();
-	//for (int i =0; i < 100000000; i++)
-	//{
-	//	int val = uniform_dist(e1);
-	//	if (val == 1) one++;
-	//	if (val == 2) two++;
-	//	if (val == 3) three++;
-	//}
-	//opbase->StopWatch();
-	//cout << "\nElapsed: " << opbase->GetElapsedMiliseconds() << "ms\n" << std::endl << "one=" << one << std::endl;
-
-	//TestOperators();
 	return 0;
 }
 
