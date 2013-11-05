@@ -72,6 +72,9 @@ namespace Brans
 
 		void Entity::mCreateOperatorUnsafe(mainDataType operatorType);
 
+		//Returns true if all operators type are the same
+		bool IsEqual(Entity* ent); 
+
 	private:
 
 		bool IsOperIdCorrect(mainDataType operatorId);

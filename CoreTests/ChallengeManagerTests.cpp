@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "CppUnitTest.h"
-//#define RedefChallangesCount (0)
+//#define RedefChallangesCount
 #include "..\Core\ChallengeManager.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;

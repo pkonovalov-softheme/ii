@@ -42,12 +42,7 @@ void TestOperator(unsigned int OperatorId, mainDataType firstValue, mainDataType
 
 void TestOperators()
 {
-	//OperatorsCount
-	//for (unsigned int i = 1; i < 11; i++)
-	//{
-	//	TestOperator(i);
-	//}
-	Entity *entl = new Entity();
+	ChallengeManager cm;
 	TestOperator(Division, 8, 2, 0);
 	TestOperator(Equal, 2, 0, 0);
 	TestOperator(If, 2, 1, 0);
@@ -66,15 +61,15 @@ void TestOperators()
 	TestOperator(RemoveOperator, 7, 0, 0);
 	TestOperator(GetInputOperatorId, 0, 0, 0);
 	TestOperator(GetOperatorContactsCount, Plus, 0, 0);
-	TestOperator(Nothing, 0, 0, 0);
 
 	cout << "Average performance: " << perfomanceSum/perfomanceCount << " operations/sec.\n"; 
 	cout << "Result: " << result << std::endl;
+
 }
 
 void TestEntityGenerationAndClear()
 {
-	cout << "Testing enteties generation..." << std::endl;
+	cout << "Testing EntityGenerationAndClear..." << std::endl;
 	ChallengeManager cm;
 	const mainDataType EntitiesToGenerate = 10000000;
 	const mainDataType cyclesCount = EntitiesToGenerate / EntitiesStartPopulation;
@@ -93,7 +88,7 @@ void TestEntityGenerationAndClear()
 
 void TestEntityProcessing()
 {
-	cout << "Testing enteties generation..." << std::endl;
+	cout << "Testing enteties Processing..." << std::endl;
 	ChallengeManager cm;
 	cm.GenerateEntities();
 	const mainDataType EntitiesToGenerate = 80000000;
@@ -113,9 +108,9 @@ void TestEntityProcessing()
 
 void TestInputsGenerationAndFillingAnswers()
 {
-	cout << "Testing enteties generation..." << std::endl;
+	cout << "Testing InputsGenerationAndFillingAnswers..." << std::endl;
 	ChallengeManager cm;
-	const mainDataType OperationCount = 1000000;
+	const mainDataType OperationCount = 4000000;
 	const mainDataType cyclesCount = OperationCount / ChallengeManager::ChallangesCount*ExternalInputsCount;
 	
 	OperatorTestBase opbase;
@@ -132,11 +127,11 @@ void TestInputsGenerationAndFillingAnswers()
 	cout << "Average performance: " << OperationCount * 2 * 1000 / opbase.GetElapsedMiliseconds() << " Answers + inputs /sec." << std::endl;
 }
 
-void ComplexAchiveEffectivityTest()
+void ComplexAchiveEffectivity()
 {
-	cout << "Testing enteties generation..." << std::endl;
+	cout << "Testing ComplexAchiveEffectivity generation..." << std::endl;
 	ChallengeManager cm;
-	const mainDataType EntetiesCount = 1000000;
+	const mainDataType EntetiesCount = 5000000;
 	const mainDataType cyclesCount = EntetiesCount / EntitiesStartPopulation;
 
 	OperatorTestBase opbase;
@@ -168,7 +163,11 @@ void ComplexAchiveEffectivityTest()
 
 int _tmain(int argc, _TCHAR* argv[])
 {
-	ComplexAchiveEffectivityTest();
+	TestOperators();
+	//TestEntityGenerationAndClear();
+	//TestEntityProcessing();
+	//TestInputsGenerationAndFillingAnswers();
+	//ComplexAchiveEffectivity();
 	//std::random_device rd;
 	//std::mt19937 e1(rd());
 	//std::uniform_int_distribution<int> uniform_dist(1, 3);

@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "OperatorTestBase.h"
-#include "..\Core\Entity.h"
+#include "..\Core\ChallengeManager.h"
 
 #include <iostream>
 #include <chrono>
@@ -9,6 +9,7 @@
 using namespace Brans;
 
 Entity* entity;
+
 clock_t c_start; 
 unsigned long _elapsed;
 
@@ -33,6 +34,7 @@ OperatorTestBase::OperatorTestBase(mainDataType operatorType, mainDataType first
 
 OperatorTestBase::OperatorTestBase()
 {
+	delete entity;
 }
 
 

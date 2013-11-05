@@ -318,4 +318,15 @@ namespace Brans
 	{
 		_correctAnswersCount = count;
 	}
+
+	bool Entity::IsEqual(Entity* ent)
+	{
+		if (this->GetOperatorsCount() != ent->GetOperatorsCount()) return false;
+
+		for (size_t i = FirstInternalOper; i < GetOperatorsCount(); i++) {
+			if (this->GetContactValue(i, 0) != ent->GetContactValue(i, 0))  return false;
+		}
+
+		return true;
+	}
 }

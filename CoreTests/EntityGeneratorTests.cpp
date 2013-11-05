@@ -89,5 +89,18 @@ namespace CoreTests
 				delete curEntity;
 			}
 		}
+
+		TEST_METHOD(GeneratedSequencesNotSame)
+		{
+			EntityGenerator entityGenerator1;
+			EntityGenerator entityGenerator2;
+
+			Entity* ent1 = &entityGenerator1.GenerateEntity();
+			Entity* ent2 = &entityGenerator2.GenerateEntity();
+
+			Assert::IsFalse(ent1->IsEqual(ent2));
+			delete ent1;
+			delete ent2;
+		}
 	};
 }

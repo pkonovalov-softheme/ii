@@ -1,30 +1,67 @@
-﻿========================================================================
-    КОНСОЛЬНОЕ ПРИЛОЖЕНИЕ. Обзор проекта CorePerfomanceTests
-========================================================================
+﻿Рабочий комп:
 
-Это приложение CorePerfomanceTests создано автоматически с помощью мастера приложений.
+ComplexAchiveEffectivity: 62 983
 
-В этом файле представлена сводка содержимого всех файлов, входящих в состав приложения CorePerfomanceTests.
+InputsGenerationAndFillingAnswers: 408 673 Answers + inputs /sec.
+
+Processing: 121023 Enteties/sec.
+
+EntityGenerationAndClear: 125674 Enteties/sec.
+
+Testing operator Division
+Elapsed: 1720ms
+Performance: 290697674 operations/sec.
+Testing operator Equal
+Elapsed: 1728ms
+Performance: 289351851 operations/sec.
+Testing operator If
+Elapsed: 3266ms
+Performance: 153092467 operations/sec.
+Testing operator Minus
+Elapsed: 7496ms
+Performance: 66702241 operations/sec.
+Testing operator Multiplication
+Elapsed: 419ms
+Performance: 1193317422 operations/sec.
+Testing operator One
+Elapsed: 734ms
+Performance: 681198910 operations/sec.
+Testing operator Plus
+Elapsed: 2606ms
+Performance: 191864927 operations/sec.
+Testing operator RandomNumber
+Elapsed: 17489ms
+Performance: 28589399 operations/sec.
+Testing operator Time
+Elapsed: 461ms
+Performance: 1084598698 operations/sec.
+Testing operator CreateChannel
+Elapsed: 3060ms
+Performance: 163398692 operations/sec.
+Testing operator CreateOperator
+Elapsed: 2750ms
+Performance: 181818181 operations/sec.
+Testing operator DeleteChannel
+Elapsed: 5549ms
+Performance: 90106325 operations/sec.
+Testing operator GetTypeOfOperator
+Elapsed: 338ms
+Performance: 1479289940 operations/sec.
+Testing operator IsChannelExists
+Elapsed: 3257ms
+Performance: 153515505 operations/sec.
+Testing operator RemoveOperator
+Elapsed: 3118ms
+Performance: 160359204 operations/sec.
+Testing operator GetInputOperatorId
+Elapsed: 1476ms
+Performance: 338753387 operations/sec.
+Testing operator GetOperatorContactsCount
+Elapsed: 846ms
+Performance: 591016548 operations/sec.
+Average performance: 167217886 operations/sec.
+Result: 1383655514
+Press any key to continue . . .
 
 
-CorePerfomanceTests.vcxproj
-    Это основной файл проекта VC++, создаваемый с помощью мастера приложений. Он содержит данные о версии языка Visual C++, использованной для создания файла, а также сведения о платформах, конфигурациях и функциях проекта, выбранных с помощью мастера приложений.
-
-CorePerfomanceTests.vcxproj.filters
-    Это файл фильтров для проектов VC++, созданный с помощью мастера приложений. Он содержит сведения о сопоставлениях между файлами в вашем проекте и фильтрами. Эти сопоставления используются в среде IDE для группировки файлов с одинаковыми расширениями в одном узле (например CPP-файлы сопоставляются с фильтром "Исходные файлы").
-
-CorePerfomanceTests.cpp
-    Это основной исходный файл приложения.
-
-/////////////////////////////////////////////////////////////////////////////
-Другие стандартные файлы:
-
-StdAfx.h, StdAfx.cpp
-    Эти файлы используются для построения файла предкомпилированного заголовка (PCH) с именем CorePerfomanceTests.pch и файла предкомпилированных типов с именем StdAfx.obj.
-
-/////////////////////////////////////////////////////////////////////////////
-Прочие примечания.
-
-С помощью комментариев «TODO:» в мастере приложений обозначаются фрагменты исходного кода, которые необходимо дополнить или изменить.
-
-/////////////////////////////////////////////////////////////////////////////
+=========================================================

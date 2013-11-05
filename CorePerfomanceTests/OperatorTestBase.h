@@ -2,7 +2,7 @@
 
 #include "..\Core\Entity.h"
 
-const unsigned long long numberOfCycles = 10000;
+const unsigned long long numberOfCycles = 500000;
 const unsigned int OperatorsCout = 1000;
 
 class OperatorTestBase

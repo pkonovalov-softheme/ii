@@ -34,12 +34,11 @@ namespace Brans
 		mainDataType _currentLine; //defines place where next real answers will be inserted
 		mainDataType _curEntityId;
 
-		/*#ifdef RedefChallangesCount
-		static const mainDataType ChallangesCount = 500;
-		#undef RedefChallangesCount
-		#else*/
-		static const mainDataType ChallangesCount = 1;
-		/*#endif */ 
+		#if defined(RedefChallangesCount)
+			static const mainDataType ChallangesCount = 500;
+		#else
+			static const mainDataType ChallangesCount = 1;
+		#endif
 		static const mainDataType RandomUpperLimit = 10; //max value for random for inputs
 		mainDataType _correctAnswers[ChallangesCount][ExternalOutputsCount - 1];
 		mainDataType _inputs[ChallangesCount][ExternalInputsCount];/*Generated random inputs for
