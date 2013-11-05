@@ -124,11 +124,14 @@ namespace Brans
 			GenerateEntities();
 			ProcessEnteties();
 			CalculateEffectiveness();
-			std::vector<Entity*> vinners = CustomAlgs::SelectTopNs(_goodPopulation, 1);
-			if (vinners.size() > 0)
+			if (_goodPopulation.size() > 0)
 			{
-				if (vinners[0]->GetEffectiveness() >= targetEffectivity) return vinners[0];
-				//_population.push_back(vinners[0]);
+				std::vector<Entity*> vinners = CustomAlgs::SelectTopNs(_goodPopulation, 1);
+				if (vinners.size() > 0)
+				{
+					if (vinners[0]->GetEffectiveness() >= targetEffectivity) return vinners[0];
+					//_population.push_back(vinners[0]);
+				}
 			}
 
 			//now i don't clear _goodPopulation but in future i need to impliment

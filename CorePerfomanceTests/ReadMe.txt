@@ -71,3 +71,8 @@ Press any key to continue . . .
 
 
 =========================================================
+
+Домашний
+ComplexAchiveEffectivity generation: 82085 Enteties /sec.
+
+===================
