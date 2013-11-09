@@ -137,6 +137,8 @@ namespace Brans
 
 	mainDataType Entity::mGetNewRandomVal(mainDataType upperLimit)
 	{
+		if (upperLimit == 0) return 0;
+
 		return RandomValuesProvider::GetNextValue(upperLimit);
 	}
 
