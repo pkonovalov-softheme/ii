@@ -74,6 +74,12 @@ void FastRandom::srand_sse()
 	cur_seed = _mm_set_epi32(seed, seed + 1, seed, seed + 1);
 }
 
+inline unsigned int FastRandom::randlim(unsigned int low, unsigned int high)
+{
+	unsigned int ret;
+	rand_sse(&ret);
+	return ret % (high - low + 1) + low;
+}
 
 // uncoment this if you are using intel compiler
 // for MS CL the vectorizer is on by default and jumps in if you
@@ -167,9 +173,3 @@ inline void FastRandom::rand_sse(unsigned int* result)
 
 }
 
-inline unsigned int FastRandom::randlim(unsigned int low, unsigned int high)
-{
-	unsigned int ret;
-	rand_sse(&ret);
-	return ret % (high - low + 1) + low;
-}
