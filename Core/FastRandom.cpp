@@ -1,175 +1,138 @@
+#pragma once
 #include "stdafx.h"
 #include "FastRandom.h"
 #include <time.h>
-
-/////////////////////////////////////////////////////////////////////////////
-
-// The Software is provided "AS IS" and possibly with faults. 
-
-// Intel disclaims any and all warranties and guarantees, express, implied or
-
-// otherwise, arising, with respect to the software delivered hereunder,
-
-// including but not limited to the warranty of merchantability, the warranty
-
-// of fitness for a particular purpose, and any warranty of non-infringement
-
-// of the intellectual property rights of any third party.
-
-// Intel neither assumes nor authorizes any person to assume for it any other
-
-// liability. Customer will use the software at its own risk. Intel will not
-
-// be liable to customer for any direct or indirect damages incurred in using
-
-// the software. In no event will Intel be liable for loss of profits, loss of
-
-// use, loss of data, business interruption, nor for punitive, incidental,
-
-// consequential, or special damages of any kind, even if advised of
-
-// the possibility of such damages.
-
-//
-
-// Copyright (c) 2003 Intel Corporation
-
-//
-
-// Third-party brands and names are the property of their respective owners
-
-//
-
-///////////////////////////////////////////////////////////////////////////
-
-// Random Number Generation for SSE / SSE2
-
-// Source File
-
-// Version 0.1
-
-// Author Kipp Owens, Rajiv Parikh
-
-////////////////////////////////////////////////////////////////////////
-
-
 #include "emmintrin.h"
 
-#define COMPATABILITY
-
-//define this if you wish to return values similar to the standard rand();
-
-__declspec(align(16)) static __m128i cur_seed;
-
-
-void FastRandom::srand_sse(unsigned int seed)
+namespace Brans
 {
+	//extern void srand_sse();
+	//extern void rand_sse(unsigned int*);
+	//inline unsigned int randlim(unsigned int low, unsigned int high){
+	//	unsigned int ret;
+	//	rand_sse(&ret);
+	//	return ret % (high - low + 1) + low;
 
-	cur_seed = _mm_set_epi32(seed, seed + 1, seed, seed + 1);
-}
+	///////////////////////////////////////////////////////////////////////////
 
-void FastRandom::srand_sse()
-{
-	unsigned int seed = (unsigned int)time(0);
-	cur_seed = _mm_set_epi32(seed, seed + 1, seed, seed + 1);
-}
+	// Random Number Generation for SSE / SSE2
 
-inline unsigned int FastRandom::randlim(unsigned int low, unsigned int high)
-{
-	unsigned int ret;
-	rand_sse(&ret);
-	return ret % (high - low + 1) + low;
-}
+	// Source File
 
-// uncoment this if you are using intel compiler
-// for MS CL the vectorizer is on by default and jumps in if you
-// compile with /O2 ...
-//#pragma intel optimization_parameter target_arch=avx
-//__declspec(cpu_dispatch(core_2nd_gen_avx, core_i7_sse4_2, core_2_duo_ssse3, generic )
-inline void FastRandom::rand_sse(unsigned int* result)
+	// Version 0.1
 
-{
+	// Author Kipp Owens, Rajiv Parikh
 
-	__declspec(align(16)) __m128i cur_seed_split;
-
-	__declspec(align(16)) __m128i multiplier;
-
-	__declspec(align(16)) __m128i adder;
-
-	__declspec(align(16)) __m128i mod_mask;
-
-	__declspec(align(16)) __m128i sra_mask;
-
-	__declspec(align(16)) __m128i sseresult;
-
-	__declspec(align(16)) static const unsigned int mult[4] =
-
-	{ 214013, 17405, 214013, 69069 };
-
-	__declspec(align(16)) static const unsigned int gadd[4] =
-
-	{ 2531011, 10395331, 13737667, 1 };
-
-	__declspec(align(16)) static const unsigned int mask[4] =
-
-	{ 0xFFFFFFFF, 0, 0xFFFFFFFF, 0 };
-
-	__declspec(align(16)) static const unsigned int masklo[4] =
-
-	{ 0x00007FFF, 0x00007FFF, 0x00007FFF, 0x00007FFF };
+	////////////////////////////////////////////////////////////////////////
 
 
 
-	adder = _mm_load_si128((__m128i*) gadd);
+	#define COMPATABILITY
 
-	multiplier = _mm_load_si128((__m128i*) mult);
+	//define this if you wish to return values similar to the standard rand();
 
-	mod_mask = _mm_load_si128((__m128i*) mask);
+	__declspec(align(16)) __m128i cur_seed;
 
-	sra_mask = _mm_load_si128((__m128i*) masklo);
+	FastRandom::FastRandom()
+	{
+		unsigned int seed = (unsigned int)time(0);
+		cur_seed = _mm_set_epi32(seed, seed + 1, seed, seed + 1);
+	}
 
-	cur_seed_split = _mm_shuffle_epi32(cur_seed, _MM_SHUFFLE(2, 3, 0, 1));
+	unsigned int FastRandom::GetRandom(unsigned int low, unsigned int high)
+	{
+		unsigned int ret;
+		rand_sse(&ret);
+		return ret % (high - low + 1) + low;
+	}
+
+	// uncoment this if you are using intel compiler
+	// for MS CL the vectorizer is on by default and jumps in if you
+	// compile with /O2 ...
+	//#pragma intel optimization_parameter target_arch=avx
+	//__declspec(cpu_dispatch(core_2nd_gen_avx, core_i7_sse4_2, core_2_duo_ssse3, generic )
+	void FastRandom::rand_sse(unsigned int* result)
+	{
+		__declspec(align(16)) __m128i cur_seed_split;
+
+		__declspec(align(16)) __m128i multiplier;
+
+		__declspec(align(16)) __m128i adder;
+
+		__declspec(align(16)) __m128i mod_mask;
+
+		__declspec(align(16)) __m128i sra_mask;
+
+		__declspec(align(16)) __m128i sseresult;
+
+		__declspec(align(16)) static const unsigned int mult[4] =
+
+		{ 214013, 17405, 214013, 69069 };
+
+		__declspec(align(16)) static const unsigned int gadd[4] =
+
+		{ 2531011, 10395331, 13737667, 1 };
+
+		__declspec(align(16)) static const unsigned int mask[4] =
+
+		{ 0xFFFFFFFF, 0, 0xFFFFFFFF, 0 };
+
+		__declspec(align(16)) static const unsigned int masklo[4] =
+
+		{ 0x00007FFF, 0x00007FFF, 0x00007FFF, 0x00007FFF };
 
 
 
-	cur_seed = _mm_mul_epu32(cur_seed, multiplier);
+		adder = _mm_load_si128((__m128i*) gadd);
 
-	multiplier = _mm_shuffle_epi32(multiplier, _MM_SHUFFLE(2, 3, 0, 1));
+		multiplier = _mm_load_si128((__m128i*) mult);
 
-	cur_seed_split = _mm_mul_epu32(cur_seed_split, multiplier);
+		mod_mask = _mm_load_si128((__m128i*) mask);
 
+		sra_mask = _mm_load_si128((__m128i*) masklo);
 
-	cur_seed = _mm_and_si128(cur_seed, mod_mask);
-
-	cur_seed_split = _mm_and_si128(cur_seed_split, mod_mask);
-
-	cur_seed_split = _mm_shuffle_epi32(cur_seed_split, _MM_SHUFFLE(2, 3, 0, 1));
-
-	cur_seed = _mm_or_si128(cur_seed, cur_seed_split);
-
-	cur_seed = _mm_add_epi32(cur_seed, adder);
-
-
-#ifdef COMPATABILITY
+		cur_seed_split = _mm_shuffle_epi32(cur_seed, _MM_SHUFFLE(2, 3, 0, 1));
 
 
 
-	// Add the lines below if you wish to reduce your results to 16-bit vals...
+		cur_seed = _mm_mul_epu32(cur_seed, multiplier);
 
-	sseresult = _mm_srai_epi32(cur_seed, 16);
+		multiplier = _mm_shuffle_epi32(multiplier, _MM_SHUFFLE(2, 3, 0, 1));
 
-	sseresult = _mm_and_si128(sseresult, sra_mask);
-
-	_mm_storeu_si128((__m128i*) result, sseresult);
-
-	return;
-
-#endif
+		cur_seed_split = _mm_mul_epu32(cur_seed_split, multiplier);
 
 
-	_mm_storeu_si128((__m128i*) result, cur_seed);
+		cur_seed = _mm_and_si128(cur_seed, mod_mask);
 
-	return;
+		cur_seed_split = _mm_and_si128(cur_seed_split, mod_mask);
 
+		cur_seed_split = _mm_shuffle_epi32(cur_seed_split, _MM_SHUFFLE(2, 3, 0, 1));
+
+		cur_seed = _mm_or_si128(cur_seed, cur_seed_split);
+
+		cur_seed = _mm_add_epi32(cur_seed, adder);
+
+
+	#ifdef COMPATABILITY
+
+
+
+		// Add the lines below if you wish to reduce your results to 16-bit vals...
+
+		sseresult = _mm_srai_epi32(cur_seed, 16);
+
+		sseresult = _mm_and_si128(sseresult, sra_mask);
+
+		_mm_storeu_si128((__m128i*) result, sseresult);
+
+		return;
+
+	#endif
+
+
+		_mm_storeu_si128((__m128i*) result, cur_seed);
+
+		return;
+	}
 }
 

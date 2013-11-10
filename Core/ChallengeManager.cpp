@@ -13,9 +13,6 @@ namespace Brans
 		_curChallangeType = ChallengeTypes::One;
 		_chManager = this;
 		_population.reserve(EntitiesStartPopulation);
-		#ifdef FAST_RANDOM
-			FastRandom::srand_sse();
-		#endif
 	}
 
 	ChallengeManager::~ChallengeManager()
