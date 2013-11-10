@@ -1,6 +1,7 @@
 #pragma once
 #include <random>
 #include "BransGlobals.h"
+#include "FastRandmon.h"
 #include "FastRandom.h"
 
 namespace Brans
@@ -12,7 +13,8 @@ namespace Brans
 	protected:
 		static void SetSeed();
 		static void SetSeed(unsigned int seed);
-		static FastRandom _fastrandom;
+		//FastRandmon _fastrandom;
+		//FastRandom _fastrandom;
 	};
 
 	class RandomValuesProvider : public RandomProviderBase

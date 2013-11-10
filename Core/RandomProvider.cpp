@@ -22,7 +22,8 @@ namespace Brans
 
 	mainDataType RandomValuesProvider::GetNextValue()
 	{
-		return _fastrandom.GetRandom(1, _upperLimit);
+		//return _fastrandom.GetRandom(1, _upperLimit);
+		return GetRandom(1, _upperLimit);
 	}
 
 	RandomValuesProvider::RandomValuesProvider(mainDataType upperLimit) : _upperLimit(upperLimit)

@@ -71,8 +71,5 @@
     <ClCompile Include="CustomAlgs.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="FastRandom.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
 </Project>
