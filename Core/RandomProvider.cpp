@@ -10,19 +10,16 @@ namespace Brans
 
 	mainDataType RandomOperatorsProvider::GetNextOperator()
 	{
-		//return FastRandom::randlim(1, LastValidOperType);
-		return 1;
+		return GetRandom(1, LastValidOperType);
 	}
 
 	mainDataType  RandomValuesProvider::GetNextValue(mainDataType upperLimit)
 	{
-		return 1;
-		//return FastRandom::randlim(1, upperLimit);
+		return GetRandom(1, upperLimit);
 	}
 
 	mainDataType RandomValuesProvider::GetNextValue()
 	{
-		//return _fastrandom.GetRandom(1, _upperLimit);
 		return GetRandom(1, _upperLimit);
 	}
 

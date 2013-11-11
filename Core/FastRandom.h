@@ -97,20 +97,20 @@ namespace Brans
 			return;
 		}
 
-		//void srand_sse(unsigned int seed)
-		//{
-		//	cur_seed = _mm_set_epi32(seed, seed + 1, seed, seed + 1);
-		//}
+		inline void srand_sse(unsigned int seed)
+		{
+			cur_seed = _mm_set_epi32(seed, seed + 1, seed, seed + 1);
+		}
 
-		//void srand_sse()
-		//{
-		//	unsigned int seed = (unsigned int)time(0);
-		//	cur_seed = _mm_set_epi32(seed, seed + 1, seed, seed + 1);
-		//}
+		inline void srand_sse()
+		{
+			unsigned int seed = (unsigned int)time(0);
+			cur_seed = _mm_set_epi32(seed, seed + 1, seed, seed + 1);
+		}
 
 		inline unsigned int GetRandom(unsigned int low, unsigned int high)
 		{
-			unsigned int ret;
+			unsigned int ret = 0;
 			rand_sse(&ret);
 			return ret % (high - low + 1) + low;
 		}
