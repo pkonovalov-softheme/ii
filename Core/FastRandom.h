@@ -6,6 +6,8 @@
 
 namespace Brans
 {
+		static unsigned short curRandIndex = 4;
+		static unsigned int randoms[4];
 		__declspec(align(16)) static __m128i cur_seed;
 
 		// uncoment this if you are using intel compiler
@@ -110,9 +112,18 @@ namespace Brans
 
 		inline unsigned int GetRandom(unsigned int low, unsigned int high)
 		{
-			unsigned int ret = 0;
-			rand_sse(&ret);
-			return ret % (high - low + 1) + low;
+			if (curRandIndex < 4)
+			{
+				unsigned int res = randoms[curRandIndex];
+				curRandIndex++;
+				return res % (high - low + 1) + low;
+			}
+			else
+			{
+				curRandIndex = 0;
+				rand_sse(randoms);
+				return GetRandom(low, high);
+			}
 		}
 
 	};
