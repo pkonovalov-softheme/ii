@@ -2,7 +2,7 @@
 #include "emmintrin.h"
 #include <time.h>
 //define this if you wish to return values similar to the standard rand();
-#define COMPATABILITY
+//#define COMPATABILITY
 
 namespace Brans
 {

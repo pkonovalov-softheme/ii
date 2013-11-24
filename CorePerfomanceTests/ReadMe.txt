@@ -1,7 +1,7 @@
 ﻿Рабочий комп:
 
 ComplexAchiveEffectivity: 62 983
-------
+------							 
 InputsGenerationAndFillingAnswers: 408 673 Answers + inputs /sec.
 --------
 Processing: 121023 Enteties/sec.

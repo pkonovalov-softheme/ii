@@ -29,6 +29,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{898AEF08-717A-4BDD-8825-DD248B3A52DA}"
 	ProjectSection(SolutionItems) = preProject
 		OptimizationIdeas.txt = OptimizationIdeas.txt
+		Performance2.psess = Performance2.psess
 	EndProjectSection
 EndProject
 Global
@@ -210,5 +211,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(Performance) = preSolution
+		HasPerformanceSessions = true
 	EndGlobalSection
 EndGlobal

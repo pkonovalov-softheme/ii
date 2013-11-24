@@ -104,17 +104,17 @@ namespace Brans
 		return _correctAnswers[_currentLine][inputId];
 	}
 
-	void ChallengeManager::StartSelection()
-	{
-		GenerateRandomInputs();
-		FillAnswers();
-		ClearPopulation();
+	//void ChallengeManager::StartSelection()
+	//{
+	//	GenerateRandomInputs();
+	//	FillAnswers();
+	//	ClearPopulation();
 
-		GenerateEntities();
-		ProcessEnteties();
-		CalculateEffectiveness();
-		std::vector<Entity*> vinners = CustomAlgs::SelectTopNs(_population, 3);
-	}
+	//	GenerateEntities();
+	//	ProcessEnteties();
+	//	CalculateEffectiveness();
+	//	std::vector<Entity*> vinners = CustomAlgs::SelectTopNs(_population, 3);
+	//}
 
 	Entity* ChallengeManager::AchiveEffectivity(double targetEffectivity)
 	{
@@ -128,12 +128,15 @@ namespace Brans
 			CalculateEffectiveness();
 			if (_goodPopulation.size() > 0)
 			{
-				std::vector<Entity*> vinners = CustomAlgs::SelectTopNs(_goodPopulation, 1);
-				if (vinners.size() > 0)
-				{
-					if (vinners[0]->GetEffectiveness() >= targetEffectivity) return vinners[0];
+				Entity* targetEntity = CustomAlgs::SelectKth(_goodPopulation, _goodPopulation.size());
+				if (targetEntity->GetEffectiveness() >= targetEffectivity) return targetEntity;
+
+				//std::vector<Entity*> vinners = CustomAlgs::SelectTopNs(_goodPopulation, 1);
+				/*if (vinners.size() > 0)
+				{*/
+					//if (vinners[0]->GetEffectiveness() >= targetEffectivity) return vinners[0];
 					//_population.push_back(vinners[0]);
-				}
+				/*}*/
 			}
 
 			//now i don't clear _goodPopulation but in future i need to impliment

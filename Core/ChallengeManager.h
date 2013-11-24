@@ -14,7 +14,6 @@ namespace Brans
 		~ChallengeManager();
 		mainDataType GetEntityExternalInput(mainDataType inputId); //return value of the external input for entity
 		mainDataType GetCorrectAnswer(mainDataType inputId);
-		void StartSelection(); //Start "natural" selection
 		Entity* AchiveEffectivity(double targetEffectivity);
 
 		static ChallengeManager* GetChallangeManager();

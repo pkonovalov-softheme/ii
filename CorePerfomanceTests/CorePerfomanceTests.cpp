@@ -144,12 +144,17 @@ void ComplexAchiveEffectivity()
 		cm.GenerateEntities();
 		cm.ProcessEnteties();
 		cm.CalculateEffectiveness();
-		std::vector<Entity*> vinners = CustomAlgs::SelectTopNs(cm._population, 1);
+		if (cm._goodPopulation.size() > 0)
+		{
+			Entity* targetEntity = CustomAlgs::SelectKth(cm._goodPopulation, cm._goodPopulation.size());
+			if (targetEntity->GetEffectiveness() >= 1.0) return;
+		}
+		/*std::vector<Entity*> vinners = CustomAlgs::SelectTopNs(cm._goodPopulation, 1);
 		if (vinners.size() > 0)
 		{
 			if (vinners[0]->GetEffectiveness() >= 1.0) return;
 			cm._population.push_back(vinners[0]);
-		}
+		}*/
 		cm.ClearPopulation();
 	}
 
@@ -197,12 +202,12 @@ void SelectNTest()
 
 int _tmain(int argc, _TCHAR* argv[])
 {
-	ComplexAchiveEffectivity();
+	//ComplexAchiveEffectivity();
 	//SelectNTest();
 	//TestOperators();
 	//TestEntityGenerationAndClear();
 	//TestEntityProcessing();
-	//TestInputsGenerationAndFillingAnswers();
+	TestInputsGenerationAndFillingAnswers();
 	//ComplexAchiveEffectivity();
 	return 0;
 }

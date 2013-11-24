@@ -7,8 +7,9 @@ namespace Brans
 	class CustomAlgs
 	{
 	private:
-		static  Entity* SelectKth(std::vector<Entity*>& arr, mainDataType k); /*Selects K'th from bottom (lowest)*/
+		
 	public:
+		static  Entity* SelectKth(std::vector<Entity*>& arr, mainDataType k); /*Selects K'th from bottom (lowest)*/
 		static std::vector<Entity*> SelectTopNs(std::vector<Entity*>& arr, mainDataType n);/* Returns top N positions
 	    of the array of int*/
 	};
