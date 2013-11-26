@@ -4,11 +4,35 @@
 
 namespace Brans 
 {
+	const mainDataType Entity::_operatorTypeContactCount[operatorsMaxCount] = {
+		/* Operator-index		  Contacts count */
+		/* Zero */						0,
+		/* Division */					2,
+		/* Equal */						1,
+		/* If */						2,
+		/* Minus */						2,
+		/* Multiplication */			2,
+		/* One */						0,
+		/* Plus */						2,
+		/* RandomNumber */				1,
+		/* Time */						0,
+		/* CreateChannel */				3,
+		/* CreateOperator */			1,
+		/* DeleteChannel */				2,
+		/* GetTypeOfOperator */			1,
+		/* IsChannelExists */			3,
+		/* RemoveOperator */			1,
+		/* GetInputOperatorId */		1,
+		/* GetOperatorContactsCount */	1,
+		/* ExternalInput */				0,
+		/* ExternalOutput */			0,
+		/* Nothing */					0,
+	};
+
 	//Todo: remove _operator initialization with 0 to improve perfomance
-	Entity::Entity() : _operators(), _nextOperatorId(1), _correctAnswersCount(0), _effectiveness(0)
+	Entity::Entity() : _operators(), _nextOperatorId(1), _correctAnswersCount(0), _effectiveness(0),
+		_chmanager(ChallengeManager::GetChallangeManager())
 	{
-		_chmanager = ChallengeManager::GetChallangeManager();
-		InitializeOpTypesCC();
 		InitializeInputsAndOutputs();
 	}
 
@@ -21,28 +45,6 @@ namespace Brans
 	{
 		for (mainDataType i = 0; i < ExternalOutputsCount; i++)  {mCreateOperatorUnsafe(ExternalOutput); }
 		for (mainDataType i = 0; i < ExternalInputsCount; i++)  {mCreateOperatorUnsafe(ExternalInput); }
-	}
-
-	void Entity::InitializeOpTypesCC()
-	{
-		_operatorTypeContactCount[OperatorsTypes::CreateChannel] = 3;
-		_operatorTypeContactCount[OperatorsTypes::CreateOperator] = 1;
-		_operatorTypeContactCount[OperatorsTypes::DeleteChannel] = 2;
-		_operatorTypeContactCount[OperatorsTypes::Division] = 2;
-		_operatorTypeContactCount[OperatorsTypes::Equal] = 1;
-		_operatorTypeContactCount[OperatorsTypes::GetOperatorContactsCount] = 1;
-		_operatorTypeContactCount[OperatorsTypes::GetInputOperatorId] = 1;
-		_operatorTypeContactCount[OperatorsTypes::GetTypeOfOperator] = 1;
-		_operatorTypeContactCount[OperatorsTypes::If] = 2;
-		_operatorTypeContactCount[OperatorsTypes::IsChannelExists] = 3;
-		_operatorTypeContactCount[OperatorsTypes::Minus] = 2;
-		_operatorTypeContactCount[OperatorsTypes::Multiplication] = 2;
-		_operatorTypeContactCount[OperatorsTypes::One] = 0;
-		_operatorTypeContactCount[OperatorsTypes::Plus] = 2;
-		_operatorTypeContactCount[OperatorsTypes::RandomNumber] = 1;
-		_operatorTypeContactCount[OperatorsTypes::RemoveOperator] = 1;
-		_operatorTypeContactCount[OperatorsTypes::Time] = 0;
-		_operatorTypeContactCount[OperatorsTypes::Nothing] = 0;
 	}
 
 	bool Entity::IsOperIdCorrect(mainDataType operatorId)

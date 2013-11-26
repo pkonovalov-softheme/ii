@@ -202,12 +202,12 @@ void SelectNTest()
 
 int _tmain(int argc, _TCHAR* argv[])
 {
-	//ComplexAchiveEffectivity();
+	ComplexAchiveEffectivity();
 	//SelectNTest();
 	//TestOperators();
 	//TestEntityGenerationAndClear();
 	//TestEntityProcessing();
-	TestInputsGenerationAndFillingAnswers();
+//	TestInputsGenerationAndFillingAnswers();
 	//ComplexAchiveEffectivity();
 	return 0;
 }

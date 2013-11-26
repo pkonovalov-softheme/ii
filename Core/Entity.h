@@ -85,11 +85,9 @@ namespace Brans
 
 		mainDataType _operators[operatorsMaxCount][operatorsTableWidth];
 
-		mainDataType _operatorTypeContactCount[operatorsMaxCount];
+		const static mainDataType _operatorTypeContactCount[operatorsMaxCount];
 
 		unsigned int _nextOperatorId; //returns IDs of the last used operator
-
-		void InitializeOpTypesCC();
 
 		void InitializeInputsAndOutputs();
 
