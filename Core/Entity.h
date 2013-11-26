@@ -75,6 +75,8 @@ namespace Brans
 		//Returns true if all operators type are the same
 		bool IsEqual(Entity* ent); 
 
+		void Reset();
+
 	private:
 
 		bool IsOperIdCorrect(mainDataType operatorId);

@@ -29,7 +29,6 @@ namespace Brans
 		/* Nothing */					0,
 	};
 
-	//Todo: remove _operator initialization with 0 to improve perfomance
 	Entity::Entity() : _operators(), _nextOperatorId(1), _correctAnswersCount(0), _effectiveness(0),
 		_chmanager(ChallengeManager::GetChallangeManager())
 	{
@@ -39,6 +38,14 @@ namespace Brans
 	Entity::~Entity() 
 	{
 
+	}
+
+	void Entity::Reset()
+	{
+		for (mainDataType i = FirstInternalOper; i < _nextOperatorId; i++)  { _operators[i][outputValueColumn] = 0; }
+		_nextOperatorId = FirstInternalOper;
+		_correctAnswersCount = 0;
+		_effectiveness = 0;
 	}
 
 	void Entity::InitializeInputsAndOutputs()

@@ -18,15 +18,6 @@ namespace Brans
 
 	ChallengeManager::~ChallengeManager()
 	{
-		ClearPopulation();
-	}
-
-	void ChallengeManager::ClearPopulation()
-	{
-		while (!_population.empty()) {
-			delete _population.back();
-			_population.pop_back();
-		}
 	}
 
 	void ChallengeManager::SetChallengeType(ChallengeTypes chType)
@@ -104,17 +95,22 @@ namespace Brans
 		return _correctAnswers[_currentLine][inputId];
 	}
 
-	//void ChallengeManager::StartSelection()
-	//{
-	//	GenerateRandomInputs();
-	//	FillAnswers();
-	//	ClearPopulation();
+	void ChallengeManager::SelectGoodEnteties()
+	{
+		for (size_t i = 0; i < EntitiesStartPopulation; i++)
+		{
+			Entity& ent = _entityGenerator.GenerateEntity();
+			for (int pr = 0; pr < EntityProcessCount; pr++) {
+				_population[_curEntityId]->mProcessAll();
+			}
 
-	//	GenerateEntities();
-	//	ProcessEnteties();
-	//	CalculateEffectiveness();
-	//	std::vector<Entity*> vinners = CustomAlgs::SelectTopNs(_population, 3);
-	//}
+			const unsigned int totalTry = ChallangesCount * EntityProcessCount;
+			ent.CalculateEffectiveness(totalTry);
+			if (ent.GetEffectiveness() > 0) {
+				_goodPopulation.push_back(&ent);
+			}
+		}
+	}
 
 	Entity* ChallengeManager::AchiveEffectivity(double targetEffectivity)
 	{
@@ -123,9 +119,8 @@ namespace Brans
 
 		while (true)
 		{
-			GenerateEntities();
-			ProcessEnteties();
-			CalculateEffectiveness();
+			SelectGoodEnteties();
+
 			if (_goodPopulation.size() > 0)
 			{
 				Entity* targetEntity = CustomAlgs::SelectKth(_goodPopulation, _goodPopulation.size());
@@ -140,44 +135,6 @@ namespace Brans
 			}
 
 			//now i don't clear _goodPopulation but in future i need to impliment
-			ClearPopulation();
-		}
-	}
-
-	void ChallengeManager::GenerateEntities()
-	{
-		for (int i = 0; i < EntitiesStartPopulation; i++)
-		{
-			//Is it ioptimal structure for perfomance?
-			_population.push_back(&_entityGenerator.GenerateEntity());
-		}
-	}
-
-	void ChallengeManager::ProcessEnteties()
-	{
-		for (_currentLine = 0; _currentLine < ChallangesCount; _currentLine++)
-		{
-			mainDataType s = _population.size();
-			for (_curEntityId = 0; _curEntityId < s; _curEntityId++)
-			{
-				for (int pr = 0; pr < EntityProcessCount; pr++)
-				{
-					_population[_curEntityId]->mProcessAll();
-				}
-			}
-		}
-	}
-
-	void ChallengeManager::CalculateEffectiveness()
-	{
-		for (size_t i = 0, s = _population.size(); i < s; i++)
-		{
-			const unsigned int totalTry = ChallangesCount * EntityProcessCount;
-			_population[i]->CalculateEffectiveness(totalTry);
-			if (_population[i]->GetEffectiveness() > 0) {
-				_goodPopulation.push_back(_population[i]);
-			}
-			
 		}
 	}
 

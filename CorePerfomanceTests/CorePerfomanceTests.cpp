@@ -67,7 +67,7 @@ void TestOperators()
 
 }
 
-void TestEntityGenerationAndClear()
+void TestEntityGeneration()
 {
 	cout << "Testing EntityGenerationAndClear..." << std::endl;
 	ChallengeManager cm;
@@ -78,8 +78,7 @@ void TestEntityGenerationAndClear()
 
 	for (size_t i = 0; i < cyclesCount; i++)
 	{
-		cm.GenerateEntities();
-		cm.ClearPopulation();
+		cm._entityGenerator.GenerateEntity();
 	}
 
 	opbase.StopWatch();
@@ -90,7 +89,9 @@ void TestEntityProcessing()
 {
 	cout << "Testing enteties Processing..." << std::endl;
 	ChallengeManager cm;
-	cm.GenerateEntities();
+
+	Entity& ent = cm._entityGenerator.GenerateEntity();
+
 	const mainDataType EntitiesToGenerate = 80000000;
 	const mainDataType cyclesCount = EntitiesToGenerate / EntitiesStartPopulation;
 	OperatorTestBase opbase;
@@ -98,11 +99,12 @@ void TestEntityProcessing()
 
 	for (size_t i = 0; i < cyclesCount; i++)
 	{
-		cm.ProcessEnteties();
+		for (int pr = 0; pr < EntityProcessCount; pr++) {
+			ent.mProcessAll();
+		}
 	}
 
 	opbase.StopWatch();
-	cm.ClearPopulation();
 	cout << "Average performance: " << EntitiesToGenerate * 1000 / opbase.GetElapsedMiliseconds() << " Enteties/sec." << std::endl;
 }
 
@@ -123,7 +125,6 @@ void TestInputsGenerationAndFillingAnswers()
 	}
 
 	opbase.StopWatch();
-	cm.ClearPopulation();
 	cout << "Average performance: " << OperationCount * 2 * 1000 / opbase.GetElapsedMiliseconds() << " Answers + inputs /sec." << std::endl;
 }
 
@@ -141,25 +142,15 @@ void ComplexAchiveEffectivity()
 	cm.FillAnswers();
 	for (size_t i = 0; i < cyclesCount; i++)
 	{
-		cm.GenerateEntities();
-		cm.ProcessEnteties();
-		cm.CalculateEffectiveness();
+		cm.SelectGoodEnteties();
 		if (cm._goodPopulation.size() > 0)
 		{
 			Entity* targetEntity = CustomAlgs::SelectKth(cm._goodPopulation, cm._goodPopulation.size());
 			if (targetEntity->GetEffectiveness() >= 1.0) return;
 		}
-		/*std::vector<Entity*> vinners = CustomAlgs::SelectTopNs(cm._goodPopulation, 1);
-		if (vinners.size() > 0)
-		{
-			if (vinners[0]->GetEffectiveness() >= 1.0) return;
-			cm._population.push_back(vinners[0]);
-		}*/
-		cm.ClearPopulation();
 	}
 
 	opbase.StopWatch();
-	cm.ClearPopulation();
 	cout << "Average performance: " << EntetiesCount * 1000 / opbase.GetElapsedMiliseconds() << " Enteties /sec." << std::endl;
 }
 

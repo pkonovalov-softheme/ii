@@ -49,8 +49,8 @@ namespace Brans
 		void GenerateRandomInputs(); //Filling inputs arrays with random values for all ChallangesCount
 		void FillAnswers(); //Filling correct answers for generated random inputs (GenerateRandomInputs() should be called before)
 		void SetContactsCount();
-		void ProcessEnteties();
 		void CalculateEffectiveness();
+		void SelectGoodEnteties();
 		RandomValuesProvider _rvp;
 		static ChallengeManager* _chManager;
 	};
