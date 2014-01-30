@@ -4,15 +4,16 @@
 
 namespace Brans 
 {
-	EntityGenerator::EntityGenerator() : _entity()
+	static const mainDataType reducedOpC = EntityOperatorsCount - 1;
+	EntityGenerator::EntityGenerator() : _entity(), _conProvider(reducedOpC)
 	{
-		static const mainDataType reducedOpC = EntityOperatorsCount - 1;
-		_conProvider = new RandomValuesProvider(reducedOpC);
+		
+		//_conProvider = new RandomValuesProvider(reducedOpC);
 	}
 
 	EntityGenerator::~EntityGenerator(void)
 	{
-		delete _conProvider;
+		//delete _conProvider;
 	}
 
 	Entity& EntityGenerator::GenerateEntity()
@@ -26,7 +27,7 @@ namespace Brans
 			//Creating connections
 			for (int curContact = 1; curContact <= GetOperTypeContactsCount(lastOperType); curContact++)
 			{
-				mainDataType md = _conProvider->GetNextValue();
+				mainDataType md = _conProvider.GetNextValue();
 				_entity.mCreateChannelUnsafe(md, curOper, curContact);
 			}
 		}

@@ -8,11 +8,10 @@ namespace Brans
 	ChallengeManager* ChallengeManager::_chManager;
 
 	ChallengeManager::ChallengeManager() : _inputs(), _correctAnswers(), _entityGenerator(), _rvp(RandomUpperLimit),
-		_curEntityId(0), _currentLine(0), _population(), _goodPopulation()
+		_curEntityId(0), _currentLine(0), _goodPopulation()
 	{
 		_curChallangeType = ChallengeTypes::One;
 		_chManager = this;
-		_population.reserve(EntitiesStartPopulation);
 		srand_sse();
 	}
 
@@ -97,19 +96,19 @@ namespace Brans
 
 	void ChallengeManager::SelectGoodEnteties()
 	{
-		for (size_t i = 0; i < EntitiesStartPopulation; i++)
-		{
-			Entity& ent = _entityGenerator.GenerateEntity();
-			for (int pr = 0; pr < EntityProcessCount; pr++) {
-				_population[_curEntityId]->mProcessAll();
-			}
+		//for (size_t i = 0; i < EntitiesStartPopulation; i++)
+		//{
+		//	Entity& ent = _entityGenerator.GenerateEntity();
+		//	for (int pr = 0; pr < EntityProcessCount; pr++) {
+		//		_population[_curEntityId]->mProcessAll();
+		//	}
 
-			const unsigned int totalTry = ChallangesCount * EntityProcessCount;
-			ent.CalculateEffectiveness(totalTry);
-			if (ent.GetEffectiveness() > 0) {
-				_goodPopulation.push_back(&ent);
-			}
-		}
+		//	const unsigned int totalTry = ChallangesCount * EntityProcessCount;
+		//	ent.CalculateEffectiveness(totalTry);
+		//	if (ent.GetEffectiveness() > 0) {
+		//		_goodPopulation.push_back(&Entity(ent));
+		//	}
+		//}
 	}
 
 	Entity* ChallengeManager::AchiveEffectivity(double targetEffectivity)

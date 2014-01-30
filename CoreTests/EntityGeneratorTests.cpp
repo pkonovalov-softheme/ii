@@ -24,7 +24,6 @@ namespace CoreTests
 		TEST_METHOD_CLEANUP(CleanUp)
 		{
 			delete entityGenerator;
-			delete testEntity;
 		}
 
 		TEST_METHOD(TestExternalOutputs)
@@ -49,8 +48,6 @@ namespace CoreTests
 					OperatorsTypes curOperType = (OperatorsTypes) curEntity->mGetOperatorType(i);
 					Assert::IsTrue(curOperType >  OperatorsTypes::Zero && curOperType < OperatorsTypes::ExternalInput);
 				}
-
-				delete curEntity;
 			}
 		}
 
@@ -60,7 +57,7 @@ namespace CoreTests
 			for (size_t i = 0; i < 1000; i++)
 			{
 				curEntity = &entityGenerator->GenerateEntity();
-				for (mainDataType curOp = Entity::FirstInternalOper; curOp < EntityOperatorsCount; curOp++)
+				for (mainDataType curOp = Entity::FirstInternalOper; curOp < curEntity->GetNextOperatorId(); curOp++)
 				{
 					OperatorsTypes curOperType = (OperatorsTypes)curEntity->mGetOperatorType(curOp);
 					for (int curContact = 1; curContact <= EntityGenerator::GetOperTypeContactsCount(curOperType); curContact++)
@@ -74,7 +71,6 @@ namespace CoreTests
 						Assert::IsTrue(curVal > 0 && curVal < curEntity->GetNextOperatorId());
 					}
 				}
-				delete curEntity;
 			}
 		}
 
@@ -86,7 +82,6 @@ namespace CoreTests
 				curEntity = &entityGenerator->GenerateEntity();
 				mainDataType lastOpId = curEntity->GetOperatorsCount();
 				Assert::IsTrue(curEntity->GetContactValue(lastOpId, 0) != Zero);
-				delete curEntity;
 			}
 		}
 
@@ -99,8 +94,6 @@ namespace CoreTests
 			Entity* ent2 = &entityGenerator2.GenerateEntity();
 
 			Assert::IsFalse(ent1->IsEqual(ent2));
-			delete ent1;
-			delete ent2;
 		}
 	};
 }

@@ -43,7 +43,6 @@ namespace Brans
 																   entities testing. Based on 1, not 0 index!*/
 
 		mainDataType _curChallangeType;
-		std::vector<Entity*> _population;
 		std::vector<Entity*> _goodPopulation;
 		EntityGenerator _entityGenerator;
 		void GenerateRandomInputs(); //Filling inputs arrays with random values for all ChallangesCount

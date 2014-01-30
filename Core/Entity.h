@@ -21,6 +21,8 @@ namespace Brans
 
 		~Entity(void);
 
+		Entity::Entity(Entity &ent);
+
 		mainDataType mGetChannelvalue(mainDataType operatorId, mainDataType contactId); //returns input value of target contact
 
 		void mCreateChannel(mainDataType fromOperator, mainDataType toOperator, mainDataType toOperatorContactId); //create new channel between two operators

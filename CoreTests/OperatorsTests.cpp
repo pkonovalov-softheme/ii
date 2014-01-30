@@ -358,5 +358,19 @@ namespace CoreTests
 			ProcessArgsValues(1,2,3);
 			Assert::IsTrue(GetLastValue() == 0);
 		}
+
+		TEST_METHOD(TestCopyConstructor)
+		{
+			CreateOper(Plus);
+			Entity newEnt = Entity(*entity);
+			Assert::AreEqual(newEnt.GetEffectiveness(), 0.0);
+			Assert::AreEqual(newEnt.GetNextOperatorId(), entity->GetNextOperatorId());
+
+			for (mainDataType curRow = entity->FirstInternalOper; curRow < operatorsMaxCount; curRow++) {
+				for (mainDataType curColumn = 0; curColumn <= entity->outputValueColumn; curColumn++){
+					Assert::AreEqual(entity->GetContactValue(curRow, curColumn), newEnt.GetContactValue(curRow, curColumn));
+				}
+			}
+		}
 	};
 }

@@ -35,23 +35,32 @@ namespace Brans
 		InitializeInputsAndOutputs();
 	}
 
-	Entity::~Entity() 
+	Entity::Entity(Entity &ent) : Entity::Entity()
 	{
+		//std::copy(&ent._operators[0][0], &ent._operators[0][0]+operatorsMaxCount*operatorsTableWidth,&this->_operators[0][0]);
+		for (mainDataType curRow = FirstInternalOper; curRow < ent._nextOperatorId; curRow++) {
+			for (mainDataType curColumn = 0; curColumn <= outputValueColumn; curColumn++){
+				this->_operators[curRow][curColumn] = ent._operators[curRow][curColumn];
+			}
+		}
 
+		this->_nextOperatorId = ent._nextOperatorId;
 	}
+
+	Entity::~Entity() { }
 
 	void Entity::Reset()
 	{
-		for (mainDataType i = FirstInternalOper; i < _nextOperatorId; i++)  { _operators[i][outputValueColumn] = 0; }
-		_nextOperatorId = FirstInternalOper;
+		for (mainDataType i = 0; i < _nextOperatorId; i++)  { _operators[i][outputValueColumn] = 0; }
 		_correctAnswersCount = 0;
 		_effectiveness = 0;
+		_nextOperatorId = FirstInternalOper;
 	}
 
 	void Entity::InitializeInputsAndOutputs()
 	{
-		for (mainDataType i = 0; i < ExternalOutputsCount; i++)  {mCreateOperatorUnsafe(ExternalOutput); }
-		for (mainDataType i = 0; i < ExternalInputsCount; i++)  {mCreateOperatorUnsafe(ExternalInput); }
+		for (mainDataType i = 0; i < ExternalOutputsCount; i++)  {mCreateOperatorUnsafe(ExternalOutput);}
+		for (mainDataType i = 0; i < ExternalInputsCount; i++)  {mCreateOperatorUnsafe(ExternalInput);}
 	}
 
 	bool Entity::IsOperIdCorrect(mainDataType operatorId)

@@ -134,27 +134,43 @@ namespace CoreTests
 			//FillAnswers:
 			cm->_correctAnswers[0][0] = 3;
 
+			std::vector<Entity*> population;
+
 			//GenerateEntities:
 			Entity* ent1 = GenerateEntity(Plus);
+			ent1->mProcessAll();
+			ent1->CalculateEffectiveness(1);
+			population.push_back(ent1);
 			Entity* ent2 = GenerateEntity(Minus);
+			ent2->mProcessAll();
+			ent2->CalculateEffectiveness(1);
+			population.push_back(ent2);
 			Entity* ent3 = GenerateEntity(Multiplication);
+			ent3->mProcessAll();
+			ent3->CalculateEffectiveness(1);
+			population.push_back(ent3);
 			Entity* ent4 = GenerateEntity(Plus);
+			ent4->mProcessAll();
+			ent4->CalculateEffectiveness(1);
+			population.push_back(ent4);
 			Entity* ent5 = GenerateEntity(Division);
-
-			cm->_population.push_back(ent1);
-			cm->_population.push_back(ent2);
-			cm->_population.push_back(ent3);
-			cm->_population.push_back(ent4);
-			cm->_population.push_back(ent5);
+			ent5->mProcessAll();
+			ent5->CalculateEffectiveness(1);
+			population.push_back(ent5);
 
 			//ProcessEntities:
-			cm->ProcessEnteties();
-			cm->CalculateEffectiveness();
+//			cm->ProcessEnteties();
+//			cm->CalculateEffectiveness();
 
-			std::vector<Entity*> vinners = CustomAlgs::SelectTopNs(cm->_population, 2);
+			std::vector<Entity*> vinners = CustomAlgs::SelectTopNs(population, 2);
 			Assert::IsTrue(vinners.size() == 2);
 			Assert::IsTrue(vinners[0]->GetContactValue(Entity::FirstInternalOper, 0) == Plus);
 			Assert::IsTrue(vinners[1]->GetContactValue(Entity::FirstInternalOper, 0) == Plus);
+			delete (ent1);
+			delete (ent2);
+			delete (ent3);
+			delete (ent4);
+			delete (ent5);
 			delete (cm);
 		}
 
@@ -165,10 +181,9 @@ namespace CoreTests
 			cm->_inputs[0][1] = 2;
 			cm->_correctAnswers[0][0] = 3;
 			Entity* ent0 = GenerateEntity(Plus);
-			cm->_population.push_back(ent0);
 			ent0->mProcessAll();
 			ent0->CalculateEffectiveness(1);
-			Assert::IsTrue(cm->_population[0]->GetEffectiveness() == 1.00);
+			Assert::IsTrue(ent0->GetEffectiveness() == 1.00);
 			delete (cm);
 		}
 
@@ -178,10 +193,14 @@ namespace CoreTests
 			cm->SetChallengeType(ChallengeManager::ChallengeTypes::Plus);
 			cm->GenerateRandomInputs();
 			cm->FillAnswers();
-			cm->_population.push_back(GenerateEntityEx(Plus));
-			cm->ProcessEnteties();
-			cm->CalculateEffectiveness();
-			Assert::IsTrue(cm->_population[0]->GetEffectiveness() == 1.00);
+			Entity* ent = GenerateEntityEx(Plus);
+			for (int pr = 0; pr < EntityProcessCount; pr++) {
+				ent->mProcessAll();
+			}
+
+			ent->CalculateEffectiveness(EntityProcessCount);
+			Assert::IsTrue(ent->GetEffectiveness() == 1.00);
+			delete (ent);
 			delete (cm);
 		}
 
@@ -192,10 +211,11 @@ namespace CoreTests
 			cm->_inputs[0][1] = 2;
 			cm->_correctAnswers[0][0] = 3;
 			Entity* ent0 = GenerateEntity(Minus);
-			cm->_population.push_back(ent0);
+//			cm->_population.push_back(ent0);
 			ent0->mProcessAll();
-			ent0->CalculateEffectiveness(1);
-			Assert::IsTrue(cm->_population[0]->GetEffectiveness() == 0.00);
+//			ent0->CalculateEffectiveness(1);
+			Assert::IsTrue(false);
+//			Assert::IsTrue(cm->_population[0]->GetEffectiveness() == 0.00);
 			delete (cm);
 		}
 
