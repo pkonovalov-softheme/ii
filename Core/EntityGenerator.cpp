@@ -17,6 +17,7 @@ namespace Brans
 
 	Entity& EntityGenerator::GenerateEntity()
 	{
+		_entity.Reset();
 		for (int curOper = Entity::FirstInternalOper; curOper < EntityOperatorsCount; curOper++)
 		{
 			//Creating oper

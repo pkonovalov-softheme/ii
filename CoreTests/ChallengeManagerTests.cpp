@@ -148,8 +148,8 @@ namespace CoreTests
 			cm->_population.push_back(ent5);
 
 			//ProcessEntities:
-			cm->ProcessEnteties();
-			cm->CalculateEffectiveness();
+			//cm->ProcessEnteties();
+			//cm->CalculateEffectiveness();
 
 			std::vector<Entity*> vinners = CustomAlgs::SelectTopNs(cm->_population, 2);
 			Assert::IsTrue(vinners.size() == 2);
@@ -179,8 +179,8 @@ namespace CoreTests
 			cm->GenerateRandomInputs();
 			cm->FillAnswers();
 			cm->_population.push_back(GenerateEntityEx(Plus));
-			cm->ProcessEnteties();
-			cm->CalculateEffectiveness();
+			//cm->ProcessEnteties();
+			//cm->CalculateEffectiveness();
 			Assert::IsTrue(cm->_population[0]->GetEffectiveness() == 1.00);
 			delete (cm);
 		}

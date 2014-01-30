@@ -24,7 +24,7 @@ namespace CoreTests
 		TEST_METHOD_CLEANUP(CleanUp)
 		{
 			delete entityGenerator;
-			delete testEntity;
+			//delete testEntity;
 		}
 
 		TEST_METHOD(TestExternalOutputs)

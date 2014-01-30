@@ -104,10 +104,11 @@ namespace Brans
 				_population[_curEntityId]->mProcessAll();
 			}
 
-			const unsigned int totalTry = ChallangesCount * EntityProcessCount;
-			ent.CalculateEffectiveness(totalTry);
+			//const unsigned int totalTry = ChallangesCount * EntityProcessCount;
+			//ent.CalculateEffectiveness(totalTry);
+			ent.CalculateEffectiveness(EntityProcessCount);
 			if (ent.GetEffectiveness() > 0) {
-				_goodPopulation.push_back(&ent);
+				_goodPopulation.push_back(&Entity(ent));
 			}
 		}
 	}
@@ -134,6 +135,7 @@ namespace Brans
 				/*}*/
 			}
 
+			//Here we need to impliment testing with different _currentLine (=different inputs-correct answers)
 			//now i don't clear _goodPopulation but in future i need to impliment
 		}
 	}
