@@ -2,7 +2,6 @@
 #include "ChallengeManager.h"
 #include <vector>
 
-
 namespace Brans
 {
 	ChallengeManager* ChallengeManager::_chManager;
@@ -44,36 +43,38 @@ namespace Brans
 			for (mainDataType i = 0; i < rex;)
 			{
 				mainDataType nextI = i + 1;
-				#define fContValue _inputs[cline][i] //value of first contact
-				#define sContValue _inputs[cline][nextI] //value of second contact
-				#define outValue _correctAnswers[cline][i] //value of third contact
+#define fContValue _inputs[cline][i] //value of first contact
+#define sContValue _inputs[cline][nextI] //value of second contact
+#define outValue _correctAnswers[cline][i] //value of third contact
 
 				switch (_curChallangeType)
 				{
-				case (Division):
+				case (Division) :
 					if (sContValue != 0) {
 						outValue = fContValue / sContValue;
 					}
 					break;
-				case (Equal):
+				case (Equal) :
 					outValue = fContValue;
 					break;
-				case (If):
+				case (If) :
 					if (fContValue > sContValue){
-						outValue = 1;}
+						outValue = 1;
+					}
 					else{
-						outValue = 0;}
+						outValue = 0;
+					}
 					break;
-				case (Minus):
+				case (Minus) :
 					outValue = fContValue - sContValue;
 					break;
-				case (Multiplication):
-						outValue = fContValue * sContValue;
+				case (Multiplication) :
+					outValue = fContValue * sContValue;
 					break;
-				case (One):
+				case (One) :
 					outValue = 1;
 					break;
-				case (Plus):
+				case (Plus) :
 					outValue = fContValue + sContValue;
 					break;
 				default:
@@ -96,12 +97,12 @@ namespace Brans
 
 	void ChallengeManager::SelectGoodEnteties()
 	{
-		//for (size_t i = 0; i < EntitiesStartPopulation; i++)
-		//{
-		//	Entity& ent = _entityGenerator.GenerateEntity();
-		//	for (int pr = 0; pr < EntityProcessCount; pr++) {
-		//		_population[_curEntityId]->mProcessAll();
-		//	}
+		for (size_t i = 0; i < EntitiesStartPopulation; i++)
+		{
+			Entity& ent = _entityGenerator.GenerateEntity();
+			for (int pr = 0; pr < EntityProcessCount; pr++) {
+				ent.mProcessAll();
+			}
 
 			//const unsigned int totalTry = ChallangesCount * EntityProcessCount;
 			//ent.CalculateEffectiveness(totalTry);
@@ -129,8 +130,8 @@ namespace Brans
 				//std::vector<Entity*> vinners = CustomAlgs::SelectTopNs(_goodPopulation, 1);
 				/*if (vinners.size() > 0)
 				{*/
-					//if (vinners[0]->GetEffectiveness() >= targetEffectivity) return vinners[0];
-					//_population.push_back(vinners[0]);
+				//if (vinners[0]->GetEffectiveness() >= targetEffectivity) return vinners[0];
+				//_population.push_back(vinners[0]);
 				/*}*/
 			}
 
@@ -144,3 +145,4 @@ namespace Brans
 		return _chManager;
 	}
 }
+

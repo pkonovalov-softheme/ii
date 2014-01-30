@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 #pragma once
 #include "RandomProvider.h"
 #include "EntityGenerator.h"
@@ -55,63 +54,3 @@ namespace Brans
 		static ChallengeManager* _chManager;
 	};
 }
-
-=======
-#pragma once
-#include "RandomProvider.h"
-#include "EntityGenerator.h"
-#include "CustomAlgs.h"
-//#include "Entity.h"
-
-namespace Brans
-{
-	class ChallengeManager
-	{
-	public:
-		ChallengeManager();
-		//static ChallengeManager& GenerateNextChalangesLine(mainDataType challangeType);
-		~ChallengeManager();
-		mainDataType GetEntityExternalInput(mainDataType inputId); //return value of the external input for entity
-		mainDataType GetCorrectAnswer(mainDataType inputId);
-		Entity* AchiveEffectivity(double targetEffectivity);
-
-		static ChallengeManager* GetChallangeManager();
-
-		//Should be private(public only for tests):
-		void GenerateEntities();
-		void ClearPopulation();
-
-		enum ChallengeTypes
-		{
-			Division, Equal, If, Minus, Multiplication, One, Plus
-		};
-
-		void SetChallengeType(ChallengeTypes chType);
-
-		mainDataType _currentLine; //defines place where next real answers will be inserted
-		mainDataType _curEntityId;
-
-		#if defined(RedefChallangesCount)
-			static const mainDataType ChallangesCount = 500;
-		#else
-			static const mainDataType ChallangesCount = 1;
-		#endif
-		static const mainDataType RandomUpperLimit = 10; //max value for random for inputs
-		mainDataType _correctAnswers[ChallangesCount][ExternalOutputsCount - 1];
-		mainDataType _inputs[ChallangesCount][ExternalInputsCount];/*Generated random inputs for
-																   entities testing. Based on 1, not 0 index!*/
-
-		mainDataType _curChallangeType;
-		std::vector<Entity*> _population;
-		std::vector<Entity*> _goodPopulation;
-		EntityGenerator _entityGenerator;
-		void GenerateRandomInputs(); //Filling inputs arrays with random values for all ChallangesCount
-		void FillAnswers(); //Filling correct answers for generated random inputs (GenerateRandomInputs() should be called before)
-		void SetContactsCount();
-		void SelectGoodEnteties();
-		RandomValuesProvider _rvp;
-		static ChallengeManager* _chManager;
-	};
-}
-
->>>>>>> c71b13014cd8518221f017e7d519edbad387e387
