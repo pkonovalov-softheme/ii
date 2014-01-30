@@ -211,11 +211,12 @@ namespace CoreTests
 			cm->_inputs[0][1] = 2;
 			cm->_correctAnswers[0][0] = 3;
 			Entity* ent0 = GenerateEntity(Minus);
-//			cm->_population.push_back(ent0);
-			ent0->mProcessAll();
-//			ent0->CalculateEffectiveness(1);
-			Assert::IsTrue(false);
-//			Assert::IsTrue(cm->_population[0]->GetEffectiveness() == 0.00);
+			for (int pr = 0; pr < EntityProcessCount; pr++) {
+				ent0->mProcessAll();
+			}
+			ent0->CalculateEffectiveness(EntityProcessCount);
+			Assert::IsTrue(ent0->GetEffectiveness() == 0.00);
+			delete (ent0);
 			delete (cm);
 		}
 
