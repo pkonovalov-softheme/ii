@@ -4,7 +4,10 @@
 
 namespace Brans 
 {
-	mainDataType EntetiesProcessed = 0;
+	#if defined(PERFOMANCE_TESTING)
+		mainDataType EntetiesProcessed = 0;
+	#endif
+
 
 	const mainDataType Entity::_operatorTypeContactCount[operatorsMaxCount] = {
 		/* Operator-index		  Contacts count */

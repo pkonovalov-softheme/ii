@@ -1,9 +1,10 @@
 ﻿===================================================================
 Рабочий комп:
 
-Testing ComplexAchiveEffectivity generation...
-Average performance: 37 202 Enteties /sec.
-Press any key to continue . . .
+Average performance: 3.75704e+007 Enteties /sec.
+EntetiesProcessed 300000011
+EntetiesToProcessCount 300000000
+Elapsed 7985
 ====================
 
 

@@ -7,11 +7,6 @@
 namespace Brans
 {
 
-	#if defined(PERFOMANCE_TESTING)
-		extern const mainDataType EntetiesToProcessCount;
-		//extern mainDataType EntetiesProcessed;
-	#endif
-
 	class ChallengeManager
 	{
 	public:

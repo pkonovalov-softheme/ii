@@ -6,6 +6,10 @@ namespace Brans
 {
 	ChallengeManager* ChallengeManager::_chManager;
 
+#if defined(PERFOMANCE_TESTING)
+	mainDataType EntetiesToProcessCount = 200000000;
+#endif
+
 	ChallengeManager::ChallengeManager() : _inputs(), _correctAnswers(), _rvp(RandomUpperLimit), _currentLine(0), _goodPopulation()
 	{
 		_curChallangeType = ChallengeTypes::One;

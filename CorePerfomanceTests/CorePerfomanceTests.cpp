@@ -16,6 +16,8 @@ unsigned long perfomanceSum;
 unsigned long result;
 unsigned short perfomanceCount;
 
+
+
 //We need manualy synchronize this with OperatorsTypes & OperatorsCount
 const char const *OperatorsTypes_str[]=
 {
@@ -131,15 +133,12 @@ void TestInputsGenerationAndFillingAnswers()
 
 namespace Brans
 {
-	static const mainDataType EntetiesToProcessCount = 5 * 1000 * 1000 * 1000;
+	extern mainDataType EntetiesToProcessCount;
+	//static const mainDataType EntetiesToProcessCount = 5000000000;
 }
 
 void ComplexAchiveEffectivity()
 {
-	cout << "Testing ComplexAchiveEffectivity generation..." << std::endl;
-	const mainDataType EntetiesCount = 5000000;
-	const mainDataType cyclesCount = EntetiesCount / EntitiesStartPopulation;
-
 	OperatorTestBase opbase;
 	opbase.StartWatch();
 
@@ -148,7 +147,10 @@ void ComplexAchiveEffectivity()
 	Entity* ent = cm->AchiveEffectivity(0.01);
 
 	opbase.StopWatch();
-	cout << "Average performance: " << EntetiesProcessed / opbase.GetElapsedMiliseconds() << " Enteties /sec." << std::endl;
+	cout << "Average performance: " << (double) EntetiesProcessed * 1000 / opbase.GetElapsedMiliseconds() << " Enteties /sec." << std::endl;
+	cout << "EntetiesProcessed " << EntetiesProcessed << std::endl;
+	cout << "EntetiesToProcessCount " << EntetiesToProcessCount << std::endl;
+	cout << "Elapsed " << opbase.GetElapsedMiliseconds() << std::endl;
 	delete(cm);
 }
 
