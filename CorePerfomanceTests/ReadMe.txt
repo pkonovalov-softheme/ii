@@ -1,5 +1,35 @@
-﻿Рабочий комп:
+﻿===================================================================
+Рабочий комп:
 
+Testing ComplexAchiveEffectivity generation...
+Average performance: 37 202 Enteties /sec.
+Press any key to continue . . .
+====================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+(Были изменения в подсчете обработаных сущностей)
+=======================
+========================
+=========================
 ComplexAchiveEffectivity: 62 983
 ------							 
 InputsGenerationAndFillingAnswers: 408 673 Answers + inputs /sec.

@@ -7,6 +7,13 @@ namespace Brans
 {
 	class ChallengeManager;
 
+	#if defined(PERFOMANCE_TESTING)
+		#ifndef GLOBAL_H // header guards
+			#define GLOBAL_H
+			extern mainDataType EntetiesProcessed;
+		#endif
+	#endif
+
 	class Entity
 	{
 	public:

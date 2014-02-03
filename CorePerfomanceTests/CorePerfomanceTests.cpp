@@ -128,30 +128,28 @@ void TestInputsGenerationAndFillingAnswers()
 	cout << "Average performance: " << OperationCount * 2 * 1000 / opbase.GetElapsedMiliseconds() << " Answers + inputs /sec." << std::endl;
 }
 
+
+namespace Brans
+{
+	static const mainDataType EntetiesToProcessCount = 5 * 1000 * 1000 * 1000;
+}
+
 void ComplexAchiveEffectivity()
 {
 	cout << "Testing ComplexAchiveEffectivity generation..." << std::endl;
-	ChallengeManager cm;
 	const mainDataType EntetiesCount = 5000000;
 	const mainDataType cyclesCount = EntetiesCount / EntitiesStartPopulation;
 
 	OperatorTestBase opbase;
 	opbase.StartWatch();
 
-	cm.GenerateRandomInputs();
-	cm.FillAnswers();
-	for (size_t i = 0; i < cyclesCount; i++)
-	{
-		cm.SelectGoodEnteties();
-		if (cm._goodPopulation.size() > 0)
-		{
-			Entity* targetEntity = CustomAlgs::SelectKth(cm._goodPopulation, cm._goodPopulation.size());
-			if (targetEntity->GetEffectiveness() >= 1.0) return;
-		}
-	}
+	EntetiesProcessed = 0;
+	ChallengeManager* cm = new ChallengeManager();
+	Entity* ent = cm->AchiveEffectivity(0.01);
 
 	opbase.StopWatch();
-	cout << "Average performance: " << EntetiesCount * 1000 / opbase.GetElapsedMiliseconds() << " Enteties /sec." << std::endl;
+	cout << "Average performance: " << EntetiesProcessed / opbase.GetElapsedMiliseconds() << " Enteties /sec." << std::endl;
+	delete(cm);
 }
 
 void SelectNTest()

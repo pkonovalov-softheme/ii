@@ -4,6 +4,8 @@
 
 namespace Brans 
 {
+	mainDataType EntetiesProcessed = 0;
+
 	const mainDataType Entity::_operatorTypeContactCount[operatorsMaxCount] = {
 		/* Operator-index		  Contacts count */
 		/* Zero */						0,
@@ -162,6 +164,11 @@ namespace Brans
 
 	void Entity::mProcess(mainDataType operatorId)
 	{
+
+		#if defined(PERFOMANCE_TESTING)
+		 EntetiesProcessed++;
+		#endif
+
 		#define fContValue GetInputValue(operatorId, 1) //value of first contact
 		#define sContValue GetInputValue(operatorId, 2) //value of second contact
 		#define tContValue GetInputValue(operatorId, 3) //value of third contact
@@ -279,7 +286,11 @@ namespace Brans
 	mainDataType Entity::GetInputValue(mainDataType operatorId, mainDataType contactId)
 	{
 		mainDataType refOperId = GetContactValue(operatorId, contactId);
-		if (refOperId == 0) return 0;//test performance
+		if (refOperId == 0)
+		{
+			return 0;//test performance
+		}
+
 		return _operators[refOperId][outputValueColumn];
 	}
 

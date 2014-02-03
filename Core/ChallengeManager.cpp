@@ -99,20 +99,16 @@ namespace Brans
 
 	void ChallengeManager::SelectGoodEnteties()
 	{
+		Entity& ent = _entityGenerator->GenerateEntity();
+		for (int pr = 0; pr < EntityProcessCount; pr++) {
+			ent.mProcessAll();
+		}
 
-		for (size_t i = 0; i < EntitiesStartPopulation; i++)
-		{
-			Entity& ent = _entityGenerator->GenerateEntity();
-			for (int pr = 0; pr < EntityProcessCount; pr++) {
-				ent.mProcessAll();
-			}
-
-			//const unsigned int totalTry = ChallangesCount * EntityProcessCount;
-			//ent.CalculateEffectiveness(totalTry);
-			ent.CalculateEffectiveness(EntityProcessCount);
-			if (ent.GetEffectiveness() > 0) {
-				_goodPopulation.push_back(&Entity(ent));
-			}
+		//const unsigned int totalTry = ChallangesCount * EntityProcessCount;
+		//ent.CalculateEffectiveness(totalTry);
+		ent.CalculateEffectiveness(EntityProcessCount);
+		if (ent.GetEffectiveness() > 0) {
+			_goodPopulation.push_back(&Entity(ent));
 		}
 	}
 
@@ -137,6 +133,10 @@ namespace Brans
 				//_population.push_back(vinners[0]);
 				/*}*/
 			}
+
+			#if defined(PERFOMANCE_TESTING)
+				if (EntetiesProcessed >= EntetiesToProcessCount) return NULL;
+			#endif
 
 			//Here we need to impliment testing with different _currentLine (=different inputs-correct answers)
 			//now i don't clear _goodPopulation but in future i need to impliment
