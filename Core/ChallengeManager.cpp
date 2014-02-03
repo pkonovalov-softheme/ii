@@ -6,16 +6,18 @@ namespace Brans
 {
 	ChallengeManager* ChallengeManager::_chManager;
 
-	ChallengeManager::ChallengeManager() : _inputs(), _correctAnswers(), _entityGenerator(), _rvp(RandomUpperLimit),
-		_curEntityId(0), _currentLine(0), _goodPopulation()
+	ChallengeManager::ChallengeManager() : _inputs(), _correctAnswers(), _rvp(RandomUpperLimit), _currentLine(0), _goodPopulation()
 	{
 		_curChallangeType = ChallengeTypes::One;
 		_chManager = this;
+		EntityGenerator* _entityGenerator = new EntityGenerator();
 		srand_sse();
+		_currentLine = 0;
 	}
 
 	ChallengeManager::~ChallengeManager()
 	{
+	   delete (_entityGenerator);
 	}
 
 	void ChallengeManager::SetChallengeType(ChallengeTypes chType)
@@ -97,9 +99,10 @@ namespace Brans
 
 	void ChallengeManager::SelectGoodEnteties()
 	{
+
 		for (size_t i = 0; i < EntitiesStartPopulation; i++)
 		{
-			Entity& ent = _entityGenerator.GenerateEntity();
+			Entity& ent = _entityGenerator->GenerateEntity();
 			for (int pr = 0; pr < EntityProcessCount; pr++) {
 				ent.mProcessAll();
 			}

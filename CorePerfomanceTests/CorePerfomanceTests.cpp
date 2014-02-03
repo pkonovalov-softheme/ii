@@ -78,7 +78,7 @@ void TestEntityGeneration()
 
 	for (size_t i = 0; i < cyclesCount; i++)
 	{
-		cm._entityGenerator.GenerateEntity();
+		cm._entityGenerator->GenerateEntity();
 	}
 
 	opbase.StopWatch();
@@ -90,7 +90,7 @@ void TestEntityProcessing()
 	cout << "Testing enteties Processing..." << std::endl;
 	ChallengeManager cm;
 
-	Entity& ent = cm._entityGenerator.GenerateEntity();
+	Entity& ent = cm._entityGenerator->GenerateEntity();
 
 	const mainDataType EntitiesToGenerate = 80000000;
 	const mainDataType cyclesCount = EntitiesToGenerate / EntitiesStartPopulation;

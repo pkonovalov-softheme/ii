@@ -30,7 +30,6 @@ namespace Brans
 		void SetChallengeType(ChallengeTypes chType);
 
 		mainDataType _currentLine; //defines place where next real answers will be inserted
-		mainDataType _curEntityId;
 
 		#if defined(RedefChallangesCount)
 			static const mainDataType ChallangesCount = 500;
@@ -44,7 +43,7 @@ namespace Brans
 
 		mainDataType _curChallangeType;
 		std::vector<Entity*> _goodPopulation;
-		EntityGenerator _entityGenerator;
+		EntityGenerator* _entityGenerator;
 		void GenerateRandomInputs(); //Filling inputs arrays with random values for all ChallangesCount
 		void FillAnswers(); //Filling correct answers for generated random inputs (GenerateRandomInputs() should be called before)
 		void SetContactsCount();
