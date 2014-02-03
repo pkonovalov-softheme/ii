@@ -10,7 +10,7 @@ namespace Brans
 	{
 		_curChallangeType = ChallengeTypes::One;
 		_chManager = this;
-		EntityGenerator* _entityGenerator = new EntityGenerator();
+		_entityGenerator = new EntityGenerator();
 		srand_sse();
 		_currentLine = 0;
 	}

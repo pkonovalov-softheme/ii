@@ -4,12 +4,6 @@
 
 namespace Brans 
 {
-	const unsigned short operatorTypeColumn = 0;
-	const unsigned short contactsCount = 3;
-	const unsigned short outputValueColumn = 4;
-	const unsigned short operatorsTypesCount = 18;
-	const unsigned short operatorsTableWidth = 5; // 0 column - operator type, 1 - 3 input values, 4 - output value
-
 	const mainDataType Entity::_operatorTypeContactCount[operatorsMaxCount] = {
 		/* Operator-index		  Contacts count */
 		/* Zero */						0,

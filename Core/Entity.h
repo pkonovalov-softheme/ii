@@ -7,17 +7,15 @@ namespace Brans
 {
 	class ChallengeManager;
 
-	extern const unsigned short contactsCount = 3;
-	extern const unsigned short outputValueColumn = 4;
-	extern const unsigned short operatorsTypesCount = 18;
-	extern const unsigned short operatorsTableWidth = 5; // 0 column - operator type, 1 - 3 input values, 4 - output value
-	extern const mainDataType FirstInternalOper = ExternalInputsCount + ExternalOutputsCount + 1;
-
 	class Entity
 	{
 	public:
-
-
+		static const unsigned short operatorTypeColumn = 0;
+		static const unsigned short contactsCount = 3;
+		static const unsigned short outputValueColumn = 4;
+		static const unsigned short operatorsTypesCount = 18;
+		static const unsigned short operatorsTableWidth = 5; // 0 column - operator type, 1 - 3 input values, 4 - output value
+		static const mainDataType FirstInternalOper = ExternalInputsCount + ExternalOutputsCount + 1;
 
 		Entity();
 

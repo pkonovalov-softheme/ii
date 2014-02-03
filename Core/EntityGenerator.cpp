@@ -23,8 +23,10 @@ namespace Brans
 			_entity.mCreateOperatorUnsafe(RandomOperatorsProvider::GetNextOperator());
 
 			OperatorsTypes lastOperType = (OperatorsTypes)_entity.mGetOperatorType(curOper);
+			mainDataType lastOperTypeCntsCount = GetOperTypeContactsCount(lastOperType);
+
 			//Creating connections
-			for (int curContact = 1; curContact <= GetOperTypeContactsCount(lastOperType); curContact++)
+			for (int curContact = 1; curContact <= lastOperTypeCntsCount; curContact++)
 			{
 				mainDataType md = _conProvider.GetNextValue();
 				_entity.mCreateChannelUnsafe(md, curOper, curContact);
