@@ -147,10 +147,7 @@ void ComplexAchiveEffectivity()
 	Entity* ent = cm->AchiveEffectivity(0.01);
 
 	opbase.StopWatch();
-	cout << "Average performance: " << (double) EntetiesProcessed * 1000 / opbase.GetElapsedMiliseconds() << " Enteties /sec." << std::endl;
-	cout << "EntetiesProcessed " << EntetiesProcessed << std::endl;
-	cout << "EntetiesToProcessCount " << EntetiesToProcessCount << std::endl;
-	cout << "Elapsed " << opbase.GetElapsedMiliseconds() << std::endl;
+	cout << "Average performance: " << (double) EntetiesProcessed * 1000 / opbase.GetElapsedMiliseconds() << " Enteties process count/sec." << std::endl;
 	delete(cm);
 }
 

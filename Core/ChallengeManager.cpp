@@ -49,9 +49,9 @@ namespace Brans
 			for (mainDataType i = 0; i < rex;)
 			{
 				mainDataType nextI = i + 1;
-#define fContValue _inputs[cline][i] //value of first contact
-#define sContValue _inputs[cline][nextI] //value of second contact
-#define outValue _correctAnswers[cline][i] //value of third contact
+				#define fContValue _inputs[cline][i] //value of first contact
+				#define sContValue _inputs[cline][nextI] //value of second contact
+				#define outValue _correctAnswers[cline][i] //value of third contact
 
 				switch (_curChallangeType)
 				{
