@@ -38,7 +38,7 @@ namespace Brans
 			static const mainDataType ChallangesCount = 1;
 		#endif
 		static const mainDataType RandomUpperLimit = 10; //max value for random for inputs
-		mainDataType _correctAnswers[ChallangesCount][ExternalOutputsCount - 1];
+		mainDataType _correctAnswers[ChallangesCount][ExternalOutputsCount];
 		mainDataType _inputs[ChallangesCount][ExternalInputsCount];/*Generated random inputs for
 																   entities testing. Based on 1, not 0 index!*/
 
@@ -49,7 +49,7 @@ namespace Brans
 		void FillAnswers(); //Filling correct answers for generated random inputs (GenerateRandomInputs() should be called before)
 		void SetContactsCount();
 		void CalculateEffectiveness();
-		void SelectGoodEnteties();
+		bool SelectGoodEnteties(double targetEffectivity);
 		RandomValuesProvider _rvp;
 		static ChallengeManager* _chManager;
 	};

@@ -101,19 +101,28 @@ namespace Brans
 		return _correctAnswers[_currentLine][inputId];
 	}
 
-	void ChallengeManager::SelectGoodEnteties()
+	bool ChallengeManager::SelectGoodEnteties(double targetEffectivity)
 	{
-		Entity& ent = _entityGenerator->GenerateEntity();
-		for (int pr = 0; pr < EntityProcessCount; pr++) {
-			ent.mProcessAll();
+		for (size_t i = 0; i < EntitiesStartPopulation; i++)
+		{
+			Entity& ent = _entityGenerator->GenerateEntity();
+			for (int pr = 0; pr < EntityProcessCount; pr++) {
+				ent.mProcessAll();
+			}
+
+			//const unsigned int totalTry = ChallangesCount * EntityProcessCount;
+			//ent.CalculateEffectiveness(totalTry);
+			ent.CalculateEffectiveness(EntityProcessCount);
+			if (ent.GetEffectiveness() > 0) {
+				_goodPopulation.push_back(new Entity(ent));
+				if (ent.GetEffectiveness() > targetEffectivity) 
+				{ 
+					return true; 
+				}
+			}
 		}
 
-		//const unsigned int totalTry = ChallangesCount * EntityProcessCount;
-		//ent.CalculateEffectiveness(totalTry);
-		ent.CalculateEffectiveness(EntityProcessCount);
-		if (ent.GetEffectiveness() > 0) {
-			_goodPopulation.push_back(&Entity(ent));
-		}
+		return false;
 	}
 
 	Entity* ChallengeManager::AchiveEffectivity(double targetEffectivity)
@@ -123,19 +132,8 @@ namespace Brans
 
 		while (true)
 		{
-			SelectGoodEnteties();
-
-			if (_goodPopulation.size() > 0)
-			{
-				Entity* targetEntity = CustomAlgs::SelectKth(_goodPopulation, _goodPopulation.size());
-				if (targetEntity->GetEffectiveness() >= targetEffectivity) return targetEntity;
-
-				//std::vector<Entity*> vinners = CustomAlgs::SelectTopNs(_goodPopulation, 1);
-				/*if (vinners.size() > 0)
-				{*/
-				//if (vinners[0]->GetEffectiveness() >= targetEffectivity) return vinners[0];
-				//_population.push_back(vinners[0]);
-				/*}*/
+			if (SelectGoodEnteties(targetEffectivity)) {
+				return _goodPopulation[_goodPopulation.size() - 1];
 			}
 
 			#if defined(PERFOMANCE_TESTING)

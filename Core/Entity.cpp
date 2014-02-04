@@ -50,6 +50,9 @@ namespace Brans
 		}
 
 		this->_nextOperatorId = ent._nextOperatorId;
+		this->_correctAnswersCount = ent._correctAnswersCount;
+		this->_effectiveness = ent._effectiveness;
+
 	}
 
 	Entity::~Entity() { }
@@ -341,10 +344,19 @@ namespace Brans
 	void Entity::CalculateEffectiveness(mainDataType totalAnswersCount)
 	{
 		_effectiveness = _correctAnswersCount / (double) totalAnswersCount;
+		if (_effectiveness <0)
+		{
+			_effectiveness = _effectiveness;
+		}
 	}
 
 	double Entity::GetEffectiveness()
 	{
+		if (_effectiveness <0)
+		{
+			_effectiveness = _effectiveness;
+		}
+
 		return _effectiveness;
 	}
 
