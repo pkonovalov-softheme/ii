@@ -101,48 +101,73 @@ namespace Brans
 		return _correctAnswers[_currentLine][inputId];
 	}
 
-	bool ChallengeManager::SelectGoodEnteties(double targetEffectivity)
+	Entity& ChallengeManager::SelectGoodEntity(double targetEffectivity)
 	{
-		for (size_t i = 0; i < EntitiesStartPopulation; i++)
+		while (true)
 		{
 			Entity& ent = _entityGenerator->GenerateEntity();
 			for (int pr = 0; pr < EntityProcessCount; pr++) {
 				ent.mProcessAll();
 			}
 
-			//const unsigned int totalTry = ChallangesCount * EntityProcessCount;
-			//ent.CalculateEffectiveness(totalTry);
 			ent.CalculateEffectiveness(EntityProcessCount);
-			if (ent.GetEffectiveness() > 0) {
-				_goodPopulation.push_back(new Entity(ent));
-				if (ent.GetEffectiveness() > targetEffectivity) 
-				{ 
-					return true; 
-				}
+			if (ent.GetEffectiveness() > targetEffectivity) {
+				return ent;
 			}
 		}
-
-		return false;
 	}
 
-	Entity* ChallengeManager::AchiveEffectivity(double targetEffectivity)
+	//bool ChallengeManager::SelectGoodEnteties(double targetEffectivity)
+	//{
+	//	for (size_t i = 0; i < EntitiesStartPopulation; i++)
+	//	{
+	//		Entity& ent = _entityGenerator->GenerateEntity();
+	//		for (int pr = 0; pr < EntityProcessCount; pr++) {
+	//			ent.mProcessAll();
+	//		}
+
+	//		const unsigned int totalTry = ChallangesCount * EntityProcessCount;
+	//		ent.CalculateEffectiveness(totalTry);
+	//		ent.CalculateEffectiveness(EntityProcessCount);
+	//		if (ent.GetEffectiveness() > 0) {
+	//			_goodPopulation.push_back(new Entity(ent));
+	//			if (ent.GetEffectiveness() > targetEffectivity)
+	//			{
+	//				return true;
+	//			}
+	//		}
+	//	}
+
+	//	return false;
+	//}
+
+	//Entity* ChallengeManager::AchiveEffectivity(double targetEffectivity)
+	//{
+	//	GenerateRandomInputs();
+	//	FillAnswers();
+
+	//	while (true)
+	//	{
+	//		if (SelectGoodEntity(targetEffectivity)) {
+	//			return _goodPopulation[_goodPopulation.size() - 1];
+	//		}
+
+	//		#if defined(PERFOMANCE_TESTING)
+	//			if (EntetiesProcessed >= EntetiesToProcessCount) return NULL;
+	//		#endif
+
+	//		//Here we need to impliment testing with different _currentLine (=different inputs-correct answers)
+	//		//now i don't clear _goodPopulation but in future i need to impliment
+	//	}
+	//}
+
+	Entity& ChallengeManager::AchiveEffectivity(double targetEffectivity)
 	{
 		GenerateRandomInputs();
 		FillAnswers();
-
-		while (true)
-		{
-			if (SelectGoodEnteties(targetEffectivity)) {
-				return _goodPopulation[_goodPopulation.size() - 1];
-			}
-
-			#if defined(PERFOMANCE_TESTING)
-				if (EntetiesProcessed >= EntetiesToProcessCount) return NULL;
-			#endif
-
-			//Here we need to impliment testing with different _currentLine (=different inputs-correct answers)
-			//now i don't clear _goodPopulation but in future i need to impliment
-		}
+		return SelectGoodEntity(targetEffectivity);
+		//Here we need to impliment testing with different _currentLine (=different inputs-correct answers)
+		//now i don't clear _goodPopulation but in future i need to impliment
 	}
 
 	ChallengeManager* ChallengeManager::GetChallangeManager()

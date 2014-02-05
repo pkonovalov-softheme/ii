@@ -15,7 +15,7 @@ namespace Brans
 		~ChallengeManager();
 		mainDataType GetEntityExternalInput(mainDataType inputId); //return value of the external input for entity
 		mainDataType GetCorrectAnswer(mainDataType inputId);
-		Entity* AchiveEffectivity(double targetEffectivity);
+		Entity& AchiveEffectivity(double targetEffectivity);
 
 		static ChallengeManager* GetChallangeManager();
 
@@ -49,7 +49,7 @@ namespace Brans
 		void FillAnswers(); //Filling correct answers for generated random inputs (GenerateRandomInputs() should be called before)
 		void SetContactsCount();
 		void CalculateEffectiveness();
-		bool SelectGoodEnteties(double targetEffectivity);
+		Entity& SelectGoodEntity(double targetEffectivity);
 		RandomValuesProvider _rvp;
 		static ChallengeManager* _chManager;
 	};
