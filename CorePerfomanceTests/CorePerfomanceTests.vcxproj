@@ -189,46 +189,78 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
     <IncludePath>C:\Program Files\Microsoft Visual Studio 11.0\VC\include;$(VCInstallDir)include;$(VCInstallDir)atlmfc\include;$(WindowsSDK_IncludePath);</IncludePath>
+    <OutDir>$(SolutionDir)\..\commonBin\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)\..\commonObj\$(ProjectName)\$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='UnitTestingConfiguration|Win32'">
     <LinkIncremental>true</LinkIncremental>
     <IncludePath>C:\Program Files\Microsoft Visual Studio 11.0\VC\include;$(VCInstallDir)include;$(VCInstallDir)atlmfc\include;$(WindowsSDK_IncludePath);</IncludePath>
+    <OutDir>$(SolutionDir)\..\commonBin\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)\..\commonObj\$(ProjectName)\$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ForUnitTests|Win32'">
     <LinkIncremental>true</LinkIncremental>
     <IncludePath>C:\Program Files\Microsoft Visual Studio 11.0\VC\include;$(VCInstallDir)include;$(VCInstallDir)atlmfc\include;$(WindowsSDK_IncludePath);</IncludePath>
+    <OutDir>$(SolutionDir)\..\commonBin\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)\..\commonObj\$(ProjectName)\$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='2|Win32'">
     <LinkIncremental>true</LinkIncremental>
     <IncludePath>C:\Program Files\Microsoft Visual Studio 11.0\VC\include;$(VCInstallDir)include;$(VCInstallDir)atlmfc\include;$(WindowsSDK_IncludePath);</IncludePath>
+    <OutDir>$(SolutionDir)\..\commonBin\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)\..\commonObj\$(ProjectName)\$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
     <IncludePath>C:\Program Files\Microsoft Visual Studio 11.0\VC\include;$(VCInstallDir)include;$(VCInstallDir)atlmfc\include;$(WindowsSDK_IncludePath);</IncludePath>
+    <OutDir>$(SolutionDir)\..\commonBin\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)\..\commonObj\$(ProjectName)\$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='UnitTestingConfiguration|x64'">
     <LinkIncremental>true</LinkIncremental>
     <IncludePath>C:\Program Files\Microsoft Visual Studio 11.0\VC\include;$(VCInstallDir)include;$(VCInstallDir)atlmfc\include;$(WindowsSDK_IncludePath);</IncludePath>
+    <OutDir>$(SolutionDir)\..\commonBin\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)\..\commonObj\$(ProjectName)\$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ForUnitTests|x64'">
     <LinkIncremental>true</LinkIncremental>
     <IncludePath>C:\Program Files\Microsoft Visual Studio 11.0\VC\include;$(VCInstallDir)include;$(VCInstallDir)atlmfc\include;$(WindowsSDK_IncludePath);</IncludePath>
+    <OutDir>$(SolutionDir)\..\commonBin\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)\..\commonObj\$(ProjectName)\$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='2|x64'">
     <LinkIncremental>true</LinkIncremental>
     <IncludePath>C:\Program Files\Microsoft Visual Studio 11.0\VC\include;$(VCInstallDir)include;$(VCInstallDir)atlmfc\include;$(WindowsSDK_IncludePath);</IncludePath>
+    <OutDir>$(SolutionDir)\..\commonBin\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)\..\commonObj\$(ProjectName)\$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)\..\commonBin\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)\..\commonObj\$(ProjectName)\$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='PerfomanceTesting|Win32'">
     <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)\..\commonBin\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)\..\commonObj\$(ProjectName)\$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)\..\commonBin\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)\..\commonObj\$(ProjectName)\$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='PerfomanceTesting|x64'">
     <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)\..\commonBin\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)\..\commonObj\$(ProjectName)\$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='UnitTestsOnly|Win32'">
+    <OutDir>$(SolutionDir)\..\commonBin\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)\..\commonObj\$(ProjectName)\$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='UnitTestsOnly|x64'">
+    <OutDir>$(SolutionDir)\..\commonBin\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)\..\commonObj\$(ProjectName)\$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
