@@ -14,6 +14,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using NativeWrapper;
+using System.Runtime.InteropServices;
 
 namespace Visualizer
 {
@@ -46,6 +48,9 @@ namespace Visualizer
 
         public MainWindow()
         {
+            IntPtr ptrOnSimple = CoreFuncWrapper.AchiveEffectivity();
+            Entity personRes = (Entity)Marshal.PtrToStructure(ptrOnSimple, typeof(Entity));
+
             InitializeComponent();
             InitOper();
             _lastOperatorNumber = (uint)GetOperatorsCount();

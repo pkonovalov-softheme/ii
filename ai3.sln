@@ -32,6 +32,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Performance2.psess = Performance2.psess
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NativeWrapper", "NativeWrapper\NativeWrapper.csproj", "{221F0F3E-67B4-4938-8D3C-C914DB6FA26B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -257,6 +259,34 @@ Global
 		{2FE64477-4E66-43BE-B9F6-46BB5F950620}.UnitTestingConfiguration|x64.ActiveCfg = UnitTestingConfiguration|Win32
 		{2FE64477-4E66-43BE-B9F6-46BB5F950620}.UnitTestingConfiguration|x86.ActiveCfg = UnitTestingConfiguration|Win32
 		{2FE64477-4E66-43BE-B9F6-46BB5F950620}.UnitTestingConfiguration|x86.Build.0 = UnitTestingConfiguration|Win32
+		{221F0F3E-67B4-4938-8D3C-C914DB6FA26B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{221F0F3E-67B4-4938-8D3C-C914DB6FA26B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{221F0F3E-67B4-4938-8D3C-C914DB6FA26B}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{221F0F3E-67B4-4938-8D3C-C914DB6FA26B}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{221F0F3E-67B4-4938-8D3C-C914DB6FA26B}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{221F0F3E-67B4-4938-8D3C-C914DB6FA26B}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{221F0F3E-67B4-4938-8D3C-C914DB6FA26B}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{221F0F3E-67B4-4938-8D3C-C914DB6FA26B}.PerfomanceTesting|Any CPU.ActiveCfg = Release|Any CPU
+		{221F0F3E-67B4-4938-8D3C-C914DB6FA26B}.PerfomanceTesting|Any CPU.Build.0 = Release|Any CPU
+		{221F0F3E-67B4-4938-8D3C-C914DB6FA26B}.PerfomanceTesting|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{221F0F3E-67B4-4938-8D3C-C914DB6FA26B}.PerfomanceTesting|Mixed Platforms.Build.0 = Release|Any CPU
+		{221F0F3E-67B4-4938-8D3C-C914DB6FA26B}.PerfomanceTesting|Win32.ActiveCfg = Release|Any CPU
+		{221F0F3E-67B4-4938-8D3C-C914DB6FA26B}.PerfomanceTesting|x64.ActiveCfg = Release|Any CPU
+		{221F0F3E-67B4-4938-8D3C-C914DB6FA26B}.PerfomanceTesting|x86.ActiveCfg = Release|Any CPU
+		{221F0F3E-67B4-4938-8D3C-C914DB6FA26B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{221F0F3E-67B4-4938-8D3C-C914DB6FA26B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{221F0F3E-67B4-4938-8D3C-C914DB6FA26B}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{221F0F3E-67B4-4938-8D3C-C914DB6FA26B}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{221F0F3E-67B4-4938-8D3C-C914DB6FA26B}.Release|Win32.ActiveCfg = Release|Any CPU
+		{221F0F3E-67B4-4938-8D3C-C914DB6FA26B}.Release|x64.ActiveCfg = Release|Any CPU
+		{221F0F3E-67B4-4938-8D3C-C914DB6FA26B}.Release|x86.ActiveCfg = Release|Any CPU
+		{221F0F3E-67B4-4938-8D3C-C914DB6FA26B}.UnitTestingConfiguration|Any CPU.ActiveCfg = Release|Any CPU
+		{221F0F3E-67B4-4938-8D3C-C914DB6FA26B}.UnitTestingConfiguration|Any CPU.Build.0 = Release|Any CPU
+		{221F0F3E-67B4-4938-8D3C-C914DB6FA26B}.UnitTestingConfiguration|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{221F0F3E-67B4-4938-8D3C-C914DB6FA26B}.UnitTestingConfiguration|Mixed Platforms.Build.0 = Release|Any CPU
+		{221F0F3E-67B4-4938-8D3C-C914DB6FA26B}.UnitTestingConfiguration|Win32.ActiveCfg = Release|Any CPU
+		{221F0F3E-67B4-4938-8D3C-C914DB6FA26B}.UnitTestingConfiguration|x64.ActiveCfg = Release|Any CPU
+		{221F0F3E-67B4-4938-8D3C-C914DB6FA26B}.UnitTestingConfiguration|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

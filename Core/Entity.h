@@ -85,27 +85,27 @@ namespace Brans
 
 	private:
 
+		mainDataType _operators[operatorsMaxCount][operatorsTableWidth];
+
+		double _effectiveness;
+
+		mainDataType _correctAnswersCount;
+
+		const unsigned short FirstExtInputPos = ExternalOutputsCount + 1;
+
+		const static mainDataType _operatorTypeContactCount[operatorsMaxCount];
+
+		unsigned int _nextOperatorId; //returns IDs of the last used operator
+
+		ChallengeManager* _chmanager;
+
 		bool IsOperIdCorrect(mainDataType operatorId);
 
 		bool IsOperTypeCorrect(mainDataType operatorType);
 
 		bool IsContactCorrect(mainDataType contactId);
 
-		mainDataType _operators[operatorsMaxCount][operatorsTableWidth];
-
-		const static mainDataType _operatorTypeContactCount[operatorsMaxCount];
-
-		unsigned int _nextOperatorId; //returns IDs of the last used operator
-
 		void InitializeInputsAndOutputs();
-
-		ChallengeManager* _chmanager;
-
-		mainDataType _correctAnswersCount;
-
-		double _effectiveness;
-
-		const unsigned short FirstExtInputPos = ExternalOutputsCount + 1;
 	};
 
 
