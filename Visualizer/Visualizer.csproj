@@ -19,7 +19,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\commonObj\%24%28Configuration%29\</OutputPath>
+    <OutputPath>..\..\commonBin\$(Configuration)\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -28,14 +28,14 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>C:\%24%28Configuration%29\</OutputPath>
+    <OutputPath>..\..\commonBin\$(Configuration)\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
     <DebugSymbols>true</DebugSymbols>
-    <OutputPath>C:\%24%28Configuration%29\</OutputPath>
+    <OutputPath>..\..\commonBin\$(Configuration)\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <DebugType>full</DebugType>
     <PlatformTarget>x64</PlatformTarget>
@@ -44,7 +44,7 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
-    <OutputPath>C:\%24%28Configuration%29\</OutputPath>
+    <OutputPath>..\..\commonBin\$(Configuration)\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>
@@ -54,14 +54,14 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'UnitTestsOnly|AnyCPU'">
-    <OutputPath>C:\%24%28Configuration%29\</OutputPath>
+    <OutputPath>..\..\commonBin\$(Configuration)\</OutputPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'UnitTestsOnly|x64'">
-    <OutputPath>C:\%24%28Configuration%29\</OutputPath>
+    <OutputPath>..\..\commonBin\$(Configuration)\</OutputPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == '2|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
-    <OutputPath>C:\%24%28Configuration%29\</OutputPath>
+    <OutputPath>..\..\commonBin\$(Configuration)\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <DebugType>full</DebugType>
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -71,7 +71,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == '2|x64'">
     <DebugSymbols>true</DebugSymbols>
-    <OutputPath>C:\%24%28Configuration%29\</OutputPath>
+    <OutputPath>..\..\commonBin\$(Configuration)\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <DebugType>full</DebugType>
     <PlatformTarget>x64</PlatformTarget>
@@ -81,7 +81,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ForUnitTests|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
-    <OutputPath>C:\%24%28Configuration%29\</OutputPath>
+    <OutputPath>..\..\commonBin\$(Configuration)\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <DebugType>full</DebugType>
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -91,7 +91,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ForUnitTests|x64'">
     <DebugSymbols>true</DebugSymbols>
-    <OutputPath>C:\%24%28Configuration%29\</OutputPath>
+    <OutputPath>..\..\commonBin\$(Configuration)\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <DebugType>full</DebugType>
     <PlatformTarget>x64</PlatformTarget>
@@ -101,7 +101,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'UnitTestingConfiguration|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
-    <OutputPath>C:\%24%28Configuration%29\</OutputPath>
+    <OutputPath>..\..\commonBin\$(Configuration)\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <DebugType>full</DebugType>
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -111,7 +111,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'UnitTestingConfiguration|x64'">
     <DebugSymbols>true</DebugSymbols>
-    <OutputPath>C:\%24%28Configuration%29\</OutputPath>
+    <OutputPath>..\..\commonBin\$(Configuration)\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <DebugType>full</DebugType>
     <PlatformTarget>x64</PlatformTarget>
@@ -120,7 +120,7 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'PerfomanceTesting|AnyCPU'">
-    <OutputPath>C:\%24%28Configuration%29\</OutputPath>
+    <OutputPath>..\..\commonBin\$(Configuration)\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>
@@ -130,7 +130,7 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'PerfomanceTesting|x64'">
-    <OutputPath>C:\%24%28Configuration%29\</OutputPath>
+    <OutputPath>..\..\commonBin\$(Configuration)\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>
@@ -201,7 +201,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\NativeWrapper\NativeWrapper.csproj">
-      <Project>{221f0f3e-67b4-4938-8d3c-c914db6fa26b}</Project>
+      <Project>{6ddd487a-701f-4815-834e-cd84bc1b3207}</Project>
       <Name>NativeWrapper</Name>
     </ProjectReference>
   </ItemGroup>

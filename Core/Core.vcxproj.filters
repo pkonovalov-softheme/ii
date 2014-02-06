@@ -45,9 +45,6 @@
     <ClInclude Include="FastRandom.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Export.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -72,9 +69,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="CustomAlgs.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Export.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

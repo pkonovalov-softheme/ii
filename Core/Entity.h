@@ -85,15 +85,16 @@ namespace Brans
 
 	private:
 
+		const unsigned short FirstExtInputPos = ExternalOutputsCount + 1;
+
+		const static mainDataType _operatorTypeContactCount[operatorsMaxCount];
+
 		mainDataType _operators[operatorsMaxCount][operatorsTableWidth];
 
 		double _effectiveness;
 
 		mainDataType _correctAnswersCount;
 
-		const unsigned short FirstExtInputPos = ExternalOutputsCount + 1;
-
-		const static mainDataType _operatorTypeContactCount[operatorsMaxCount];
 
 		unsigned int _nextOperatorId; //returns IDs of the last used operator
 
