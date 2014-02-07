@@ -375,4 +375,9 @@ namespace Brans
 
 		return true;
 	}
+
+	mainDataType* Entity::GetOperatorsPtr()
+	{
+		return *_operators;
+	}
 }

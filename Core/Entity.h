@@ -83,22 +83,23 @@ namespace Brans
 
 		void Reset();
 
+		mainDataType* GetOperatorsPtr();
+
 	private:
 
-		const unsigned short FirstExtInputPos = ExternalOutputsCount + 1;
+		static const unsigned short FirstExtInputPos = ExternalOutputsCount + 1;
 
-		const static mainDataType _operatorTypeContactCount[operatorsMaxCount];
-
-		mainDataType _operators[operatorsMaxCount][operatorsTableWidth];
+		static const mainDataType _operatorTypeContactCount[operatorsMaxCount];
 
 		double _effectiveness;
 
 		mainDataType _correctAnswersCount;
 
-
-		unsigned int _nextOperatorId; //returns IDs of the last used operator
+		mainDataType _nextOperatorId; //returns IDs of the last used operator
 
 		ChallengeManager* _chmanager;
+
+		mainDataType _operators[operatorsMaxCount][operatorsTableWidth];
 
 		bool IsOperIdCorrect(mainDataType operatorId);
 
