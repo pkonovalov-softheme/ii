@@ -24,10 +24,11 @@ namespace Visualizer
     /// </summary>
     public partial class MainWindow : Window
     {
-        private static readonly int[,] Operators = { { (int)OperatorsTypes.Zero, 0, 0, 0, 0 }, { (int)OperatorsTypes.Equal, 0, 0, 0, 1 }, { (int)OperatorsTypes.Equal, 0, 0, 0, 2 }, { (int)OperatorsTypes.Plus, 1, 2, 0, 0 } };
+        private static uint[,] Operators; //= { { (int)OperatorsTypes.Zero, 0, 0, 0, 0 }, { (int)OperatorsTypes.Equal, 0, 0, 0, 1 }, { (int)OperatorsTypes.Equal, 0, 0, 0, 2 }, { (int)OperatorsTypes.Plus, 1, 2, 0, 0 } };
         private readonly Point[] _opersPoints = new Point[Operators.GetLength(0)];
         private const ushort MaxOperatorsCount = 3;
         private const ushort OperatorValueColumn = 4;
+        private Entity _entity;
         private enum OperatorsTypes
         {
             /*Zero is restricted system value. After the first zero operator _operators array processing will be stopped. 
@@ -48,6 +49,8 @@ namespace Visualizer
 
         public MainWindow()
         {
+            _entity = Entity.GenerateEntity();
+            Operators = _entity.Operators;
             InitializeComponent();
             InitOper();
             _lastOperatorNumber = (uint)GetOperatorsCount();
@@ -119,7 +122,7 @@ namespace Visualizer
             {
                 for (int column = 1; column <= MaxOperatorsCount; column++)
                 {
-                    var fromOper = Operators[row, column];
+                    var fromOper = (int)Operators[row, column];
                     if ((fromOper != (int) OperatorsTypes.Zero) && (fromOper != (int) OperatorsTypes.Nothing))
                     {
                         DrawConnectionAndValue(fromOper, row, column);
@@ -149,7 +152,7 @@ namespace Visualizer
             DrawValue(fromP, toP, val);
         }
 
-        private void DrawValue(Point fromP, Point toP, int valueToSet)
+        private void DrawValue(Point fromP, Point toP, uint valueToSet)
         {
             //double dx = toP.X - fromP.X;
             //double dy = toP.Y - fromP.Y;

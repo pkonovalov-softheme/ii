@@ -71,6 +71,18 @@ namespace NativeWrapper
                 }
             }
         }
+
+        public static Entity GenerateEntity()
+        {
+            IntPtr ptrOnEntity = NativeLibPrototypes.AchiveEffectivity();
+            var goodEntityS = (EntityS)Marshal.PtrToStructure(ptrOnEntity, typeof(EntityS));
+
+            unsafe
+            {
+                uint* ptrOnOpers = NativeLibPrototypes.GetOperatorsPtr(ptrOnEntity);
+                return new Entity(goodEntityS, ptrOnOpers);
+            }
+        }
     }
    
 }
