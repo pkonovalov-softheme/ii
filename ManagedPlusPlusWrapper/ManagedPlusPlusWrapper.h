@@ -2,6 +2,7 @@
 
 #pragma once
 #include "..\Core\BransGlobals.h"
+#include "..\Core\Entity.h"
 
 using namespace System;
 using namespace Brans;
@@ -22,16 +23,13 @@ namespace ManagedPlusPlusWrapper {
 
 	public ref class EntityConsts abstract sealed
 	{
-	public:
-		literal UInt32 EntitiesStartPopulation = EntitiesStartPopulation;
-		
-		static const unsigned short operatorTypeColumn = operatorTypeColumn;
-		static const unsigned short contactsCount = contactsCount;
-		static const unsigned short outputValueColumn = outputValueColumn;
-		static const unsigned short operatorsTypesCount = operatorsTypesCount;
-		static const unsigned short operatorsTableWidth = operatorsTableWidth; // 0 column - operator type, 1 - 3 input values, 4 - output value
-		static const mainDataType FirstInternalOper = FirstInternalOper;
-
+		public:
+		static const unsigned short operatorTypeColumn = Entity::operatorTypeColumn;
+		static const unsigned short contactsCount = Entity::contactsCount;
+		static const unsigned short outputValueColumn = Entity::outputValueColumn;
+		static const unsigned short operatorsTypesCount = Entity::operatorsTypesCount;
+		static const unsigned short operatorsTableWidth = Entity::operatorsTableWidth; // 0 column - operator type, 1 - 3 input values, 4 - output value
+		static const mainDataType FirstInternalOper = Entity::FirstInternalOper;
 		static const unsigned short FirstExtInputPos = FirstExtInputPos;
     };
 }

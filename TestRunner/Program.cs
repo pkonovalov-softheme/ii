@@ -19,6 +19,7 @@ namespace TestRunner
             {
                 uint* ptrOnOpers = NativeLibPrototypes.GetOperatorsPtr(ptrOnEntity);
                 var goodEntity = new Entity(goodEntityS, ptrOnOpers);
+                uint test = goodEntity.Operators[0, 0];
             }
 
 

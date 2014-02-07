@@ -55,11 +55,16 @@ namespace NativeWrapper
             get { return _entS.Chmanager; }
         }
 
+        public uint[,] Operators
+        {
+            get { return _operators; }
+        }
+
         private void InitOperatorsArray(uint* opersPtr)
         {
-            for (int i1 = 0; i1 < 60; i1++)
+            for (int i1 = 0; i1 < BransGlobals.OperatorsCount; i1++)
             {
-                for (int i2 = 0; i2 < 5; i2++)
+                for (int i2 = 0; i2 < EntityConsts.operatorsTableWidth; i2++)
                 {
                     _operators[i1, i2] = *opersPtr;
                     opersPtr++;
