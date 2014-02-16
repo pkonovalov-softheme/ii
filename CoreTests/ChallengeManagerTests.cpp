@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "CppUnitTest.h"
 #include "..\Core\ChallengeManager.h"
+#include <iostream>
+#include <string>
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 using namespace Brans;
@@ -193,12 +195,13 @@ namespace CoreTests
 			cm->SetChallengeType(ChallengeManager::ChallengeTypes::Plus);
 			cm->GenerateRandomInputs();
 			cm->FillAnswers();
-			Entity* ent = GenerateEntityEx(Plus);
-			for (int pr = 0; pr < EntityProcessCount; pr++) {
+			Entity* ent = GenerateEntity(Plus);
+			const static unsigned int RedefEntityProcessCount = 10;
+			for (int pr = 0; pr < RedefEntityProcessCount; pr++) {
 				ent->mProcessAll();
 			}
 
-			ent->CalculateEffectiveness(EntityProcessCount);
+			ent->CalculateEffectiveness(RedefEntityProcessCount);
 			Assert::IsTrue(ent->GetEffectiveness() == 1.00);
 			delete (ent);
 			delete (cm);
@@ -227,8 +230,7 @@ namespace CoreTests
 				ent0->mCreateOperator(opT);
 				ent0->mCreateChannel(ExternalInputsCount + 1 + i, ent0->GetOperatorsCount(), 1);
 				ent0->mCreateChannel(ExternalInputsCount + 2 + i, ent0->GetOperatorsCount(), 2);
-				static const unsigned short outputValueColumn = 4;
-				ent0->mCreateChannel(ent0->GetOperatorsCount(), 1 + i, outputValueColumn);
+				ent0->mCreateChannel(ent0->GetOperatorsCount(), 1 + i, Entity::outputValueColumn);
 			}
 			return ent0;
 		}
@@ -237,10 +239,14 @@ namespace CoreTests
 		{
 			Entity* ent0 = new Entity;
 			ent0->mCreateOperator(opT);
-			ent0->mCreateChannel(ExternalInputsCount + 1, ent0->GetOperatorsCount(), 1);
-			ent0->mCreateChannel(ExternalInputsCount + 2, ent0->GetOperatorsCount(), 2);
-			static const unsigned short outputValueColumn = 4;
-			ent0->mCreateChannel(ent0->GetOperatorsCount(), 1, outputValueColumn);
+
+			if (ExternalInputsCount != Entity::mGetOperTypeContactsCount(opT)) {
+				throw new std::string("Number of ExternalInputsCount isn't correct!");
+			}
+
+			ent0->mCreateChannel(Entity::FirstExtInputPos, ent0->GetOperatorsCount(), Entity::FirstContact);
+			ent0->mCreateChannel(Entity::FirstExtInputPos + 1, ent0->GetOperatorsCount(), Entity::SecondContact);
+			ent0->mCreateChannel(ent0->GetOperatorsCount(), Entity::FirstExtOutputPos, Entity::outputValueColumn);//We will write output value of last created oper to the first external output
 			return ent0;
 		}
 	};

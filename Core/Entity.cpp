@@ -161,6 +161,13 @@ namespace Brans
 		return _operators[operatorId][operatorTypeColumn];
 	}
 
+	mainDataType Entity::mGetOperTypeContactsCount(mainDataType operatorType)
+	{
+		if (operatorType < 1 || operatorType > Nothing)	return 0;
+
+		return _operatorTypeContactCount[operatorType];
+	}
+
 	mainDataType Entity::mGetNewRandomVal(mainDataType upperLimit)
 	{
 		if (upperLimit == 0) return 0;
@@ -205,7 +212,7 @@ namespace Brans
 		case (GetOperatorContactsCount) :
 			targetOp = _operators[operatorId][1];
 			targetOpType = _operators[targetOp][0];
-			outValue = _operatorTypeContactCount[targetOpType];
+			outValue = mGetOperTypeContactsCount(targetOpType);
 			break;
 		case (GetInputOperatorId): //returns id of the operator witch have channel with the first contact of the GetOperatorId operator
 			outValue = _operators[operatorId][1];
@@ -317,7 +324,7 @@ namespace Brans
 		//static const unsigned short rex = ExternalOutputsCount - 1;
 		for (mainDataType i = 0; i < ExternalOutputsCount;)
 		{
-			mainDataType nextI = i + 1;
+			mainDataType nextI = i + 1;// external output
 			if (_chmanager->GetCorrectAnswer(i) != GetInputValue(nextI, outputValueColumn))
 			{
 				//_chmanager->ReportFailure();

@@ -42,11 +42,9 @@ namespace Brans
 
 	void ChallengeManager::FillAnswers()
 	{
-		static const unsigned short rex = ExternalOutputsCount - 1;
-
 		for (mainDataType cline = 0; cline < ChallangesCount; cline++)
 		{
-			for (mainDataType i = 0; i < rex;)
+			for (mainDataType i = 0; i < ExternalOutputsCount;)
 			{
 				mainDataType nextI = i + 1;
 				#define fContValue _inputs[cline][i] //value of first contact
