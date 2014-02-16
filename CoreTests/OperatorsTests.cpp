@@ -353,6 +353,8 @@ namespace CoreTests
 
 		TEST_METHOD(NothingOp)
 		{
+			CreateOper(Plus);
+			CreateOper(Plus);
 			CreateOper(Plus);//We can't creat Nothing operator directly
 			entity->SetContactValue(entity->GetOperatorsCount(), 0, Nothing);
 			ProcessArgsValues(1,2,3);

@@ -314,8 +314,8 @@ namespace Brans
 		}
 
 		//Processing external outputs
-		static const unsigned short rex = ExternalOutputsCount - 1;
-		for (mainDataType i = 0; i < rex;)
+		//static const unsigned short rex = ExternalOutputsCount - 1;
+		for (mainDataType i = 0; i < ExternalOutputsCount;)
 		{
 			mainDataType nextI = i + 1;
 			if (_chmanager->GetCorrectAnswer(i) != GetInputValue(nextI, outputValueColumn))
