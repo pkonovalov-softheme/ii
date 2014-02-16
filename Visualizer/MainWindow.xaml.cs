@@ -25,7 +25,7 @@ namespace Visualizer
     public partial class MainWindow : Window
     {
         private static uint[,] Operators; //= { { (int)OperatorsTypes.Zero, 0, 0, 0, 0 }, { (int)OperatorsTypes.Equal, 0, 0, 0, 1 }, { (int)OperatorsTypes.Equal, 0, 0, 0, 2 }, { (int)OperatorsTypes.Plus, 1, 2, 0, 0 } };
-        private readonly Point[] _opersPoints = new Point[Operators.GetLength(0)];
+        private Point[] _opersPoints;
         private const ushort MaxOperatorsCount = 3;
         private const ushort OperatorValueColumn = 4;
         private Entity _entity;
@@ -37,7 +37,7 @@ namespace Visualizer
             Zero, Divis, Equal, If, Minus, Multipl, One, Plus, Random, Time,
             //Meta operators:
             CreateChan, CreateOper, DelChan, GetOperType, IsChanExists,
-            RemoveOperr, GetInpOperId, GetOperContCount, Nothing
+            RemoveOperr, GetInpOperId, GetOperContCount, ExternalInput, ExternalOutput, Nothing
         };
         private readonly uint _lastOperatorNumber;
         private Canvas _canvas;
@@ -51,6 +51,7 @@ namespace Visualizer
         {
             _entity = Entity.GenerateEntity();
             Operators = _entity.Operators;
+            _opersPoints = new Point[Operators.GetLength(0)];
             InitializeComponent();
             InitOper();
             _lastOperatorNumber = (uint)GetOperatorsCount();

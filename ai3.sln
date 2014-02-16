@@ -213,7 +213,6 @@ Global
 		{75754407-8889-4947-9FE6-0B6721222652}.UnitTestingConfiguration|Win32.ActiveCfg = UnitTestingConfiguration|Win32
 		{75754407-8889-4947-9FE6-0B6721222652}.UnitTestingConfiguration|x64.ActiveCfg = UnitTestingConfiguration|x64
 		{75754407-8889-4947-9FE6-0B6721222652}.UnitTestingConfiguration|x86.ActiveCfg = UnitTestingConfiguration|Win32
-		{75754407-8889-4947-9FE6-0B6721222652}.UnitTestingConfiguration|x86.Build.0 = UnitTestingConfiguration|Win32
 		{6FFBFD4D-1E78-4F8F-8CFB-84838AAB0DE7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{6FFBFD4D-1E78-4F8F-8CFB-84838AAB0DE7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6FFBFD4D-1E78-4F8F-8CFB-84838AAB0DE7}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
@@ -269,7 +268,6 @@ Global
 		{2FE64477-4E66-43BE-B9F6-46BB5F950620}.UnitTestingConfiguration|Win32.ActiveCfg = UnitTestingConfiguration|Win32
 		{2FE64477-4E66-43BE-B9F6-46BB5F950620}.UnitTestingConfiguration|x64.ActiveCfg = UnitTestingConfiguration|Win32
 		{2FE64477-4E66-43BE-B9F6-46BB5F950620}.UnitTestingConfiguration|x86.ActiveCfg = UnitTestingConfiguration|Win32
-		{2FE64477-4E66-43BE-B9F6-46BB5F950620}.UnitTestingConfiguration|x86.Build.0 = UnitTestingConfiguration|Win32
 		{ED62CD00-A2D4-4BD3-80A0-C32391963570}.Debug|Any CPU.ActiveCfg = Debug|Win32
 		{ED62CD00-A2D4-4BD3-80A0-C32391963570}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
 		{ED62CD00-A2D4-4BD3-80A0-C32391963570}.Debug|Mixed Platforms.Build.0 = Debug|Win32
@@ -296,12 +294,9 @@ Global
 		{ED62CD00-A2D4-4BD3-80A0-C32391963570}.Release|x86.Build.0 = Release|Win32
 		{ED62CD00-A2D4-4BD3-80A0-C32391963570}.UnitTestingConfiguration|Any CPU.ActiveCfg = Release|Win32
 		{ED62CD00-A2D4-4BD3-80A0-C32391963570}.UnitTestingConfiguration|Mixed Platforms.ActiveCfg = Release|Win32
-		{ED62CD00-A2D4-4BD3-80A0-C32391963570}.UnitTestingConfiguration|Mixed Platforms.Build.0 = Release|Win32
 		{ED62CD00-A2D4-4BD3-80A0-C32391963570}.UnitTestingConfiguration|Win32.ActiveCfg = Release|Win32
-		{ED62CD00-A2D4-4BD3-80A0-C32391963570}.UnitTestingConfiguration|Win32.Build.0 = Release|Win32
 		{ED62CD00-A2D4-4BD3-80A0-C32391963570}.UnitTestingConfiguration|x64.ActiveCfg = Release|Win32
 		{ED62CD00-A2D4-4BD3-80A0-C32391963570}.UnitTestingConfiguration|x86.ActiveCfg = Release|Win32
-		{ED62CD00-A2D4-4BD3-80A0-C32391963570}.UnitTestingConfiguration|x86.Build.0 = Release|Win32
 		{6DDD487A-701F-4815-834E-CD84BC1B3207}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{6DDD487A-701F-4815-834E-CD84BC1B3207}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6DDD487A-701F-4815-834E-CD84BC1B3207}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
@@ -327,7 +322,6 @@ Global
 		{6DDD487A-701F-4815-834E-CD84BC1B3207}.UnitTestingConfiguration|Any CPU.ActiveCfg = Release|Any CPU
 		{6DDD487A-701F-4815-834E-CD84BC1B3207}.UnitTestingConfiguration|Any CPU.Build.0 = Release|Any CPU
 		{6DDD487A-701F-4815-834E-CD84BC1B3207}.UnitTestingConfiguration|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{6DDD487A-701F-4815-834E-CD84BC1B3207}.UnitTestingConfiguration|Mixed Platforms.Build.0 = Release|Any CPU
 		{6DDD487A-701F-4815-834E-CD84BC1B3207}.UnitTestingConfiguration|Win32.ActiveCfg = Release|Any CPU
 		{6DDD487A-701F-4815-834E-CD84BC1B3207}.UnitTestingConfiguration|x64.ActiveCfg = Release|Any CPU
 		{6DDD487A-701F-4815-834E-CD84BC1B3207}.UnitTestingConfiguration|x86.ActiveCfg = Release|Any CPU
@@ -356,7 +350,6 @@ Global
 		{233AEDEA-DD4E-43BA-BAF9-0914CD48AD2B}.UnitTestingConfiguration|Any CPU.ActiveCfg = Release|Any CPU
 		{233AEDEA-DD4E-43BA-BAF9-0914CD48AD2B}.UnitTestingConfiguration|Any CPU.Build.0 = Release|Any CPU
 		{233AEDEA-DD4E-43BA-BAF9-0914CD48AD2B}.UnitTestingConfiguration|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{233AEDEA-DD4E-43BA-BAF9-0914CD48AD2B}.UnitTestingConfiguration|Mixed Platforms.Build.0 = Release|Any CPU
 		{233AEDEA-DD4E-43BA-BAF9-0914CD48AD2B}.UnitTestingConfiguration|Win32.ActiveCfg = Release|Any CPU
 		{233AEDEA-DD4E-43BA-BAF9-0914CD48AD2B}.UnitTestingConfiguration|x64.ActiveCfg = Release|Any CPU
 		{233AEDEA-DD4E-43BA-BAF9-0914CD48AD2B}.UnitTestingConfiguration|x86.ActiveCfg = Release|Any CPU
@@ -386,17 +379,11 @@ Global
 		{B3549ECC-3626-4CE1-9D80-76B378DDFE60}.Release|x86.Build.0 = Release|Win32
 		{B3549ECC-3626-4CE1-9D80-76B378DDFE60}.UnitTestingConfiguration|Any CPU.ActiveCfg = Release|Win32
 		{B3549ECC-3626-4CE1-9D80-76B378DDFE60}.UnitTestingConfiguration|Mixed Platforms.ActiveCfg = Release|Win32
-		{B3549ECC-3626-4CE1-9D80-76B378DDFE60}.UnitTestingConfiguration|Mixed Platforms.Build.0 = Release|Win32
 		{B3549ECC-3626-4CE1-9D80-76B378DDFE60}.UnitTestingConfiguration|Win32.ActiveCfg = Release|Win32
-		{B3549ECC-3626-4CE1-9D80-76B378DDFE60}.UnitTestingConfiguration|Win32.Build.0 = Release|Win32
 		{B3549ECC-3626-4CE1-9D80-76B378DDFE60}.UnitTestingConfiguration|x64.ActiveCfg = Release|Win32
 		{B3549ECC-3626-4CE1-9D80-76B378DDFE60}.UnitTestingConfiguration|x86.ActiveCfg = Release|Win32
-		{B3549ECC-3626-4CE1-9D80-76B378DDFE60}.UnitTestingConfiguration|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(Performance) = preSolution
-		HasPerformanceSessions = true
 	EndGlobalSection
 EndGlobal

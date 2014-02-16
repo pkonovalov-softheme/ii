@@ -26,7 +26,7 @@ namespace NativeWrapper
     {
         private readonly EntityS _entS;
 
-        private readonly uint[,] _operators = new uint[BransGlobals.OperatorsCount, EntityConsts.operatorsTableWidth];
+        private readonly uint[,] _operators = new uint[BransGlobals.operatorsMaxCount, EntityConsts.operatorsTableWidth];
 
         public Entity(EntityS entS, uint* opersPtr)
         {
@@ -62,7 +62,7 @@ namespace NativeWrapper
 
         private void InitOperatorsArray(uint* opersPtr)
         {
-            for (int i1 = 0; i1 < BransGlobals.OperatorsCount; i1++)
+            for (int i1 = 0; i1 < BransGlobals.operatorsMaxCount; i1++)
             {
                 for (int i2 = 0; i2 < EntityConsts.operatorsTableWidth; i2++)
                 {
