@@ -134,7 +134,7 @@ namespace Brans
 
 	void Entity::mRemoveOperator(mainDataType operatorToRemove)
 	{
-		if (!IsOperIdCorrect(operatorToRemove))		return;
+		if ((operatorToRemove < FirstInternalOper) || (operatorToRemove >= _nextOperatorId))		return;
 
 		_operators[operatorToRemove][operatorTypeColumn] = OperatorsTypes::Nothing;
 	}
