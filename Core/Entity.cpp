@@ -73,7 +73,7 @@ namespace Brans
 
 	bool Entity::IsOperIdCorrect(mainDataType operatorId)
 	{
-		return (operatorId >= 0) && (operatorId < _nextOperatorId);
+		return (operatorId > 0) && (operatorId < _nextOperatorId);
 	}
 
 	bool Entity::IsOperTypeCorrect(mainDataType operatorType)
@@ -81,16 +81,20 @@ namespace Brans
 		return (operatorType > Zero) && (operatorType < ExternalInput);
 	}
 
-	bool Entity::IsContactCorrect(mainDataType contactId)
+	bool Entity::IsContactCorrect(mainDataType contactId, mainDataType operId)
 	{
-		return (contactId > 0) && (contactId < operatorsTableWidth);
+		short cntsCount = mGetOperTypeContactsCount(_operators[operId][0]);
+		bool test = (contactId > 0) && (contactId < cntsCount);
+		if (test)
+			test = test;
+		return (contactId > 0) && (contactId < cntsCount);
 	}
 
-	//Maybe inline will faster?? Check also memory usage
+	//Now only is using in unit-test! ------Maybe inline will faster?? Check also memory usage
 	mainDataType Entity::mGetChannelvalue(mainDataType operatorId, mainDataType contactId)
 	{
 		if (!IsOperIdCorrect(operatorId)) return 0;
-		if (!IsContactCorrect(contactId)) return 0;
+		if (!IsContactCorrect(contactId, operatorId)) return 0;
 
 		return _operators[operatorId][contactId];
 		//mainDataType* val = (mainDataType*)&_operators[operatorId][contactId]; 
@@ -105,7 +109,7 @@ namespace Brans
 	{
 		if (!IsOperIdCorrect(fromOperator))		    return;
 		if (!IsOperIdCorrect(toOperator))		    return;
-		if (!IsContactCorrect(toOperatorContactId))	return;
+		if (!IsContactCorrect(toOperatorContactId, toOperator))	return;
 
 		mCreateChannelUnsafe(fromOperator, toOperator, toOperatorContactId);
 	}
@@ -115,9 +119,10 @@ namespace Brans
 		_operators[toOperator][toOperatorContactId] = fromOperator;
 	}
 
-	mainDataType Entity::mIfChannelExists(mainDataType fromOperator, mainDataType toOperator, mainDataType toOperatorContactId)
+	mainDataType Entity::mIsChannelExists(mainDataType fromOperator, mainDataType toOperator, mainDataType toOperatorContactId)
 	{
-		if (IsOperIdCorrect(fromOperator) && IsOperIdCorrect(toOperator) && IsContactCorrect(toOperatorContactId)) {
+		if (IsOperIdCorrect(fromOperator) && IsOperIdCorrect(toOperator) && 
+			IsContactCorrect(toOperatorContactId, toOperator)) {
 			if (_operators[toOperator][toOperatorContactId] == fromOperator) return 1;
 		}
 			
@@ -127,7 +132,7 @@ namespace Brans
 	void Entity::mDeleteChannel(mainDataType toOperator, mainDataType toOperatorContactId)
 	{
 		if (!IsOperIdCorrect(toOperator))		    return;
-		if (!IsContactCorrect(toOperatorContactId))	return;
+		if (!IsContactCorrect(toOperatorContactId, toOperator))	return;
 
 		_operators[toOperator][toOperatorContactId] = 0;
 	}
@@ -224,7 +229,7 @@ namespace Brans
 			outValue = fContValue > sContValue;
 			break;
 		case (IsChannelExists):
-			outValue = mIfChannelExists(fContValue, sContValue, tContValue);
+			outValue = mIsChannelExists(fContValue, sContValue, tContValue);
 			break;
 		case (Minus):
 			if (fContValue > sContValue){

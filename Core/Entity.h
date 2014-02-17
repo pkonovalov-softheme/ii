@@ -39,7 +39,7 @@ namespace Brans
 
 		void mCreateChannelUnsafe(mainDataType fromOperator, mainDataType toOperator, mainDataType toOperatorContactId); //create new channel between two operators
 
-		mainDataType mIfChannelExists(mainDataType fromOperator, mainDataType toOperator, mainDataType toOperatorContactId); //returns true if channel exists there
+		mainDataType mIsChannelExists(mainDataType fromOperator, mainDataType toOperator, mainDataType toOperatorContactId); //returns true if channel exists there
 
 		void mDeleteChannel(mainDataType toOperator, mainDataType toOperatorContactId); //delete existing channel between two operators
 
@@ -109,7 +109,7 @@ namespace Brans
 
 		bool IsOperTypeCorrect(mainDataType operatorType);
 
-		bool IsContactCorrect(mainDataType contactId);
+		bool IsContactCorrect(mainDataType contactId, mainDataType operId);
 
 		void InitializeInputsAndOutputs();
 	};
