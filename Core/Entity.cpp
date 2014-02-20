@@ -30,7 +30,7 @@ namespace Brans
 		/* GetInputOperatorId */		1,
 		/* GetOperatorContactsCount */	1,
 		/* ExternalInput */				0,
-		/* ExternalOutput */			0,
+		/* ExternalOutput */			1,
 		/* Nothing */					0,
 	};
 
@@ -84,10 +84,7 @@ namespace Brans
 	bool Entity::IsContactCorrect(mainDataType contactId, mainDataType operId)
 	{
 		short cntsCount = mGetOperTypeContactsCount(_operators[operId][0]);
-		bool test = (contactId > 0) && (contactId < cntsCount);
-		if (test)
-			test = test;
-		return (contactId > 0) && (contactId < cntsCount);
+		return (contactId > 0) && (contactId <= cntsCount);
 	}
 
 	//Now only is using in unit-test! ------Maybe inline will faster?? Check also memory usage
@@ -330,7 +327,7 @@ namespace Brans
 		for (mainDataType i = 0; i < ExternalOutputsCount;)
 		{
 			mainDataType nextI = i + 1;// external output
-			if (_chmanager->GetCorrectAnswer(i) != GetInputValue(nextI, outputValueColumn))
+			if (_chmanager->GetCorrectAnswer(i) != GetInputValue(nextI, FirstContact))
 			{
 				//_chmanager->ReportFailure();
 				return;

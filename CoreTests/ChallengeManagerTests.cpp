@@ -246,7 +246,7 @@ namespace CoreTests
 
 			ent0->mCreateChannel(Entity::FirstExtInputPos, ent0->GetOperatorsCount(), Entity::FirstContact);
 			ent0->mCreateChannel(Entity::FirstExtInputPos + 1, ent0->GetOperatorsCount(), Entity::SecondContact);
-			ent0->mCreateChannel(ent0->GetOperatorsCount(), Entity::FirstExtOutputPos, Entity::outputValueColumn);//We will write output value of last created oper to the first external output
+			ent0->mCreateChannel(ent0->GetOperatorsCount(), Entity::FirstExtOutputPos, Entity::FirstContact);//We will write output value of last created oper to the first external output
 			return ent0;
 		}
 	};

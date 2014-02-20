@@ -60,7 +60,7 @@ namespace CoreTests
 				for (mainDataType curOp = Entity::FirstInternalOper; curOp < curEntity->GetNextOperatorId(); curOp++)
 				{
 					OperatorsTypes curOperType = (OperatorsTypes)curEntity->mGetOperatorType(curOp);
-					for (int curContact = 1; curContact <= EntityGenerator::GetOperTypeContactsCount(curOperType); curContact++)
+					for (int curContact = 1; curContact <= Entity::mGetOperTypeContactsCount(curOperType); curContact++)
 					{
 						mainDataType curVal = curEntity->GetContactValue(curOp, curContact);
 						if (!(curVal > 0 && curVal < curEntity->GetNextOperatorId()))
