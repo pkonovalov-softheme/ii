@@ -5,6 +5,8 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using ManagedPlusPlusWrapper;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Soap;
 
 
 namespace NativeWrapper
@@ -82,6 +84,32 @@ namespace NativeWrapper
                 uint* ptrOnOpers = NativeLibPrototypes.GetOperatorsPtr(ptrOnEntity);
                 return new Entity(goodEntityS, ptrOnOpers);
             }
+        }
+
+        public override string ToString()
+        {
+            var sb = new StringBuilder();
+            sb.AppendFormat("CorrectAnswersCount: '{0}'", CorrectAnswersCount);
+            sb.AppendLine();
+            sb.AppendFormat("Effectiveness: '{0}'", Effectiveness);
+            sb.AppendLine();
+            sb.AppendFormat("NextOperatorId: '{0}'", NextOperatorId);
+            sb.AppendLine();
+            sb.AppendLine("Operators: ");
+
+            for(int r = 0; r < BransGlobals.operatorsMaxCount; r++)
+            {
+                sb.AppendFormat("[Id = {0}, Fcnt = {1}, Scnt = {2}, Tcnt = {3}, OutVal = {4}]",
+                    _operators[r, 0], _operators[r, 1], _operators[r, 2], _operators[r, 3], _operators[r, 4]);
+                sb.AppendLine();
+            }
+
+            return sb.ToString();
+        }
+
+        public void DumpEntity()
+        {
+            System.IO.File.WriteAllText(@"C:\dump\entity.txt", this.ToString());
         }
     }
    

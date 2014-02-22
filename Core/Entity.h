@@ -45,6 +45,9 @@ namespace Brans
 
 		mainDataType mGetOperatorType(mainDataType operatorId); //returns type of the target operator
 
+		mainDataType mGetOperatorTypeUnsafe(mainDataType operatorId); //returns type of the target operator without check
+
+
 		void mCreateOperator(mainDataType operatorType); //creates new operator
 
 		void mRemoveOperator(mainDataType operatorToRemove); //Virtually removes the operator setting up it type to Nothing
@@ -92,6 +95,8 @@ namespace Brans
 		mainDataType* GetOperatorsPtr();
 
 		static mainDataType Entity::mGetOperTypeContactsCount(mainDataType operatorType);
+
+		static mainDataType Entity::mGetOperTypeContactsCountUnsafe(mainDataType operatorType);
 
 	private:
 

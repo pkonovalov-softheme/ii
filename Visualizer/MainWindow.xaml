@@ -21,7 +21,7 @@
                     Value="1" Minimum="0.1" Maximum="4"/>
         <Slider Canvas.Bottom="0" Width="762"  HorizontalAlignment="Stretch" Name="TranslateXSlider" Value="0" Minimum="-200" Maximum="200"/>
         <Slider Canvas.Right="0" Canvas.Top="20" RenderTransformOrigin="0.494,0.455" Height="500" Name="TranslateYSlider"  
-                Value="0" Minimum="-200" Maximum="200" Orientation="Vertical">
+                Value="0" Minimum="-200" Maximum="200" Orientation="Vertical" ValueChanged="TranslateYSlider_ValueChanged">
         </Slider>
     </Canvas>
 </Window>

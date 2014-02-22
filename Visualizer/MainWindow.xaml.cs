@@ -16,6 +16,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Runtime.InteropServices;
 using NativeWrapper;
+using ManagedPlusPlusWrapper;
 
 namespace Visualizer
 {
@@ -26,8 +27,6 @@ namespace Visualizer
     {
         private static uint[,] Operators; //= { { (int)OperatorsTypes.Zero, 0, 0, 0, 0 }, { (int)OperatorsTypes.Equal, 0, 0, 0, 1 }, { (int)OperatorsTypes.Equal, 0, 0, 0, 2 }, { (int)OperatorsTypes.Plus, 1, 2, 0, 0 } };
         private Point[] _opersPoints;
-        private const ushort MaxOperatorsCount = 3;
-        private const ushort OperatorValueColumn = 4;
         private Entity _entity;
         private enum OperatorsTypes
         {
@@ -50,6 +49,7 @@ namespace Visualizer
         public MainWindow()
         {
             _entity = Entity.GenerateEntity();
+            _entity.DumpEntity();
             Operators = _entity.Operators;
             _opersPoints = new Point[Operators.GetLength(0)];
             InitializeComponent();
@@ -114,17 +114,24 @@ namespace Visualizer
                 OperatorsCanvas.Children.Add(operText);
                 Canvas.SetLeft(operText, xd + 3);
                 Canvas.SetTop(operText, yd + OperatorRadius -  operText.FontSize);
+
+                var operNumbText = new TextBlock(new Run("№" + i.ToString()));
+                operNumbText.Foreground = new SolidColorBrush(Colors.Blue);
+                OperatorsCanvas.Children.Add(operNumbText);
+                Canvas.SetLeft(operNumbText, xd + OperatorRadius);
+                Canvas.SetTop(operNumbText, yd + OperatorRadius);
+
             }
         }
 
         private void DrawConnectionsAndValues()
         {
-            for (int row = 1; row <= Operators.GetUpperBound(0); row++)
+            for (int row = 1; row < _entity.NextOperatorId; row++)
             {
-                for (int column = 1; column <= MaxOperatorsCount; column++)
+                for (int column = EntityConsts.FirstContact; column <= EntityConsts.contactsCount; column++)
                 {
                     var fromOper = (int)Operators[row, column];
-                    if ((fromOper != (int) OperatorsTypes.Zero) && (fromOper != (int) OperatorsTypes.Nothing))
+                    if ((fromOper != (int) OperatorsTypes.Zero) && (fromOper != (int)OperatorsTypes.Nothing))
                     {
                         DrawConnectionAndValue(fromOper, row, column);
                     }
@@ -134,7 +141,7 @@ namespace Visualizer
 
         private void DrawConnectionAndValue(int fromOper, int toOper, int toOperContactId)
         {
-            Point fromP = GetKontactPoint(fromOper, 4);
+            Point fromP = GetKontactPoint(fromOper, EntityConsts.outputValueColumn);
             DrawConnectionPoint(fromP);
             Point toP = GetKontactPoint(toOper, toOperContactId);
             DrawConnectionPoint(toP);
@@ -149,11 +156,12 @@ namespace Visualizer
             };
             OperatorsCanvas.Children.Add(connectionL);
 
-            var val = Operators[fromOper, OperatorValueColumn];
-            DrawValue(fromP, toP, val);
+            var val = Operators[fromOper, EntityConsts.outputValueColumn];
+            DrawValue(fromP, toP, val.ToString(), Colors.Black);
+           // DrawValue(fromP, toP, toOper.ToString(), Colors.Blue, 12);
         }
 
-        private void DrawValue(Point fromP, Point toP, uint valueToSet)
+        private void DrawValue(Point fromP, Point toP, string valueToSet, Color col)
         {
             //double dx = toP.X - fromP.X;
             //double dy = toP.Y - fromP.Y;
@@ -168,7 +176,8 @@ namespace Visualizer
             //OperatorsCanvas.Children.Add(operText);
             //Canvas.SetLeft(operText, xMidl);
             //Canvas.SetTop(operText, yMidl);
-            var operText = new TextBlock(new Run(valueToSet.ToString()));
+            var operText = new TextBlock(new Run(valueToSet));
+            operText.Foreground = new SolidColorBrush(col);
             OperatorsCanvas.Children.Add(operText);
             Canvas.SetLeft(operText, fromP.X);
             Canvas.SetTop(operText, fromP.Y);
@@ -257,6 +266,11 @@ namespace Visualizer
             T target = (T)System.Windows.Markup.XamlReader.Load(xmlReader);
 
             return target;
+        }
+
+        private void TranslateYSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            int one = 1;
         }
     }
 }

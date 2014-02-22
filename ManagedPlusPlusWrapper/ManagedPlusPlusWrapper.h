@@ -31,5 +31,8 @@ namespace ManagedPlusPlusWrapper {
 		static const unsigned short operatorsTableWidth = Entity::operatorsTableWidth; // 0 column - operator type, 1 - 3 input values, 4 - output value
 		static const mainDataType FirstInternalOper = Entity::FirstInternalOper;
 		static const unsigned short FirstExtInputPos = FirstExtInputPos;
+		static const unsigned short FirstContact = Entity::FirstContact;
+		static const unsigned short SecondContact = Entity::SecondContact;;
+		static const unsigned short ThirdContact = Entity::ThirdContact;;
     };
 }

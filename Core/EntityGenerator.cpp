@@ -22,8 +22,8 @@ namespace Brans
 			//Creating oper
 			_entity.mCreateOperatorUnsafe(RandomOperatorsProvider::GetNextOperator());
 
-			OperatorsTypes lastOperType = (OperatorsTypes)_entity.mGetOperatorType(curOper);
-			mainDataType lastOperTypeCntsCount = Entity::mGetOperTypeContactsCount(lastOperType);
+			OperatorsTypes lastOperType = (OperatorsTypes)_entity.mGetOperatorTypeUnsafe(curOper);
+			mainDataType lastOperTypeCntsCount = Entity::mGetOperTypeContactsCountUnsafe(lastOperType);
 
 			//Creating connections
 			for (int curContact = 1; curContact <= lastOperTypeCntsCount; curContact++)

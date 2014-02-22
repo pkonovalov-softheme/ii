@@ -154,12 +154,22 @@ namespace Brans
 	{
 		_operators[_nextOperatorId][0] = operatorType;
 		_nextOperatorId++;
+
+		if (_operators[_nextOperatorId][0] != 0)
+		{
+			_nextOperatorId = _nextOperatorId;
+		}
 	}
 
 	mainDataType Entity::mGetOperatorType(mainDataType operatorId)
 	{
 		if (!IsOperIdCorrect(operatorId))	return 0;
 
+		mGetOperatorTypeUnsafe(operatorId);
+	}
+
+	mainDataType Entity::mGetOperatorTypeUnsafe(mainDataType operatorId)
+	{
 		return _operators[operatorId][operatorTypeColumn];
 	}
 
@@ -167,6 +177,11 @@ namespace Brans
 	{
 		if (operatorType < 1 || operatorType > Nothing)	return 0;
 
+		return mGetOperTypeContactsCountUnsafe(operatorType);
+	}
+
+	mainDataType Entity::mGetOperTypeContactsCountUnsafe(mainDataType operatorType)
+	{
 		return _operatorTypeContactCount[operatorType];
 	}
 
@@ -263,6 +278,11 @@ namespace Brans
 			break;
 		default:
 			throw "Not implemented";
+		}
+
+		if (_operators[_nextOperatorId][0] != 0)
+		{
+			_nextOperatorId = _nextOperatorId;
 		}
 	}
 
