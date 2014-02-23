@@ -25,19 +25,12 @@ namespace Visualizer
     /// </summary>
     public partial class MainWindow : Window
     {
-        private static uint[,] Operators; //= { { (int)OperatorsTypes.Zero, 0, 0, 0, 0 }, { (int)OperatorsTypes.Equal, 0, 0, 0, 1 }, { (int)OperatorsTypes.Equal, 0, 0, 0, 2 }, { (int)OperatorsTypes.Plus, 1, 2, 0, 0 } };
+        private static uint[,] Operators = { {(int)OperatorsTypes.Zero, 0, 0, 0, 0 }, 
+                                           { (int)OperatorsTypes.ExternalOutput, 3, 0, 0, 0 }, 
+                                           { (int)OperatorsTypes.ExternalInput, 0, 0, 0, 2 }, 
+                                           { (int)OperatorsTypes.Equal, 2, 0, 0, 0 } };
         private Point[] _opersPoints;
         private Entity _entity;
-        private enum OperatorsTypes
-        {
-            /*Zero is restricted system value. After the first zero operator _operators array processing will be stopped. 
-            Value of the zero operator is assuming as zero-only.
-            Basic operators:*/
-            Zero, Divis, Equal, If, Minus, Multipl, One, Plus, Random, Time,
-            //Meta operators:
-            CreateChan, CreateOper, DelChan, GetOperType, IsChanExists,
-            RemoveOperr, GetInpOperId, GetOperContCount, ExternalInput, ExternalOutput, Nothing
-        };
         private readonly uint _lastOperatorNumber;
         private Canvas _canvas;
         private Ellipse _operatorEllipse;
@@ -49,6 +42,8 @@ namespace Visualizer
         public MainWindow()
         {
             _entity = Entity.GenerateEntity();
+            //_entity.NextOperatorId = 4;
+
             _entity.DumpEntity();
             Operators = _entity.Operators;
             _opersPoints = new Point[Operators.GetLength(0)];
@@ -71,13 +66,13 @@ namespace Visualizer
             _operatorEllipse.Height = OperatorDiametr;
         }
 
-        private Ellipse GetDot()
+        private Ellipse GetDot(SolidColorBrush br)
         {
             var dotEllipse = new Ellipse();
             var mySolidColorBrush = new SolidColorBrush { Color = Color.FromArgb(255, 0, 0, 0) };
             dotEllipse.Fill = mySolidColorBrush;
             dotEllipse.StrokeThickness = 1;
-            dotEllipse.Stroke = Brushes.Black;
+            dotEllipse.Stroke = br;
             dotEllipse.Width = ConnectionDotD;
             dotEllipse.Height = ConnectionDotD;
             return dotEllipse;
@@ -98,7 +93,7 @@ namespace Visualizer
             double dw = Math.Sqrt(_lastOperatorNumber);
             uint gridDim = (uint)Math.Round(dw);
 
-            for (uint i = 1; i <= Operators.GetUpperBound(0); i++)
+            for (uint i = 1; i < _entity.NextOperatorId; i++)
             {
                 uint row = (i - 1) / gridDim; // -1 Because we will miss first always Zero operator
                 uint column = (i - 1) - row*gridDim;
@@ -110,7 +105,7 @@ namespace Visualizer
                 _opersPoints[i] = pt;
                 Canvas.SetLeft(curOperElips, xd);
                 Canvas.SetTop(curOperElips, yd);
-                var operText = new TextBlock(new Run(GetOperName((OperatorsTypes)Operators[i, 0])));
+                var operText = new TextBlock(new Run(Entity.GetOperName((OperatorsTypes)Operators[i, 0])));
                 OperatorsCanvas.Children.Add(operText);
                 Canvas.SetLeft(operText, xd + 3);
                 Canvas.SetTop(operText, yd + OperatorRadius -  operText.FontSize);
@@ -142,79 +137,61 @@ namespace Visualizer
         private void DrawConnectionAndValue(int fromOper, int toOper, int toOperContactId)
         {
             Point fromP = GetKontactPoint(fromOper, EntityConsts.outputValueColumn);
-            DrawConnectionPoint(fromP);
+            DrawConnectionPoint(fromP, Brushes.Black);
             Point toP = GetKontactPoint(toOper, toOperContactId);
-            DrawConnectionPoint(toP);
-            var connectionL = new Line
-            {
-                Stroke = System.Windows.Media.Brushes.Blue,
-                X1 = fromP.X,
-                Y1 = fromP.Y,
-                X2 = toP.X,
-                Y2 = toP.Y,
-                StrokeThickness = 1
-            };
-            OperatorsCanvas.Children.Add(connectionL);
-
+            DrawConnectionPoint(toP, Brushes.Red);
+            OperatorsCanvas.Children.Add(DrawLinkArrow(fromP, toP));
             var val = Operators[fromOper, EntityConsts.outputValueColumn];
-            DrawValue(fromP, toP, val.ToString(), Colors.Black);
-           // DrawValue(fromP, toP, toOper.ToString(), Colors.Blue, 12);
+            DrawValue(fromP, toP, val.ToString(), Colors.Black); 
+        }
+
+        private static Shape DrawLinkArrow(Point p1, Point p2)
+        {
+            var lineGroup = new GeometryGroup();
+            double theta = Math.Atan2((p2.Y - p1.Y), (p2.X - p1.X)) * 180 / Math.PI;
+
+            var pathGeometry = new PathGeometry();
+            var pathFigure = new PathFigure();
+            var p = new Point(p1.X + ((p2.X - p1.X) / 1.35), p1.Y + ((p2.Y - p1.Y) / 1.35));
+            pathFigure.StartPoint = p;
+
+            var lpoint = new Point(p.X + 6, p.Y + 15);
+            var rpoint = new Point(p.X - 6, p.Y + 15);
+            var seg1 = new LineSegment {Point = lpoint};
+            pathFigure.Segments.Add(seg1);
+
+            var seg2 = new LineSegment {Point = rpoint};
+            pathFigure.Segments.Add(seg2);
+
+            var seg3 = new LineSegment {Point = p};
+            pathFigure.Segments.Add(seg3);
+
+            pathGeometry.Figures.Add(pathFigure);
+            var transform = new RotateTransform {Angle = theta + 90, CenterX = p.X, CenterY = p.Y};
+            pathGeometry.Transform = transform;
+            lineGroup.Children.Add(pathGeometry);
+
+            var connectorGeometry = new LineGeometry {StartPoint = p1, EndPoint = p2};
+            lineGroup.Children.Add(connectorGeometry);
+            var path = new System.Windows.Shapes.Path {Data = lineGroup, StrokeThickness = 2};
+            path.Stroke = path.Fill = Brushes.Blue;
+
+            return path;
         }
 
         private void DrawValue(Point fromP, Point toP, string valueToSet, Color col)
         {
-            //double dx = toP.X - fromP.X;
-            //double dy = toP.Y - fromP.Y;
-
-            //double lineLenth = Math.Sqrt(dx*dx + dy*dy);
-            //double lineXangel = Math.Acos(dx/lineLenth);
-
-            //double xMidl = fromP.X + lineLenth  * Math.Cos(lineXangel);
-            //double yMidl = fromP.Y + lineLenth  * Math.Sin(lineXangel);
-
-            //var operText = new TextBlock(new Run(valueToSet.ToString()));
-            //OperatorsCanvas.Children.Add(operText);
-            //Canvas.SetLeft(operText, xMidl);
-            //Canvas.SetTop(operText, yMidl);
-            var operText = new TextBlock(new Run(valueToSet));
-            operText.Foreground = new SolidColorBrush(col);
+            var operText = new TextBlock(new Run(valueToSet)) {Foreground = new SolidColorBrush(col)};
             OperatorsCanvas.Children.Add(operText);
             Canvas.SetLeft(operText, fromP.X);
             Canvas.SetTop(operText, fromP.Y);
         }
-        //not working
-        //private void DrawMidlArrow(Point fromP, Point toP)
-        //{
-        //    double dx = toP.X - fromP.X;
-        //    double dy = toP.Y - fromP.Y;
-
-        //    double lineLenth = Math.Sqrt(dx*dx + dy*dy);
-        //    double lineXangel = Math.Acos(dx/lineLenth);
-
-        //    double xMidl = (dx/2) * Math.Cos(lineXangel);
-        //    double yMidl = (dy/2) * Math.Sin(lineXangel);
-        //    double compAngle = Math.PI/2 - lineXangel;
-        //    double arrowAngle = compAngle - Math.PI/4;
-        //    double arrowEndX = xMidl - ArrowLenth * Math.Cos(arrowAngle);
-        //    double arrowEndY = yMidl - ArrowLenth * Math.Cos(arrowAngle);
-        //    var connectionL = new Line
-        //    {
-        //        Stroke = System.Windows.Media.Brushes.Red,
-        //        X1 = xMidl,
-        //        Y1 = yMidl,
-        //        X2 = arrowEndX,
-        //        Y2 = arrowEndY,
-        //        StrokeThickness = 1
-        //    };
-        //    this.OperatorsCanvas.Children.Add(connectionL);
-
-        //}
-
-        private void DrawConnectionPoint(Point pt)
+     
+        private void DrawConnectionPoint(Point pt, SolidColorBrush br)
         {
-            var dotC = GetDot();
+            var dotC = GetDot(br);
             OperatorsCanvas.Children.Add(dotC);
-            Canvas.SetLeft(dotC, pt.X - ConnectionDotD/2);
+            Canvas.SetLeft(dotC, pt.X - ConnectionDotD / 2);
             Canvas.SetTop(dotC, pt.Y - ConnectionDotD / 2);
         }
 
@@ -249,11 +226,6 @@ namespace Visualizer
             }
 
             return new Point(celX, celY);
-        }
-
-        private string GetOperName(OperatorsTypes op)
-        {
-            return Enum.GetName(typeof(OperatorsTypes), op);
         }
 
         public T XamlClone<T>(T source)

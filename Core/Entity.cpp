@@ -59,7 +59,15 @@ namespace Brans
 
 	void Entity::Reset()
 	{
-		for (mainDataType i = 0; i < _nextOperatorId; i++)  { _operators[i][outputValueColumn] = 0; }
+		for (mainDataType i = 0; i < _nextOperatorId; i++)  {
+			// _operators[i][FirstContact] = 0;  Will this be faster?
+			_operators[i][FirstContact] = 0; 
+			_operators[i][SecondContact] = 0;
+			_operators[i][ThirdContact] = 0;
+			_operators[i][outputValueColumn] = 0;
+		}
+		//memset(array, 0, sizeof(array[0][0]) * m * n); or std::fill( array, array + numberOfElements, 0.0 ) // Todo:// will this be faster
+
 		_correctAnswersCount = 0;
 		_effectiveness = 0;
 		_nextOperatorId = FirstInternalOper;
@@ -154,11 +162,6 @@ namespace Brans
 	{
 		_operators[_nextOperatorId][0] = operatorType;
 		_nextOperatorId++;
-
-		if (_operators[_nextOperatorId][0] != 0)
-		{
-			_nextOperatorId = _nextOperatorId;
-		}
 	}
 
 	mainDataType Entity::mGetOperatorType(mainDataType operatorId)
@@ -278,11 +281,6 @@ namespace Brans
 			break;
 		default:
 			throw "Not implemented";
-		}
-
-		if (_operators[_nextOperatorId][0] != 0)
-		{
-			_nextOperatorId = _nextOperatorId;
 		}
 	}
 

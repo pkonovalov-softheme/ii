@@ -11,6 +11,16 @@ using System.Runtime.Serialization.Formatters.Soap;
 
 namespace NativeWrapper
 {
+    public enum OperatorsTypes
+    {
+        /*Zero is restricted system value. After the first zero operator _operators array processing will be stopped. 
+        Value of the zero operator is assuming as zero-only.
+        Basic operators:*/
+        Zero, Divis, Equal, If, Minus, Multipl, One, Plus, Random, Time,
+        //Meta operators:
+        CreateChan, CreateOper, DelChan, GetOperType, IsChanExists,
+        RemoveOperr, GetInpOperId, GetOperContCount, ExternalInput, ExternalOutput, Nothing
+    };
 
     [StructLayout(LayoutKind.Sequential)]
     public struct EntityS
@@ -97,19 +107,31 @@ namespace NativeWrapper
             sb.AppendLine();
             sb.AppendLine("Operators: ");
 
-            for(int r = 0; r < BransGlobals.operatorsMaxCount; r++)
+            for(int r = 0; r < NextOperatorId; r++)
             {
-                sb.AppendFormat("[Id = {0}, Fcnt = {1}, Scnt = {2}, Tcnt = {3}, OutVal = {4}]",
-                    _operators[r, 0], _operators[r, 1], _operators[r, 2], _operators[r, 3], _operators[r, 4]);
+                sb.AppendFormat("Id = {5}; [OpType = {0}({6}), Fcnt = {1}, Scnt = {2}, Tcnt = {3}, OutVal = {4}]",
+                _operators[r, 0], 
+                _operators[r, 1],
+                _operators[r, 2], 
+                _operators[r, 3], 
+                _operators[r, 4], 
+                r, 
+                GetOperName((OperatorsTypes)_operators[r, EntityConsts.operatorTypeColumn]));
                 sb.AppendLine();
             }
 
+           
             return sb.ToString();
         }
 
         public void DumpEntity()
         {
             System.IO.File.WriteAllText(@"C:\dump\entity.txt", this.ToString());
+        }
+
+        public static string GetOperName(OperatorsTypes op)
+        {
+            return Enum.GetName(typeof(OperatorsTypes), op);
         }
     }
    
