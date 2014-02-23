@@ -15,8 +15,6 @@ namespace Brans
 		_curChallangeType = ChallengeTypes::One;
 		_chManager = this;
 		_entityGenerator = new EntityGenerator();
-		//srand_sse();
-		//_currentLine = 0;
 	}
 
 	ChallengeManager::~ChallengeManager()
@@ -161,9 +159,6 @@ namespace Brans
 
 	Entity& ChallengeManager::AchiveEffectivity(double targetEffectivity)
 	{
-		//srand_sse();
-		//mainDataType res = GetRandom(0, 100);
-
 		GenerateRandomInputs();
 		FillAnswers();
 		return SelectGoodEntity(targetEffectivity);

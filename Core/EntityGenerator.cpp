@@ -17,6 +17,7 @@ namespace Brans
 	Entity& EntityGenerator::GenerateEntity()
 	{
 		_entity.Reset();
+
 		for (int curOper = Entity::FirstInternalOper; curOper < EntityOperatorsCount; curOper++)
 		{
 			//Creating oper
@@ -26,7 +27,7 @@ namespace Brans
 			mainDataType lastOperTypeCntsCount = Entity::mGetOperTypeContactsCountUnsafe(lastOperType);
 
 			//Creating connections
-			for (int curContact = 1; curContact <= lastOperTypeCntsCount; curContact++)
+			for (int curContact = Entity::FirstContact; curContact <= lastOperTypeCntsCount; curContact++)
 			{
 				mainDataType md = _conProvider.GetNextValue();
 				_entity.mCreateChannelUnsafe(md, curOper, curContact);
