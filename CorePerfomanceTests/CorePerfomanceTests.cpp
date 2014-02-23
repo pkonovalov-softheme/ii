@@ -18,7 +18,7 @@ unsigned short perfomanceCount;
 
 
 
-//We need manualy synchronize this with OperatorsTypes & OperatorsCount
+//We need manualy synchronize this with OperatorsTypes & OperatorsTypesCount
 const char const *OperatorsTypes_str[]=
 {
 	"Zero", "Division", "Equal", "If", "Minus", "Multiplication", "One", "Plus", "RandomNumber", "Time", 

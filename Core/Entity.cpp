@@ -9,7 +9,7 @@ namespace Brans
 	#endif
 
 
-	const mainDataType Entity::_operatorTypeContactCount[operatorsMaxCount] = {
+	const mainDataType Entity::_operatorTypeContactCount[OperatorsTypesCount] = {
 		/* Operator-index		  Contacts count */
 		/* Zero */						0,
 		/* Division */					2,

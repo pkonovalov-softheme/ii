@@ -25,10 +25,10 @@ namespace Visualizer
     /// </summary>
     public partial class MainWindow : Window
     {
-        private static uint[,] Operators = { {(int)OperatorsTypes.Zero, 0, 0, 0, 0 }, 
-                                           { (int)OperatorsTypes.ExternalOutput, 3, 0, 0, 0 }, 
-                                           { (int)OperatorsTypes.ExternalInput, 0, 0, 0, 2 }, 
-                                           { (int)OperatorsTypes.Equal, 2, 0, 0, 0 } };
+        private static uint[,] _operators = { {(int)OperatorsTypes.Zero, 0, 0, 0, 0 }, 
+                                            { (int)OperatorsTypes.ExternalOutput, 3, 0, 0, 0 }, 
+                                            { (int)OperatorsTypes.ExternalInput, 0, 0, 0, 2 }, 
+                                            { (int)OperatorsTypes.Equal, 2, 0, 0, 0 } };
         private Point[] _opersPoints;
         private Entity _entity;
         private readonly uint _lastOperatorNumber;
@@ -42,11 +42,9 @@ namespace Visualizer
         public MainWindow()
         {
             _entity = Entity.GenerateEntity();
-            //_entity.NextOperatorId = 4;
-
             _entity.DumpEntity();
-            Operators = _entity.Operators;
-            _opersPoints = new Point[Operators.GetLength(0)];
+            _operators = _entity.Operators;
+            _opersPoints = new Point[_operators.GetLength(0)];
             InitializeComponent();
             InitOper();
             _lastOperatorNumber = (uint)GetOperatorsCount();
@@ -80,12 +78,12 @@ namespace Visualizer
 
         private int GetOperatorsCount()
         {
-            for (int i = 1; i < Operators.GetUpperBound(0); i++)
+            for (int i = 1; i < _operators.GetUpperBound(0); i++)
             {
-                if (Operators[i, 0] == (int)OperatorsTypes.Zero) 
+                if (_operators[i, 0] == (int)OperatorsTypes.Zero) 
                     return i;
             }
-            return Operators.GetUpperBound(0);
+            return _operators.GetUpperBound(0);
         }
 
         private void DrawOperators()
@@ -105,7 +103,7 @@ namespace Visualizer
                 _opersPoints[i] = pt;
                 Canvas.SetLeft(curOperElips, xd);
                 Canvas.SetTop(curOperElips, yd);
-                var operText = new TextBlock(new Run(Entity.GetOperName((OperatorsTypes)Operators[i, 0])));
+                var operText = new TextBlock(new Run(Entity.GetOperName((OperatorsTypes)_operators[i, 0])));
                 OperatorsCanvas.Children.Add(operText);
                 Canvas.SetLeft(operText, xd + 3);
                 Canvas.SetTop(operText, yd + OperatorRadius -  operText.FontSize);
@@ -125,7 +123,7 @@ namespace Visualizer
             {
                 for (int column = EntityConsts.FirstContact; column <= EntityConsts.contactsCount; column++)
                 {
-                    var fromOper = (int)Operators[row, column];
+                    var fromOper = (int)_operators[row, column];
                     if ((fromOper != (int) OperatorsTypes.Zero) && (fromOper != (int)OperatorsTypes.Nothing))
                     {
                         DrawConnectionAndValue(fromOper, row, column);
@@ -141,8 +139,9 @@ namespace Visualizer
             Point toP = GetKontactPoint(toOper, toOperContactId);
             DrawConnectionPoint(toP, Brushes.Red);
             OperatorsCanvas.Children.Add(DrawLinkArrow(fromP, toP));
-            var val = Operators[fromOper, EntityConsts.outputValueColumn];
-            DrawValue(fromP, toP, val.ToString(), Colors.Black); 
+            var val = _operators[fromOper, EntityConsts.outputValueColumn];
+            DrawValue(fromP, val.ToString(), Colors.Brown, 15);
+            DrawValue(toP, toOperContactId.ToString(), Colors.CadetBlue, 10); 
         }
 
         private static Shape DrawLinkArrow(Point p1, Point p2)
@@ -179,12 +178,16 @@ namespace Visualizer
             return path;
         }
 
-        private void DrawValue(Point fromP, Point toP, string valueToSet, Color col)
+        private void DrawValue(Point pnt, string valueToSet, Color col, double fontSize)
         {
-            var operText = new TextBlock(new Run(valueToSet)) {Foreground = new SolidColorBrush(col)};
+            var operText = new TextBlock(new Run(valueToSet)) 
+            { 
+                Foreground = new SolidColorBrush(col), 
+                FontSize = fontSize 
+            };
             OperatorsCanvas.Children.Add(operText);
-            Canvas.SetLeft(operText, fromP.X);
-            Canvas.SetTop(operText, fromP.Y);
+            Canvas.SetLeft(operText, pnt.X);
+            Canvas.SetTop(operText, pnt.Y);
         }
      
         private void DrawConnectionPoint(Point pt, SolidColorBrush br)

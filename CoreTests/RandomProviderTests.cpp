@@ -61,7 +61,7 @@ namespace CoreTests
 
 		TEST_METHOD(RandomOperatorsProvider)
 		{
-			const mainDataType GeneratedOperatorsCount = OperatorsCount - 3;
+			const mainDataType GeneratedOperatorsCount = OperatorsTypesCount - 3;
 			double perc = 1 / (double)GeneratedOperatorsCount;
 			double upperLim = 1.5 * perc;
 			double downLim = 0.5 * perc;
@@ -71,7 +71,7 @@ namespace CoreTests
 				vGetTypeOfOperator = 0, vIsChannelExists = 0, vRemoveOperator = 0, vGetInputOperatorId = 0,
 				vGetOperatorContactsCount = 0, vExternalInput = 0, vExternalOutput = 0, vNothing = 0;*/
 
-			double results[OperatorsCount] = {};
+			double results[OperatorsTypesCount] = {};
 
 			for (int i = 0; i < Cycles; i++)
 			{
