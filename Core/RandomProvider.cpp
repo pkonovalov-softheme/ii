@@ -20,9 +20,10 @@ namespace Brans
 
 	mainDataType RandomValuesProvider::GetNextValue()
 	{
-		static const unsigned short ExternalOutputsCountAdd = ExternalOutputsCount + 1;
-		return GetRandom(ExternalOutputsCountAdd, _upperLimit);// We didn't connect opers with ExternalOutputs
+		return GetRandom(_downLimit, _upperLimit);
 	}
 
-	RandomValuesProvider::RandomValuesProvider(mainDataType upperLimit) : _upperLimit(upperLimit) {}
+	RandomValuesProvider::RandomValuesProvider(mainDataType upperLimit) : _upperLimit(upperLimit), _downLimit(1) {}
+	RandomValuesProvider::RandomValuesProvider(mainDataType upperLimit, mainDataType downLimit) : 
+		_upperLimit(upperLimit), _downLimit(downLimit) 	{}
 }

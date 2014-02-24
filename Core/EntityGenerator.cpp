@@ -5,7 +5,9 @@
 namespace Brans 
 {
 	static const mainDataType reducedOpC = EntityOperatorsCount - 1;
-	EntityGenerator::EntityGenerator() : _entity(), _conProvider(reducedOpC)
+	static const unsigned short ExternalOutputsCountAdd = ExternalOutputsCount + 1; // We didn't connect opers with ExternalOutputs
+
+	EntityGenerator::EntityGenerator() : _entity(), _conProvider(reducedOpC, ExternalOutputsCountAdd)
 	{
 		static const mainDataType reducedOpC = EntityOperatorsCount - 1;
 	}

@@ -20,10 +20,12 @@ namespace Brans
 	{
 	public:
 		RandomValuesProvider(mainDataType upperLimit);
+		RandomValuesProvider(mainDataType upperLimit, mainDataType downLimit);
 		mainDataType GetNextValue();
 		static mainDataType GetNextValue(mainDataType upperLimit);
 	private:
 		mainDataType _upperLimit;
+		mainDataType _downLimit;
 	};
 
 	class RandomOperatorsProvider : public RandomProviderBase
