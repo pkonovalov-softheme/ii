@@ -10,7 +10,7 @@ namespace NativeWrapper
     public class NativeLibPrototypes
     {
         // Declares a managed prototype for unmanaged function.
-        [DllImport("CoreNativeLibrary.dll")]
+        [DllImport("CoreNativeLibrary.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern System.IntPtr AchiveEffectivity(System.IntPtr chManager);
 
         [DllImport("CoreNativeLibrary.dll")]

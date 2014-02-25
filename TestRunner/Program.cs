@@ -12,15 +12,15 @@ namespace TestRunner
     {
         static void Main(string[] args)
         {
-            IntPtr ptrOnEntity = NativeLibPrototypes.AchiveEffectivity();
-            var goodEntityS = (EntityS)Marshal.PtrToStructure(ptrOnEntity, typeof(EntityS));
+            //IntPtr ptrOnEntity = NativeLibPrototypes.AchiveEffectivity();
+            //var goodEntityS = (EntityS)Marshal.PtrToStructure(ptrOnEntity, typeof(EntityS));
 
-            unsafe
-            {
-                uint* ptrOnOpers = NativeLibPrototypes.GetOperatorsPtr(ptrOnEntity);
-                var goodEntity = new Entity(goodEntityS, ptrOnOpers);
-                uint test = goodEntity.Operators[0, 0];
-            }
+            //unsafe
+            //{
+            //    uint* ptrOnOpers = NativeLibPrototypes.GetOperatorsPtr(ptrOnEntity);
+            //    var goodEntity = new Entity(goodEntityS, ptrOnOpers);
+            //    uint test = goodEntity.Operators[0, 0];
+            //}
 
 
             //var ret = new int[60,5];

@@ -29,20 +29,20 @@ namespace NativeWrapper
     {
         private readonly ChallengeManagerS _challengeManagerS;
         private readonly uint[,] _inputs = new uint[ChManagerConsts.ChallengesCount, BransGlobals.ExternalInputsCount];
-        private readonly uint[,] _correctAnswers = new uint[ChManagerConsts.ChallengesCount, BransGlobals.ExternalInputsCount];
+        private readonly uint[,] _correctAnswers = new uint[ChManagerConsts.ChallengesCount, BransGlobals.ExternalOutputsCount];
         public ChallengeManager(ChallengeManagerS chM, uint* inputsPtr, uint* correctAnswersPtr)
         {
             _challengeManagerS = chM;
             Utils.Fill2DArray(_inputs, inputsPtr);
-            Utils.Fill2DArray(_correctAnswers, inputsPtr);
+            Utils.Fill2DArray(_correctAnswers, correctAnswersPtr);
         }
 
-        public double ChallangesCount
+        public uint ChallangesCount
         {
             get { return _challengeManagerS.ChallangesCount; }
         }
 
-        public double RandomUpperLimit
+        public uint RandomUpperLimit
         {
             get { return _challengeManagerS.RandomUpperLimit; }
         }

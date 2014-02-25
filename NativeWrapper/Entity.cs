@@ -40,10 +40,19 @@ namespace NativeWrapper
 
         private readonly uint[,] _operators = new uint[BransGlobals.operatorsMaxCount, EntityConsts.operatorsTableWidth];
 
+        private readonly ChallengeManager _chMng;
+
         public Entity(EntityS entS, uint* opersPtr)
         {
             _entS = entS;
             Utils.Fill2DArray(_operators, opersPtr);
+
+
+            uint* ptrOnInputs = NativeLibPrototypes.GetInputsPtr(Chmanager);
+            uint* ptrOnCorrectAnswers = NativeLibPrototypes.GetCorrectAnswersPtr(Chmanager);
+            var chmanagerS = (ChallengeManagerS)Marshal.PtrToStructure(Chmanager, typeof(ChallengeManagerS));
+            _chMng = new ChallengeManager(chmanagerS, ptrOnInputs, ptrOnCorrectAnswers);
+
         }
 
         public double Effectiveness
