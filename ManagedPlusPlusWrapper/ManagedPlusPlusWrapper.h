@@ -2,7 +2,7 @@
 
 #pragma once
 #include "..\Core\BransGlobals.h"
-#include "..\Core\Entity.h"
+#include "..\Core\ChallengeManager.h"
 
 using namespace System;
 using namespace Brans;
@@ -35,4 +35,10 @@ namespace ManagedPlusPlusWrapper {
 		static const unsigned short SecondContact = Entity::SecondContact;;
 		static const unsigned short ThirdContact = Entity::ThirdContact;;
     };
+
+	public ref class ChManagerConsts abstract sealed
+	{
+	public:
+		literal UInt32 ChallengesCount = ChallengeManager::ChallangesCount;
+	};
 }

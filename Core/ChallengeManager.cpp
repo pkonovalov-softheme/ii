@@ -12,7 +12,7 @@ namespace Brans
 
 	ChallengeManager::ChallengeManager() : _inputs(), _correctAnswers(), _rvp(RandomUpperLimit), _currentLine(0), _goodPopulation()
 	{
-		_curChallangeType = ChallengeTypes::One;
+		_curChallangeType = ChallengeTypes::Plus;
 		_chManager = this;
 		_entityGenerator = new EntityGenerator();
 	}
@@ -169,6 +169,16 @@ namespace Brans
 	ChallengeManager* ChallengeManager::GetChallangeManager()
 	{
 		return _chManager;
+	}
+
+	mainDataType* ChallengeManager::GetCorrectAnswersPtr()
+	{
+		return *_correctAnswers;
+	}
+
+	mainDataType* ChallengeManager::GetInputsPtr()
+	{
+		return *_inputs;
 	}
 }
 

@@ -30,26 +30,29 @@ namespace Brans
 
 		void SetChallengeType(ChallengeTypes chType);
 
-		mainDataType _currentLine; //defines place where next real answers will be inserted
-
 		#if defined(RedefChallangesCount)
 			static const mainDataType ChallangesCount = 500;
 		#else
 			static const mainDataType ChallangesCount = 1;
 		#endif
 		static const mainDataType RandomUpperLimit = 10; //max value for random for inputs
+		mainDataType _curChallangeType;
 		mainDataType _correctAnswers[ChallangesCount][ExternalOutputsCount];
 		mainDataType _inputs[ChallangesCount][ExternalInputsCount];/*Generated random inputs for
 																   entities testing. Based on 1, not 0 index!*/
-
-		mainDataType _curChallangeType;
 		std::vector<Entity*> _goodPopulation;
-		EntityGenerator* _entityGenerator;
+
 		void GenerateRandomInputs(); //Filling inputs arrays with random values for all ChallangesCount
 		void FillAnswers(); //Filling correct answers for generated random inputs (GenerateRandomInputs() should be called before)
 		void SetContactsCount();
 		void CalculateEffectiveness();
+		mainDataType* GetCorrectAnswersPtr();
+		mainDataType* GetInputsPtr();
 		Entity& SelectGoodEntity(double targetEffectivity);
+
+	private:
+		mainDataType _currentLine; //defines place where next real answers will be inserted
+		EntityGenerator* _entityGenerator;
 		RandomValuesProvider _rvp;
 		static ChallengeManager* _chManager;
 	};

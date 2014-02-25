@@ -42,9 +42,8 @@ namespace NativeWrapper
 
         public Entity(EntityS entS, uint* opersPtr)
         {
-            
             _entS = entS;
-            InitOperatorsArray(opersPtr);
+            Utils.Fill2DArray(_operators, opersPtr);
         }
 
         public double Effectiveness
@@ -72,21 +71,11 @@ namespace NativeWrapper
             get { return _operators; }
         }
 
-        private void InitOperatorsArray(uint* opersPtr)
-        {
-            for (int i1 = 0; i1 < BransGlobals.operatorsMaxCount; i1++)
-            {
-                for (int i2 = 0; i2 < EntityConsts.operatorsTableWidth; i2++)
-                {
-                    _operators[i1, i2] = *opersPtr;
-                    opersPtr++;
-                }
-            }
-        }
-
         public static Entity GenerateEntity()
         {
-            IntPtr ptrOnEntity = NativeLibPrototypes.AchiveEffectivity();
+            IntPtr chMng = NativeLibPrototypes.CreateChallengeManager();
+            IntPtr ptrOnEntity = NativeLibPrototypes.AchiveEffectivity(chMng);
+
             var goodEntityS = (EntityS)Marshal.PtrToStructure(ptrOnEntity, typeof(EntityS));
 
             unsafe
