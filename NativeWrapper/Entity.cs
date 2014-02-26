@@ -82,8 +82,7 @@ namespace NativeWrapper
 
         public static Entity GenerateEntity()
         {
-            IntPtr chMng = NativeLibPrototypes.CreateChallengeManager();
-            IntPtr ptrOnEntity = NativeLibPrototypes.AchiveEffectivity(chMng);
+            IntPtr ptrOnEntity = NativeLibPrototypes.AchiveEffectivity();
 
             var goodEntityS = (EntityS)Marshal.PtrToStructure(ptrOnEntity, typeof(EntityS));
 

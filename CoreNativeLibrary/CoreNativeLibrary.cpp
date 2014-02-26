@@ -4,14 +4,10 @@
 #include "stdafx.h"
 #include "Header.h"
 
-ChallengeManager& CreateChallengeManager()
+Entity& AchiveEffectivity()
 {
-	return *(new ChallengeManager());
-}
-
-Entity& AchiveEffectivity(ChallengeManager& cm)
-{
-	return cm.AchiveEffectivity(0.01);
+	ChallengeManager* cm = new ChallengeManager();
+	return cm->AchiveEffectivity(0.01);
 }
 
 mainDataType* GetOperatorsPtr(Entity* ent)
