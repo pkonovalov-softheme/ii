@@ -93,11 +93,16 @@ namespace Brans
 
 		mainDataType* GetOperatorsPtr();
 
+		//Returns true if the target operator have exit
+		bool HasOperExit(mainDataType operId);
+
 		static mainDataType Entity::mGetOperTypeContactsCount(mainDataType operatorType);
 
 		static mainDataType Entity::mGetOperTypeContactsCountUnsafe(mainDataType operatorType);
 
 	private:
+
+		static const bool _operatorTypeExit[OperatorsTypesCount];
 
 		double _effectiveness;
 

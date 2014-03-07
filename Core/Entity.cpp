@@ -34,6 +34,31 @@ namespace Brans
 		/* Nothing */					0,
 	};
 
+	const bool Entity::_operatorTypeExit[OperatorsTypesCount] = {
+		/* Operator-index		  Contacts count */
+		/* Zero */						false,
+		/* Division */					true,
+		/* Equal */						true,
+		/* If */						true,
+		/* Minus */						true,
+		/* Multiplication */			true,
+		/* One */						true,
+		/* Plus */						true,
+		/* RandomNumber */				true,
+		/* Time */						true,
+		/* CreateChannel */				false,
+		/* CreateOperator */			false,
+		/* DeleteChannel */				false,
+		/* GetTypeOfOperator */			true,
+		/* IsChannelExists */			true,
+		/* RemoveOperator */			false,
+		/* GetInputOperatorId */		true,
+		/* GetOperatorContactsCount */	true,
+		/* ExternalInput */				true,
+		/* ExternalOutput */			false,
+		/* Nothing */					false,
+	};
+
 	Entity::Entity() : _operators(), _nextOperatorId(1), _correctAnswersCount(0), _effectiveness(0),
 		_chmanager(ChallengeManager::GetChallangeManager())
 	{
@@ -71,6 +96,12 @@ namespace Brans
 		_correctAnswersCount = 0;
 		_effectiveness = 0;
 		_nextOperatorId = FirstInternalOper;
+	}
+
+	bool Entity::HasOperExit(mainDataType operId)
+	{
+		mainDataType operType = _operators[operId][0];
+		return _operatorTypeExit[operType];
 	}
 
 	void Entity::InitializeInputsAndOutputs()
@@ -370,7 +401,7 @@ namespace Brans
 
 	void Entity::CalculateEffectiveness(mainDataType totalAnswersCount)
 	{
-		_effectiveness = _correctAnswersCount / (double) totalAnswersCount;
+		_effectiveness = _correctAnswersCount / (double)totalAnswersCount;
 		if (_effectiveness <0)
 		{
 			_effectiveness = _effectiveness;
