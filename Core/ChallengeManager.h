@@ -33,7 +33,7 @@ namespace Brans
 		#if defined(RedefChallangesCount)
 			static const mainDataType ChallangesCount = 500;
 		#else
-			static const mainDataType ChallangesCount = 1;
+			static const mainDataType ChallangesCount = 6;
 		#endif
 		static const mainDataType RandomUpperLimit = 10; //max value for random for inputs
 		mainDataType _curChallangeType;
@@ -51,9 +51,12 @@ namespace Brans
 		Entity& SelectGoodEntity(double targetEffectivity);
 
 	private:
+		void FillAnswer(mainDataType curChallangeType, mainDataType startChallange, mainDataType curChallangesCount);
 		mainDataType _currentLine; //defines place where next real answers will be inserted
 		EntityGenerator* _entityGenerator;
 		RandomValuesProvider _rvp;
 		static ChallengeManager* _chManager;
+		static const unsigned short FirstChangingInput = 1;
+		Entity* _bestEntity;
 	};
 }

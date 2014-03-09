@@ -12,7 +12,7 @@ namespace Brans
 
 	ChallengeManager::ChallengeManager() : _inputs(), _correctAnswers(), _rvp(RandomUpperLimit), _currentLine(0), _goodPopulation()
 	{
-		_curChallangeType = ChallengeTypes::Plus;
+		_bestEntity = new Entity();
 		_chManager = this;
 		_entityGenerator = new EntityGenerator();
 	}
@@ -29,9 +29,9 @@ namespace Brans
 
 	void ChallengeManager::GenerateRandomInputs()
 	{
-		for (mainDataType cline = 0; cline < ChallangesCount; cline++)
+		for (mainDataType cline = 0; cline < ChallangesCount ; cline++)
 		{
-			for (mainDataType i = 0; i < ExternalInputsCount; i++)
+			for (mainDataType i = FirstChangingInput; i < ExternalInputsCount; i++)
 			{
 				_inputs[cline][i] = _rvp.GetNextValue();
 			}
@@ -40,16 +40,28 @@ namespace Brans
 
 	void ChallengeManager::FillAnswers()
 	{
-		for (mainDataType cline = 0; cline < ChallangesCount; cline++)
+		FillAnswer(ChallengeTypes::Multiplication, 0, ChallangesCount);
+		//FillAnswer(ChallengeTypes::Multiplication, 0, ChallangesCount / 2);
+		//FillAnswer(ChallengeTypes::Multiplication, ChallangesCount / 2, ChallangesCount);
+	}
+
+	void ChallengeManager::FillAnswer(mainDataType curChallangeType, mainDataType startChallange, mainDataType curChallangesCount)
+	{
+		_curChallangeType = curChallangeType;
+
+		for (mainDataType cline = startChallange; cline < curChallangesCount; cline++)
 		{
+			mainDataType nextI;
 			for (mainDataType i = 0; i < ExternalOutputsCount;)
 			{
-				mainDataType nextI = i + 1;
-				#define fContValue _inputs[cline][i] //value of first contact
-				#define sContValue _inputs[cline][nextI] //value of second contact
-				#define outValue _correctAnswers[cline][i] //value of third contact
+				nextI = FirstChangingInput + i + 1;
+#define fContValue _inputs[cline][FirstChangingInput + i] //value of first contact
+#define sContValue _inputs[cline][nextI] //value of second contact
+#define outValue _correctAnswers[cline][i] //value of third contact
 
-				switch (_curChallangeType)
+				_inputs[cline][i] = curChallangeType;
+
+				switch (curChallangeType)
 				{
 				case (Division) :
 					if (sContValue != 0) {
@@ -85,6 +97,7 @@ namespace Brans
 				i = nextI;
 			}
 		}
+
 	}
 
 	mainDataType ChallengeManager::GetEntityExternalInput(mainDataType inputId)
@@ -102,14 +115,28 @@ namespace Brans
 		while (true)
 		{
 			Entity& ent = _entityGenerator->GenerateEntity();
-			for (int pr = 0; pr < EntityProcessCount; pr++) {
-				ent.mProcessAll();
+
+			for (; _currentLine < ChallangesCount; _currentLine++)
+			{
+				for (int pr = 0; pr < EntityProcessCount; pr++) {
+					ent.mProcessAll();
+				}
+
+				ent.CalculateEffectiveness(EntityProcessCount * _currentLine);
+				if (ent.GetEffectiveness() < targetEffectivity) {
+					break;
+				}
 			}
 
-			ent.CalculateEffectiveness(EntityProcessCount);
-			if (ent.GetEffectiveness() > targetEffectivity) {
+			if (ent.GetEffectiveness() >= targetEffectivity) {
 				return ent;
 			}
+
+			if (ent.GetEffectiveness() > _bestEntity->GetEffectiveness()) {
+				_bestEntity = &Entity(ent);
+			}
+
+			_currentLine = 0;
 		}
 	}
 

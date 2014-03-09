@@ -7,7 +7,7 @@
 Entity& AchiveEffectivity()
 {
 	ChallengeManager* cm = new ChallengeManager();
-	return cm->AchiveEffectivity(0.01);
+	return cm->AchiveEffectivity(0.99);
 }
 
 mainDataType* GetOperatorsPtr(Entity* ent)

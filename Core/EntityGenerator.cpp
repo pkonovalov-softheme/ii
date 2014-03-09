@@ -68,11 +68,6 @@ namespace Brans
 				else
 					curOper++;
 			}
-
-			if (i == 5)
-			{
-				int test = 5;
-			}
 		}
 	}
 }

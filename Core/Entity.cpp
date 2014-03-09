@@ -183,7 +183,7 @@ namespace Brans
 	//To do: Add thread safe logic!!!
 	void Entity::mCreateOperator(mainDataType operatorType)//To do: Add thread safe logic!!!
 	{
-		if (!IsOperTypeCorrect(operatorType))	return;
+		if (!IsOperTypeCorrect(operatorType) || _nextOperatorId >= operatorsMaxCount)	return;
 
 		mCreateOperatorUnsafe(operatorType);
 	}
@@ -402,10 +402,6 @@ namespace Brans
 	void Entity::CalculateEffectiveness(mainDataType totalAnswersCount)
 	{
 		_effectiveness = _correctAnswersCount / (double)totalAnswersCount;
-		if (_effectiveness <0)
-		{
-			_effectiveness = _effectiveness;
-		}
 	}
 
 	double Entity::GetEffectiveness()
