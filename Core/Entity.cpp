@@ -59,7 +59,7 @@ namespace Brans
 		/* Nothing */					false,
 	};
 
-	Entity::Entity() : _operators(), _nextOperatorId(1), _correctAnswersCount(0), _effectiveness(0),
+	Entity::Entity() : _operators(), _nextOperatorId(1), _correctAnswersCount(0), _incorrectAnswersCount(0), _effectiveness(0),
 		_chmanager(ChallengeManager::GetChallangeManager())
 	{
 		InitializeInputsAndOutputs();
@@ -76,6 +76,7 @@ namespace Brans
 
 		this->_nextOperatorId = ent._nextOperatorId;
 		this->_correctAnswersCount = ent._correctAnswersCount;
+		this->_incorrectAnswersCount = ent._incorrectAnswersCount;
 		this->_effectiveness = ent._effectiveness;
 
 	}
@@ -93,6 +94,7 @@ namespace Brans
 		}
 		//memset(array, 0, sizeof(array[0][0]) * m * n); or std::fill( array, array + numberOfElements, 0.0 ) // Todo:// will this be faster
 
+		_incorrectAnswersCount = 0;
 		_correctAnswersCount = 0;
 		_effectiveness = 0;
 		_nextOperatorId = FirstInternalOper;
@@ -320,6 +322,11 @@ namespace Brans
 		mProcess(_nextOperatorId - 1);
 	}
 
+	mainDataType Entity::GetCorrectAnswersCount()
+	{
+		return _correctAnswersCount;
+	}
+
 	mainDataType Entity::GetContactValue(mainDataType operatorId, mainDataType contactId) //Returns the value of the specific operator
 	{
 		return _operators[operatorId][contactId];
@@ -379,6 +386,7 @@ namespace Brans
 			if (_chmanager->GetCorrectAnswer(i) != GetInputValue(nextI, FirstContact))
 			{
 				//_chmanager->ReportFailure();
+				_incorrectAnswersCount++;
 				return;
 			}
 
@@ -406,11 +414,6 @@ namespace Brans
 
 	double Entity::GetEffectiveness()
 	{
-		if (_effectiveness <0)
-		{
-			_effectiveness = _effectiveness;
-		}
-
 		return _effectiveness;
 	}
 

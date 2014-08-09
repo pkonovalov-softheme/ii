@@ -96,6 +96,8 @@ namespace Brans
 		//Returns true if the target operator have exit
 		bool HasOperExit(mainDataType operId);
 
+		mainDataType GetCorrectAnswersCount();
+
 		static mainDataType Entity::mGetOperTypeContactsCount(mainDataType operatorType);
 
 		static mainDataType Entity::mGetOperTypeContactsCountUnsafe(mainDataType operatorType);
@@ -105,6 +107,8 @@ namespace Brans
 		static const bool _operatorTypeExit[OperatorsTypesCount];
 
 		double _effectiveness;
+
+		mainDataType _incorrectAnswersCount;
 
 		mainDataType _correctAnswersCount;
 

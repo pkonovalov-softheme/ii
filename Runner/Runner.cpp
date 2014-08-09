@@ -10,7 +10,8 @@ int _tmain(int argc, _TCHAR* argv[])
 {
 	cout << "Searhing for entity..." << endl;
 	ChallengeManager* cm = new ChallengeManager();
-	Entity& ent = cm->AchiveEffectivity(0.99);
+	//Entity& ent = cm->AchiveEffectivity(0.99);
+	Entity& ent = cm->SelectBest(100);
 	cout << "Entity was founded successfuly!" << endl;
 	delete (cm);
 	return 0;

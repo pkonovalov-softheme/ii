@@ -40,9 +40,9 @@ namespace Brans
 
 	void ChallengeManager::FillAnswers()
 	{
-		FillAnswer(ChallengeTypes::Multiplication, 0, ChallangesCount);
-		//FillAnswer(ChallengeTypes::Multiplication, 0, ChallangesCount / 2);
-		//FillAnswer(ChallengeTypes::Multiplication, ChallangesCount / 2, ChallangesCount);
+		//FillAnswer(ChallengeTypes::Plus, 0, ChallangesCount);
+		FillAnswer(ChallengeTypes::Plus, 0, ChallangesCount / 2);
+		FillAnswer(ChallengeTypes::Multiplication, ChallangesCount / 2, ChallangesCount);
 	}
 
 	void ChallengeManager::FillAnswer(mainDataType curChallangeType, mainDataType startChallange, mainDataType curChallangesCount)
@@ -122,7 +122,7 @@ namespace Brans
 					ent.mProcessAll();
 				}
 
-				ent.CalculateEffectiveness(EntityProcessCount * _currentLine);
+				ent.CalculateEffectiveness(EntityProcessCount * (_currentLine + 1)); //_currentLine starts from 0
 				if (ent.GetEffectiveness() < targetEffectivity) {
 					break;
 				}
@@ -138,6 +138,34 @@ namespace Brans
 
 			_currentLine = 0;
 		}
+	}
+
+	Entity& ChallengeManager::SelectBestInTime(mainDataType seconds)
+	{
+		for (mainDataType startTime = time(NULL); time(NULL) - startTime < seconds;)
+		{
+			Entity& ent = _entityGenerator->GenerateEntity();
+
+			for (; _currentLine < ChallangesCount; _currentLine++)
+			{
+				for (int pr = 0; pr < EntityProcessCount; pr++) {
+					ent.mProcessAll();
+				}
+
+				ent.CalculateEffectiveness(EntityProcessCount * (_currentLine + 1)); //_currentLine starts from 0
+				if (ent.GetEffectiveness() < MinEfect){
+					break;
+				}
+			}
+
+			if (ent.GetEffectiveness() > _bestEntity->GetEffectiveness()) {
+				_bestEntity = &Entity(ent);
+			}
+
+			_currentLine = 0;
+		}
+
+		return *_bestEntity;
 	}
 
 	//bool ChallengeManager::SelectGoodEnteties(double targetEffectivity)
@@ -191,6 +219,14 @@ namespace Brans
 		return SelectGoodEntity(targetEffectivity);
 		//Here we need to impliment testing with different _currentLine (=different inputs-correct answers)
 		//now i don't clear _goodPopulation but in future i need to impliment
+	}
+	
+
+	Entity& ChallengeManager::SelectBest(mainDataType timeToWait) //returns most successful entity in specific time
+	{
+		GenerateRandomInputs();
+		FillAnswers();
+		return SelectBestInTime(timeToWait);
 	}
 
 	ChallengeManager* ChallengeManager::GetChallangeManager()
