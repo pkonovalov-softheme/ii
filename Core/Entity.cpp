@@ -13,14 +13,12 @@ namespace Brans
 		/* Operator-index		  Contacts count */
 		/* Zero */						0,
 		/* Division */					2,
-		/* Equal */						1,
-		/* If */						2,
+		/* If */						3,
 		/* Minus */						2,
 		/* Multiplication */			2,
 		/* One */						0,
 		/* Plus */						2,
 		/* RandomNumber */				1,
-		/* Time */						0,
 		/* CreateChannel */				3,
 		/* CreateOperator */			1,
 		/* DeleteChannel */				2,
@@ -38,14 +36,12 @@ namespace Brans
 		/* Operator-index		  Contacts count */
 		/* Zero */						false,
 		/* Division */					true,
-		/* Equal */						true,
 		/* If */						true,
 		/* Minus */						true,
 		/* Multiplication */			true,
 		/* One */						true,
 		/* Plus */						true,
 		/* RandomNumber */				true,
-		/* Time */						true,
 		/* CreateChannel */				false,
 		/* CreateOperator */			false,
 		/* DeleteChannel */				false,
@@ -59,9 +55,10 @@ namespace Brans
 		/* Nothing */					false,
 	};
 
-	Entity::Entity() : _operators(), _nextOperatorId(1), _correctAnswersCount(0), _incorrectAnswersCount(0), _effectiveness(0),
+	Entity::Entity() : _operators(), _correctAnswersCount(0), _incorrectAnswersCount(0), _effectiveness(0),
 		_chmanager(ChallengeManager::GetChallangeManager())
 	{
+		_nextOperatorId = 1;
 		InitializeInputsAndOutputs();
 	}
 
@@ -259,8 +256,8 @@ namespace Brans
 			if (sContValue != 0) {
 				outValue = fContValue / sContValue;}
 			break;
-		case (Equal):
-				outValue = fContValue;
+		//case (Equal):
+		//		outValue = fContValue;
 			break;
 		case (GetOperatorContactsCount) :
 			targetOp = _operators[operatorId][1];
@@ -274,7 +271,9 @@ namespace Brans
 			outValue = mGetOperatorType(_operators[operatorId][1]);
 			break;
 		case (If):
-			outValue = fContValue > sContValue;
+			if (fContValue > sContValue) {
+				outValue = tContValue;
+			}
 			break;
 		case (IsChannelExists):
 			outValue = mIsChannelExists(fContValue, sContValue, tContValue);
@@ -303,8 +302,8 @@ namespace Brans
 		case (RemoveOperator):
 			mRemoveOperator(fContValue);
 			break;
-		case (Time):
-			outValue = time(NULL);
+		//case (Time):
+		//	outValue = time(NULL);
 			break;
 		case (Zero):
 			throw "Zero operator!";

@@ -57,7 +57,7 @@ namespace Brans
 	{
 		for (size_t i = 0; i < EntityOperatorsCount; i++)
 		{
-			if ((curOper != fromOper) && _entity.HasOperExit(fromOper)) //Add compatibility, at least with time check?
+			if ((curOper != fromOper) && _entity.HasOperExit(fromOper)) //ToDo: Add compatibility, at least with time check?
 			{
 				_entity.mCreateChannelUnsafe(fromOper, curOper, curOperContactId);
 			}

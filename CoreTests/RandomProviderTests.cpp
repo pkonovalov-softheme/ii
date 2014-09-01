@@ -84,9 +84,9 @@ namespace CoreTests
 				case Brans::Division:
 					results[Division]++;
 					break;
-				case Brans::Equal:
-					results[Equal]++;
-					break;
+				//case Brans::Equal:
+				//	results[Equal]++;
+				//	break;
 				case Brans::If:
 					results[If]++;
 					break;
@@ -105,9 +105,9 @@ namespace CoreTests
 				case Brans::RandomNumber:
 					results[RandomNumber]++;
 					break;
-				case Brans::Time:
-					results[Time]++;
-					break;
+				//case Brans::Time:
+				//	results[Time]++;
+				//	break;
 				case Brans::CreateChannel:
 					results[CreateChannel]++;
 					break;

@@ -36,6 +36,7 @@ namespace NativeWrapper
 
     public unsafe class Entity
     {
+        private const double TargetEf = 0.5;
         private readonly EntityS _entS;
 
         private readonly uint[,] _operators = new uint[BransGlobals.operatorsMaxCount, EntityConsts.operatorsTableWidth];
@@ -82,7 +83,7 @@ namespace NativeWrapper
 
         public static Entity GenerateEntity()
         {
-            IntPtr ptrOnEntity = NativeLibPrototypes.AchiveEffectivity();
+            IntPtr ptrOnEntity = NativeLibPrototypes.AchiveEffectivity(TargetEf);
 
             var goodEntityS = (EntityS)Marshal.PtrToStructure(ptrOnEntity, typeof(EntityS));
 

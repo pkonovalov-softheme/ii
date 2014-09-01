@@ -42,7 +42,7 @@ namespace Brans
 	{
 		//FillAnswer(ChallengeTypes::Plus, 0, ChallangesCount);
 		FillAnswer(ChallengeTypes::Plus, 0, ChallangesCount / 2);
-		FillAnswer(ChallengeTypes::Multiplication, ChallangesCount / 2, ChallangesCount);
+		//FillAnswer(ChallengeTypes::Multiplication, ChallangesCount / 2, ChallangesCount);
 	}
 
 	void ChallengeManager::FillAnswer(mainDataType curChallangeType, mainDataType startChallange, mainDataType curChallangesCount)
