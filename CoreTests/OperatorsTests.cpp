@@ -22,32 +22,28 @@ namespace CoreTests
 		Entity* entity;
 		//Here we setting up values of output column for first 3 operators(nothing) then we will create channels between them
 		//and last operators input contacts, so it will process that values
-		void ProcessArgsValues(mainDataType fContactValue, mainDataType sContactValue, mainDataType tContactValue, mainDataType fourthContactValue)
-		{
-			entity->SetContactValue(3, entity->outputValueColumn, tContactValue);
-			entity->mCreateChannel(3, GetLastOper(), 3);
-			ProcessArgsValues(fContactValue, sContactValue);
-		}
-
 		
 		void ProcessArgsValues(mainDataType fContactValue, mainDataType sContactValue, mainDataType tContactValue)
 		{
-			entity->SetContactValue(3, entity->outputValueColumn, tContactValue);
-			entity->mCreateChannel(3, GetLastOper(), 3);
+			mainDataType curOper = ExternalOutputsCount + 3;
+			entity->SetContactValue(curOper, entity->outputValueColumn, tContactValue);
+			entity->mCreateChannel(curOper, GetLastOper(), 3);
 			ProcessArgsValues(fContactValue, sContactValue);
 		}
 
 		void ProcessArgsValues(mainDataType fContactValue, mainDataType sContactValue)
 		{
-			entity->SetContactValue(2, entity->outputValueColumn, sContactValue);
-			entity->mCreateChannel(2, GetLastOper(), 2);
+			mainDataType curOper = ExternalOutputsCount + 2;
+			entity->SetContactValue(curOper, entity->outputValueColumn, sContactValue);
+			entity->mCreateChannel(curOper, GetLastOper(), 2);
 			ProcessArgsValues(fContactValue);
 		}
 
 		void ProcessArgsValues(mainDataType fContactValue)
 		{
-			entity->SetContactValue(1, entity->outputValueColumn, fContactValue);
-			entity->mCreateChannel(1, GetLastOper(), 1);
+			mainDataType curOper = ExternalOutputsCount + 1;
+			entity->SetContactValue(curOper, entity->outputValueColumn, fContactValue);
+			entity->mCreateChannel(curOper, GetLastOper(), 1);
 			entity->mProcessLast();
 		}
 
@@ -90,6 +86,11 @@ namespace CoreTests
 		TEST_METHOD_INITIALIZE(ClassInitialize)
 		{
 			entity = new Entity();
+			Assert::IsTrue(ExternalInputsCount == 3, L"ExternalInputsCount is incorrect");
+
+
+
+
 			//CreateOper(Nothing);
 			//CreateOper(Nothing);
 			//CreateOper(Nothing);
@@ -100,7 +101,20 @@ namespace CoreTests
 			delete entity;
 		}
 
-		/* -------------------------------------------------------------------------------------
+		TEST_METHOD(GeneralTest)
+		{
+			Assert::IsTrue(ExternalOutputsCount == 1, L"ExternalOutputsCount is incorrect");
+			Assert::IsTrue(Entity::_operatorTypeContactCount[Nothing] == 0, L"_operatorTypeContactCount for nothing must be zero");
+			Assert::IsTrue(Entity::_operatorTypeExit[Nothing] == false, L"_operatorTypeContactCount for nothing must be false");
+
+			int contactCountSize = (sizeof(Entity::_operatorTypeContactCount) / sizeof(*Entity::_operatorTypeContactCount));
+			Assert::IsTrue(contactCountSize == Nothing + 1, L"OperatorsTypes count and _operatorTypeContactCount size must be the same");
+
+			int exitCountSize = (sizeof(Entity::_operatorTypeExit) / sizeof(*Entity::_operatorTypeExit));
+			Assert::IsTrue(contactCountSize == Nothing + 1, L"OperatorsTypes count and _operatorTypeExit size must be the same");
+		}
+
+				/* -------------------------------------------------------------------------------------
 		                               Basic Operators
 		--------------------------------------------------------------------------------------*/
 		TEST_METHOD(PlusOp)
@@ -168,6 +182,7 @@ namespace CoreTests
 		//	ProcessArgsValues(3);
 		//	Assert::IsTrue(GetResult() == 3);
 		//}
+
 
 		TEST_METHOD(TestIf_false)
 		{

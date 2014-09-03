@@ -25,6 +25,7 @@ namespace Brans
 		static const unsigned short FirstContact = 1;
 		static const unsigned short SecondContact = 2;
 		static const unsigned short ThirdContact = 3;
+		static const bool _operatorTypeExit[OperatorsTypesCount];
 
 		Entity();
 
@@ -103,8 +104,6 @@ namespace Brans
 		static mainDataType Entity::mGetOperTypeContactsCountUnsafe(mainDataType operatorType);
 
 	private:
-
-		static const bool _operatorTypeExit[OperatorsTypesCount];
 
 		double _effectiveness;
 
