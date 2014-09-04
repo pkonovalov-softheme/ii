@@ -31,7 +31,7 @@ namespace Brans
 	{
 		for (mainDataType cline = 0; cline < ChallangesCount ; cline++)
 		{
-			for (mainDataType i = FirstChangingInput; i < ExternalInputsCount; i++)
+			for (mainDataType i = 0; i < ExternalInputsCount; i++)
 			{
 				_inputs[cline][i] = _rvp.GetNextValue();
 			}
@@ -54,8 +54,8 @@ namespace Brans
 			mainDataType nextI;
 			for (mainDataType i = 0; i < ExternalOutputsCount;)
 			{
-				nextI = FirstChangingInput + i + 1;
-#define fContValue _inputs[cline][FirstChangingInput + i] //value of first contact
+				nextI = i + 1;
+#define fContValue _inputs[cline][i] //value of first contact
 #define sContValue _inputs[cline][nextI] //value of second contact
 #define outValue _correctAnswers[cline][i] //value of third contact
 

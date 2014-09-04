@@ -60,7 +60,7 @@ namespace Brans
 		EntityGenerator* _entityGenerator;
 		RandomValuesProvider _rvp;
 		static ChallengeManager* _chManager;
-		static const unsigned short FirstChangingInput = 1;
+		//static const unsigned short FirstChangingInput = 1;
 		Entity* _bestEntity;
 		const double MinEfect = 0.3; //minimal efectivifness to not throw entity away
 	};
