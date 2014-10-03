@@ -42,7 +42,7 @@ namespace Brans
 		mainDataType _curChallangeType;
 		mainDataType _correctAnswers[ChallangesCount][ExternalOutputsCount];
 		mainDataType _inputs[ChallangesCount][ExternalInputsCount];/*Generated random inputs for
-																   entities testing. Based on 1, not 0 index!*/
+																   entities testing. 0 index - challange type, 1 - first contact!*/
 		std::vector<Entity*> _goodPopulation;
 
 		void GenerateRandomInputs(); //Filling inputs arrays with random values for all ChallangesCount
@@ -55,7 +55,7 @@ namespace Brans
 
 	private:
 		Entity& ChallengeManager::SelectBestInTime(mainDataType seconds);
-		void FillAnswer(mainDataType curChallangeType, mainDataType startChallange, mainDataType curChallangesCount);
+		void FillAnswer(mainDataType startChallange, mainDataType curChallangesCount);
 		mainDataType _currentLine; //defines place where next real answers will be inserted
 		EntityGenerator* _entityGenerator;
 		RandomValuesProvider _rvp;

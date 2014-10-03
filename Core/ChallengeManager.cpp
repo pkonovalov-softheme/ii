@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "ChallengeManager.h"
 #include <vector>
+#include <assert.h> 
 
 namespace Brans
 {
@@ -12,6 +13,10 @@ namespace Brans
 
 	ChallengeManager::ChallengeManager() : _inputs(), _correctAnswers(), _rvp(RandomUpperLimit), _currentLine(0), _goodPopulation()
 	{
+		assert(ExternalOutputsCount >= 1);
+		assert(ExternalInputsCount >= 2);
+		assert(ExternalInputsCount - ExternalOutputsCount == 1);
+
 		_bestEntity = new Entity();
 		_chManager = this;
 		_entityGenerator = new EntityGenerator();
@@ -40,18 +45,24 @@ namespace Brans
 
 	void ChallengeManager::FillAnswers()
 	{
-		//FillAnswer(ChallengeTypes::Plus, 0, ChallangesCount);
-		FillAnswer(ChallengeTypes::Plus, 0, ChallangesCount / 2);
+		FillAnswer(0, ChallangesCount);
+
+		//_curChallangeType = ChallengeTypes::Plus;
+
+		//FillAnswer(0, ChallangesCount);
+		//FillAnswer(ChallengeTypes::Plus, 0, ChallangesCount / 2);
 		//FillAnswer(ChallengeTypes::Multiplication, ChallangesCount / 2, ChallangesCount);
+
 	}
 
-	void ChallengeManager::FillAnswer(mainDataType curChallangeType, mainDataType startChallange, mainDataType curChallangesCount)
+	void ChallengeManager::FillAnswer(mainDataType startChallange, mainDataType curChallangesCount)
 	{
-		_curChallangeType = curChallangeType;
-
 		for (mainDataType cline = startChallange; cline < curChallangesCount; cline++)
 		{
 			mainDataType nextI;
+
+//			_inputs[cline][0] = _curChallangeType; //Setting up challange type in zero contact ToDo: Add!
+
 			for (mainDataType i = 0; i < ExternalOutputsCount;)
 			{
 				nextI = i + 1;
@@ -59,9 +70,7 @@ namespace Brans
 #define sContValue _inputs[cline][nextI] //value of second contact
 #define outValue _correctAnswers[cline][i] //value of third contact
 
-				_inputs[cline][i] = curChallangeType;
-
-				switch (curChallangeType)
+				switch (_curChallangeType)
 				{
 				case (Division) :
 					if (sContValue != 0) {
@@ -71,7 +80,7 @@ namespace Brans
 				case (Equal) :
 					outValue = fContValue;
 					break;
-				case (If) :
+				case (If) : //ToDo:Fix
 					if (fContValue > sContValue){
 						outValue = 1;
 					}

@@ -88,9 +88,6 @@ namespace CoreTests
 			entity = new Entity();
 			Assert::IsTrue(ExternalInputsCount == 3, L"ExternalInputsCount is incorrect");
 
-
-
-
 			//CreateOper(Nothing);
 			//CreateOper(Nothing);
 			//CreateOper(Nothing);
