@@ -95,5 +95,19 @@ namespace CoreTests
 
 			Assert::IsFalse(ent1->IsEqual(ent2));
 		}
+
+		TEST_METHOD(ExternalOutputsConnectionsAreValid)
+		{
+			for (size_t i = 0; i < 100; i++)
+			{
+				Entity* curEntity = &entityGenerator->GenerateEntity();
+				for (int curOper = Entity::FirstExtOutputPos; curOper < Entity::FirstExtOutputPos + ExternalOutputsCount; curOper++)
+				{
+					int fromOperId = curEntity->GetContactValue(curOper, Entity::FirstContact);
+					OperatorsTypes fromOperType = (OperatorsTypes)curEntity->mGetOperatorType(fromOperId);
+					Assert::IsTrue(fromOperType > OperatorsTypes::Zero && fromOperType < OperatorsTypes::ExternalInput);
+				}
+			}
+		}
 	};
 }

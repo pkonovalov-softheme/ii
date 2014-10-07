@@ -3,6 +3,7 @@
 #include "..\Core\ChallengeManager.h"
 #include <iostream>
 #include <string>
+#include <assert.h>  
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 using namespace Brans;
@@ -240,9 +241,7 @@ namespace CoreTests
 			Entity* ent0 = new Entity;
 			ent0->mCreateOperator(opT);
 
-			if (ExternalInputsCount != Entity::mGetOperTypeContactsCount(opT)) {
-				throw new std::string("Number of ExternalInputsCount isn't correct!");
-			}
+			Assert::IsTrue(ExternalInputsCount >= Entity::mGetOperTypeContactsCount(opT));
 
 			ent0->mCreateChannel(Entity::FirstExtInputPos, ent0->GetOperatorsCount(), Entity::FirstContact);
 			ent0->mCreateChannel(Entity::FirstExtInputPos + 1, ent0->GetOperatorsCount(), Entity::SecondContact);

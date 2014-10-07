@@ -11,7 +11,9 @@ namespace Brans
 		Entity& GenerateEntity();
 		Entity& GetEntity();
 	private:
-	    RandomValuesProvider _conProvider;
+	    RandomValuesProvider _operatorsConProvider; //Connection providers for the entity internals operators, it generates connection with any entity operator and external inputs
+		RandomValuesProvider _externalOutputsConProvider; //Connection providers for the external outputs, it generates connection with any entity operator (and not external inputs)
+
 		Entity _entity;
 		void GenerateConnections(mainDataType curOper);
 		void CreateChannelIfAppropriate(mainDataType curOper, mainDataType curOperContactId, mainDataType fromOper);

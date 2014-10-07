@@ -7,9 +7,9 @@ namespace Brans
 	static const mainDataType reducedOpC = EntityOperatorsCount - 1;
 	static const unsigned short ExternalOutputsCountAdd = ExternalOutputsCount + 1; // We didn't connect  from ExternalOutputs to opers
 
-	EntityGenerator::EntityGenerator() : _entity(), _conProvider(reducedOpC, ExternalOutputsCountAdd)
+	EntityGenerator::EntityGenerator() : _entity(), _operatorsConProvider(reducedOpC, ExternalOutputsCountAdd), 
+		_externalOutputsConProvider(reducedOpC, ExternalOutputsCountAdd + ExternalInputsCount)
 	{
-		static const mainDataType reducedOpC = EntityOperatorsCount - 1;
 	}
 
 	EntityGenerator::~EntityGenerator(void)
@@ -28,7 +28,7 @@ namespace Brans
 
 		for (int curOper = Entity::FirstExtOutputPos; curOper <= ExternalOutputsCount; curOper++)
 		{
-			mainDataType fromOper = _conProvider.GetNextValue();
+			mainDataType fromOper = _externalOutputsConProvider.GetNextValue();
 			_entity.mCreateChannelUnsafe(fromOper, curOper, Entity::FirstContact);
 		}
 
@@ -48,7 +48,7 @@ namespace Brans
 
 		for (int curContact = Entity::FirstContact; curContact <= lastOperTypeCntsCount; curContact++)
 		{
-			mainDataType fromOper = _conProvider.GetNextValue();
+			mainDataType fromOper = _operatorsConProvider.GetNextValue();
 			CreateChannelIfAppropriate(curOper, curContact, fromOper);
 		}
 	}

@@ -13,10 +13,6 @@ namespace Brans
 
 	ChallengeManager::ChallengeManager() : _inputs(), _correctAnswers(), _rvp(RandomUpperLimit), _currentLine(0), _goodPopulation()
 	{
-		assert(ExternalOutputsCount >= 1);
-		assert(ExternalInputsCount >= 2);
-		assert(ExternalInputsCount - ExternalOutputsCount == 1);
-
 		_bestEntity = new Entity();
 		_chManager = this;
 		_entityGenerator = new EntityGenerator();

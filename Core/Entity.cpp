@@ -425,7 +425,7 @@ namespace Brans
 	{
 		if (this->GetOperatorsCount() != ent->GetOperatorsCount()) return false;
 
-		for (size_t i = FirstInternalOper; i < GetOperatorsCount(); i++) {
+		for (size_t i = FirstInternalOper; i <= GetOperatorsCount(); i++) {
 			if (this->GetContactValue(i, 0) != ent->GetContactValue(i, 0))  return false;
 		}
 
