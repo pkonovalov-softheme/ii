@@ -57,18 +57,20 @@ namespace CoreTests
 			for (size_t i = 0; i < 1000; i++)
 			{
 				curEntity = &entityGenerator->GenerateEntity();
-				for (mainDataType curOp = Entity::FirstInternalOper; curOp < curEntity->GetNextOperatorId(); curOp++)
+				for (mainDataType curOp = Entity::FirstInternalOper; curOp < EntityOperatorsCount; curOp++)
 				{
 					OperatorsTypes curOperType = (OperatorsTypes)curEntity->mGetOperatorType(curOp);
-					for (int curContact = 1; curContact <= Entity::mGetOperTypeContactsCount(curOperType); curContact++)
+					Assert::IsTrue(curOperType != ExternalOutput, L"Must not be connected with ExternalOutput");
+
+					for (int curContact = Entity::FirstContact; curContact <= Entity::mGetOperTypeContactsCount(curOperType); curContact++)
 					{
 						mainDataType curVal = curEntity->GetContactValue(curOp, curContact);
-						if (!(curVal > 0 && curVal < curEntity->GetNextOperatorId()))
-						{
-							curVal = curVal;
-						}
+						//if (!(curVal > 0 && curVal < EntityOperatorsCount))
+						//{
+						//	curVal = curVal;
+						//}
 
-						Assert::IsTrue(curVal > 0 && curVal < curEntity->GetNextOperatorId());
+						Assert::IsTrue(curVal > 0 && curVal < EntityOperatorsCount, L"All connection must be with valid operators");
 					}
 				}
 			}

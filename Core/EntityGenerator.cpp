@@ -17,9 +17,9 @@ namespace Brans
 	{
 	}
 
-	bool EntityGenerator::ValidateEntity()
+	bool EntityGenerator::IsEntityValid()
 	{
-
+		return true;
 	}
 
 	Entity& EntityGenerator::GenerateEntity()
@@ -32,7 +32,7 @@ namespace Brans
 			_entity.mCreateOperatorUnsafe(RandomOperatorsProvider::GetNextOperator());
 		}
 
-		ValidateEntity();
+		IsEntityValid();
 
 		for (int curOper = Entity::FirstExtOutputPos; curOper <= ExternalOutputsCount; curOper++)
 		{
@@ -72,14 +72,14 @@ namespace Brans
 			{
 				fromOper++;
 
-				if (fromOper == Entity::FirstExtInputPos)
+				if (fromOper == Entity::FirstExtOutputPos)
 				{
-					fromOper += ExternalInputsCount;
+					fromOper += ExternalOutputsCount;
 				}
 
 				if (fromOper == EntityOperatorsCount)
 				{
-					fromOper = Entity::FirstExtOutputPos;
+					fromOper = Entity::FirstExtInputPos;
 				}
 			}
 		}
