@@ -15,6 +15,7 @@ namespace Brans
 		RandomValuesProvider _externalOutputsConProvider; //Connection providers for the external outputs, it generates connection with any entity operator (and not external inputs)
 
 		Entity _entity;
+		bool ValidateEntity();
 		void GenerateConnections(mainDataType curOper);
 		void CreateChannelIfAppropriate(mainDataType curOper, mainDataType curOperContactId, mainDataType fromOper);
 

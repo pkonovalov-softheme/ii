@@ -1,6 +1,7 @@
 #pragma once
 #include "stdafx.h"
 #include "EntityGenerator.h"
+#include "assert.h"
 
 namespace Brans 
 {
@@ -16,57 +17,70 @@ namespace Brans
 	{
 	}
 
+	bool EntityGenerator::ValidateEntity()
+	{
+
+	}
+
 	Entity& EntityGenerator::GenerateEntity()
 	{
 		_entity.Reset();
 
 		for (int curOper = Entity::FirstInternalOper; curOper < EntityOperatorsCount; curOper++)
 		{
-			//Creating oper
+			//Creating opers
 			_entity.mCreateOperatorUnsafe(RandomOperatorsProvider::GetNextOperator());
 		}
 
+		ValidateEntity();
+
 		for (int curOper = Entity::FirstExtOutputPos; curOper <= ExternalOutputsCount; curOper++)
 		{
-			mainDataType fromOper = _externalOutputsConProvider.GetNextValue();
-			_entity.mCreateChannelUnsafe(fromOper, curOper, Entity::FirstContact);
+			GenerateConnections(curOper);
 		}
 
 		for (int curOper = Entity::FirstInternalOper; curOper < EntityOperatorsCount; curOper++)
 		{
-			//Creating oper
 			GenerateConnections(curOper);
 		}
 
 		return _entity;
 	}
 
-	void EntityGenerator::GenerateConnections(mainDataType curOper)
+	void EntityGenerator::GenerateConnections(mainDataType toOper)
 	{
-		OperatorsTypes lastOperType = (OperatorsTypes)_entity.mGetOperatorTypeUnsafe(curOper);
-		mainDataType lastOperTypeCntsCount = Entity::mGetOperTypeContactsCountUnsafe(lastOperType);
+		OperatorsTypes operType = (OperatorsTypes)_entity.mGetOperatorTypeUnsafe(toOper);
+		mainDataType operTypeCntsCount = Entity::mGetOperTypeContactsCountUnsafe(operType);
 
-		for (int curContact = Entity::FirstContact; curContact <= lastOperTypeCntsCount; curContact++)
+		for (int curContact = Entity::FirstContact; curContact <= operTypeCntsCount; curContact++)
 		{
 			mainDataType fromOper = _operatorsConProvider.GetNextValue();
-			CreateChannelIfAppropriate(curOper, curContact, fromOper);
+			CreateChannelIfAppropriate(toOper, curContact, fromOper);
 		}
 	}
 
-	void EntityGenerator::CreateChannelIfAppropriate(mainDataType curOper, mainDataType curOperContactId, mainDataType fromOper)
+	void EntityGenerator::CreateChannelIfAppropriate(mainDataType toOper, mainDataType curOperContactId, mainDataType fromOper)
 	{
-		for (size_t i = 0; i < EntityOperatorsCount; i++)
+		for (size_t i = 0; i < EntityOperatorsCount - ExternalOutputsCount; i++)
 		{
-			if ((curOper != fromOper) && _entity.HasOperExit(fromOper)) //ToDo: Add compatibility, at least with time check?
+			if ((toOper != fromOper) && _entity.HasOperExit(fromOper)) //ToDo: Add compatibility, at least with time check?
 			{
-				_entity.mCreateChannelUnsafe(fromOper, curOper, curOperContactId);
+				_entity.mCreateChannelUnsafe(fromOper, toOper, curOperContactId);
+				break;
 			}
 			else
 			{
-				if (curOper == EntityOperatorsCount)
-					curOper == Entity::FirstInternalOper;
-				else
-					curOper++;
+				fromOper++;
+
+				if (fromOper == Entity::FirstExtInputPos)
+				{
+					fromOper += ExternalInputsCount;
+				}
+
+				if (fromOper == EntityOperatorsCount)
+				{
+					fromOper = Entity::FirstExtOutputPos;
+				}
 			}
 		}
 	}
