@@ -60,7 +60,7 @@ namespace CoreTests
 				for (mainDataType curOp = Entity::FirstInternalOper; curOp < EntityOperatorsCount; curOp++)
 				{
 					OperatorsTypes curOperType = (OperatorsTypes)curEntity->mGetOperatorType(curOp);
-					Assert::IsTrue(curOperType != ExternalOutput, L"Must not be connected with ExternalOutput");
+					//Assert::IsTrue(curOperType != ExternalOutput, L"Must not be connected with ExternalOutput");
 
 					for (int curContact = Entity::FirstContact; curContact <= Entity::mGetOperTypeContactsCount(curOperType); curContact++)
 					{
@@ -107,7 +107,7 @@ namespace CoreTests
 				{
 					int fromOperId = curEntity->GetContactValue(curOper, Entity::FirstContact);
 					OperatorsTypes fromOperType = (OperatorsTypes)curEntity->mGetOperatorType(fromOperId);
-					Assert::IsTrue(fromOperType > OperatorsTypes::Zero && fromOperType < OperatorsTypes::ExternalInput);
+					Assert::IsTrue(fromOperType > OperatorsTypes::Zero && fromOperType < OperatorsTypes::ExternalOutput, L"From Operator must be not Zero or External Output op.");
 				}
 			}
 		}

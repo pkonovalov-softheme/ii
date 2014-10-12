@@ -192,11 +192,17 @@ namespace CoreTests
 
 		TEST_METHOD(CheckAllAnswersAreCorrect)
 		{
+			/*Assert::IsTrue(ExternalInputsCount == 2 && ExternalOutputsCount == 1,
+				L"Inputs and outputs must counts must match");*/
 			ChallengeManager* cm = new ChallengeManager();
 			cm->SetChallengeType(ChallengeManager::ChallengeTypes::Plus);
 			cm->GenerateRandomInputs();
 			cm->FillAnswers();
-			Entity* ent = GenerateEntity(Plus);
+
+			//Entity* ent = GenerateEntity(Plus);
+
+			Entity* ent = GenerateEntity(Plus, ExternalOutputsCount);
+
 			const static unsigned int RedefEntityProcessCount = 10;
 			for (int pr = 0; pr < RedefEntityProcessCount; pr++) {
 				ent->mProcessAll();
@@ -236,17 +242,37 @@ namespace CoreTests
 			return ent0;
 		}
 
-		Entity* GenerateEntity(OperatorsTypes opT)
+		Entity* GenerateEntity(OperatorsTypes opT, int inputGroupId)
 		{
 			Entity* ent0 = new Entity;
 			ent0->mCreateOperator(opT);
 
-			Assert::IsTrue(ExternalInputsCount >= Entity::mGetOperTypeContactsCount(opT));
+			Assert::IsTrue(ExternalInputsCount >= Entity::mGetOperTypeContactsCount(opT),
+				L"ExternalInputsCount must be larger or the same as generated oper contacts count.");
 
-			ent0->mCreateChannel(Entity::FirstExtInputPos, ent0->GetOperatorsCount(), Entity::FirstContact);
-			ent0->mCreateChannel(Entity::FirstExtInputPos + 1, ent0->GetOperatorsCount(), Entity::SecondContact);
-			ent0->mCreateChannel(ent0->GetOperatorsCount(), Entity::FirstExtOutputPos, Entity::FirstContact);//We will write output value of last created oper to the first external output
+			do
+			{
+				ent0->mCreateChannel(Entity::FirstExtInputPos + inputGroupId,
+					ent0->GetOperatorsCount(),
+					Entity::FirstContact);
+
+				ent0->mCreateChannel(Entity::FirstExtInputPos + inputGroupId + 1,
+					ent0->GetOperatorsCount(),
+					Entity::SecondContact);
+
+				ent0->mCreateChannel(ent0->GetOperatorsCount(),
+					Entity::FirstExtOutputPos + inputGroupId,
+					Entity::FirstContact); //We will write output value of last created oper to the first external output
+
+				inputGroupId--;
+			} while (inputGroupId >= 0);
+
 			return ent0;
+		}
+
+		Entity* GenerateEntity(OperatorsTypes opT)
+		{
+			return GenerateEntity(opT, 0);
 		}
 	};
 }
