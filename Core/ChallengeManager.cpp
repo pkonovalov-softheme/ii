@@ -20,7 +20,7 @@ namespace Brans
 
 	ChallengeManager::~ChallengeManager()
 	{
-	   delete (_entityGenerator);
+	   delete(_entityGenerator);
 	}
 
 	void ChallengeManager::SetChallengeType(ChallengeTypes chType)
@@ -137,10 +137,6 @@ namespace Brans
 				return ent;
 			}
 
-			if (ent.GetEffectiveness() > _bestEntity->GetEffectiveness()) {
-				_bestEntity = &Entity(ent);
-			}
-
 			_currentLine = 0;
 		}
 	}
@@ -219,9 +215,11 @@ namespace Brans
 
 	Entity& ChallengeManager::AchiveEffectivity(double targetEffectivity)
 	{
+		_chManager->SetChallengeType(Division);
 		GenerateRandomInputs();
 		FillAnswers();
-		return SelectGoodEntity(targetEffectivity);
+		Entity& targetEntity = SelectGoodEntity(targetEffectivity);
+		return targetEntity;
 		//Here we need to impliment testing with different _currentLine (=different inputs-correct answers)
 		//now i don't clear _goodPopulation but in future i need to impliment
 	}
