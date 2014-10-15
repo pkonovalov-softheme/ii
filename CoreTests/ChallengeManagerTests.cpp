@@ -244,14 +244,15 @@ namespace CoreTests
 
 		Entity* GenerateEntity(OperatorsTypes opT, int inputGroupId)
 		{
-			Entity* ent0 = new Entity;
-			ent0->mCreateOperator(opT);
-
 			Assert::IsTrue(ExternalInputsCount >= Entity::mGetOperTypeContactsCount(opT),
 				L"ExternalInputsCount must be larger or the same as generated oper contacts count.");
 
+			Entity* ent0 = new Entity;
+
 			do
 			{
+				ent0->mCreateOperator(opT);
+
 				ent0->mCreateChannel(Entity::FirstExtInputPos + inputGroupId,
 					ent0->GetOperatorsCount(),
 					Entity::FirstContact);
