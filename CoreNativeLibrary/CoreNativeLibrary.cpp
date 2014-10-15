@@ -6,8 +6,9 @@
 
 Entity& AchiveEffectivity()
 {
-	ChallengeManager* cm = new ChallengeManager();
-	return cm->AchiveEffectivity(0.99);
+	ChallengeManager* cm = new ChallengeManager(); //Leak!
+	Entity& targetEntity = cm->AchiveEffectivity(0.99);
+	return targetEntity;
 }
 
 mainDataType* GetOperatorsPtr(Entity* ent)

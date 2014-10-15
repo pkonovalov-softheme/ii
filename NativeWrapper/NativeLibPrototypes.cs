@@ -11,7 +11,7 @@ namespace NativeWrapper
     {
         // Declares a managed prototype for unmanaged function.
         [DllImport("CoreNativeLibrary.dll", CallingConvention = CallingConvention.Cdecl)]
-        public static extern System.IntPtr AchiveEffectivity(double targetEffectivity);
+        public static extern IntPtr AchiveEffectivity(double targetEffectivity);
 
         [DllImport("CoreNativeLibrary.dll", CallingConvention = CallingConvention.Cdecl)]
         public unsafe static extern uint* GetOperatorsPtr(IntPtr entity);

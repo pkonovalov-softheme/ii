@@ -21,6 +21,7 @@ namespace Brans
 	ChallengeManager::~ChallengeManager()
 	{
 	   delete(_entityGenerator);
+	   delete(_bestEntity);
 	}
 
 	void ChallengeManager::SetChallengeType(ChallengeTypes chType)

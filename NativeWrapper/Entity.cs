@@ -16,7 +16,7 @@ namespace NativeWrapper
         /*Zero is restricted system value. After the first zero operator _operators array processing will be stopped. 
         Value of the zero operator is assuming as zero-only.
         Basic operators:*/
-        Zero, Divis, Equal, If, Minus, Multipl, One, Plus, Random, Time,
+        Zero, Divis, If, Minus, Multipl, One, Plus, Random, 
         //Meta operators:
         CreateChan, CreateOper, DelChan, GetOperType, IsChanExists,
         RemoveOperr, GetInpOperId, GetOperContCount, ExternalInput, ExternalOutput, Nothing
@@ -26,6 +26,8 @@ namespace NativeWrapper
     public struct EntityS
     {
         public readonly double Effectiveness;
+
+        public readonly uint IncorrectAnswersCount;
 
         public readonly uint CorrectAnswersCount;
 
@@ -41,18 +43,18 @@ namespace NativeWrapper
 
         private readonly uint[,] _operators = new uint[BransGlobals.operatorsMaxCount, EntityConsts.operatorsTableWidth];
 
-        private readonly ChallengeManager _chMng;
+       // private readonly ChallengeManager _chMng;
 
         public Entity(EntityS entS, uint* opersPtr)
         {
             _entS = entS;
             Utils.Fill2DArray(_operators, opersPtr);
 
-
-            uint* ptrOnInputs = NativeLibPrototypes.GetInputsPtr(Chmanager);
-            uint* ptrOnCorrectAnswers = NativeLibPrototypes.GetCorrectAnswersPtr(Chmanager);
-            var chmanagerS = (ChallengeManagerS)Marshal.PtrToStructure(Chmanager, typeof(ChallengeManagerS));
-            _chMng = new ChallengeManager(chmanagerS, ptrOnInputs, ptrOnCorrectAnswers);
+            // Works +- but not needed
+           // uint* ptrOnInputs = NativeLibPrototypes.GetInputsPtr(Chmanager); 
+           // uint* ptrOnCorrectAnswers = NativeLibPrototypes.GetCorrectAnswersPtr(Chmanager);
+            //var chmanagerS = (ChallengeManagerS)Marshal.PtrToStructure(Chmanager, typeof(ChallengeManagerS));
+            //_chMng = new ChallengeManager(chmanagerS, ptrOnInputs, ptrOnCorrectAnswers);
 
         }
 
@@ -124,7 +126,9 @@ namespace NativeWrapper
 
         public void DumpEntity()
         {
-            System.IO.File.WriteAllText(@"C:\dump\entity.txt", this.ToString());
+            const string dir = @"C:\dump\";
+            Directory.CreateDirectory(dir);
+            File.WriteAllText(dir + "entity.txt", this.ToString());
         }
 
         public static string GetOperName(OperatorsTypes op)

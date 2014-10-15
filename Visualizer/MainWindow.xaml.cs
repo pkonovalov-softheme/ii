@@ -27,8 +27,8 @@ namespace Visualizer
     {
         private static uint[,] _operators = { {(int)OperatorsTypes.Zero, 0, 0, 0, 0 }, 
                                             { (int)OperatorsTypes.ExternalOutput, 3, 0, 0, 0 }, 
-                                            { (int)OperatorsTypes.ExternalInput, 0, 0, 0, 2 }, 
-                                            { (int)OperatorsTypes.Equal, 2, 0, 0, 0 } };
+                                            { (int)OperatorsTypes.ExternalInput, 0, 0, 0, 2 } /*, 
+                                            { (int)OperatorsTypes.Equal, 2, 0, 0, 0 }*/ };
         private Point[] _opersPoints;
         private Entity _entity;
         private readonly uint _lastOperatorNumber;
