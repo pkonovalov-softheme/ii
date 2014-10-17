@@ -33,7 +33,7 @@ namespace Brans
 	{
 		for (mainDataType cline = 0; cline < ChallangesCount ; cline++)
 		{
-			for (mainDataType i = 0; i < ExternalInputsCount; i++)
+			for (mainDataType i = 1; i < ExternalInputsCount + 1; i++)
 			{
 				_inputs[cline][i] = _rvp.GetNextValue();
 			}
@@ -42,13 +42,14 @@ namespace Brans
 
 	void ChallengeManager::FillAnswers()
 	{
+		_chManager->SetChallengeType(ChallengeTypes::Plus);
 		FillAnswer(0, ChallangesCount);
+		//_chManager->SetChallengeType(ChallengeTypes::Plus);
+		//FillAnswer(0, ChallangesCount / 2);
+		//_chManager->SetChallengeType(ChallengeTypes::Plus);
+		//FillAnswer(ChallangesCount / 2, ChallangesCount);
 
-		//_curChallangeType = ChallengeTypes::Plus;
 
-		//FillAnswer(0, ChallangesCount);
-		//FillAnswer(ChallengeTypes::Plus, 0, ChallangesCount / 2);
-		//FillAnswer(ChallengeTypes::Multiplication, ChallangesCount / 2, ChallangesCount);
 
 	}
 
@@ -58,7 +59,7 @@ namespace Brans
 		{
 			mainDataType nextI;
 
-//			_inputs[cline][0] = _curChallangeType; //Setting up challange type in zero contact ToDo: Add!
+			_inputs[cline][0] = _curChallangeType; //Setting up challange type in zero contact ToDo: Add!
 
 			for (mainDataType i = 0; i < ExternalOutputsCount;)
 			{
@@ -216,7 +217,6 @@ namespace Brans
 
 	Entity& ChallengeManager::AchiveEffectivity(double targetEffectivity)
 	{
-		_chManager->SetChallengeType(Division);
 		GenerateRandomInputs();
 		FillAnswers();
 		Entity& targetEntity = SelectGoodEntity(targetEffectivity);

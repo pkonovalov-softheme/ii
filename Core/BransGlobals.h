@@ -18,7 +18,7 @@ namespace Brans
 	const unsigned short OperatorsTypesCount = Nothing + 1;  //with zero and nothing
 
 	static const unsigned short ExternalInputsCount = 2;//External inputs count of the entity (for tests -3)
-	static const unsigned short ExternalOutputsCount = 1;//External Outputs count of the entity (for tests -2)
+	static const unsigned short ExternalOutputsCount = 2;//External Outputs count of the entity (for tests -2)
 	static const unsigned short EntityInternalOperatorsCount = 1;
 	static const unsigned short EntityOperatorsCount = ExternalInputsCount + ExternalOutputsCount + EntityInternalOperatorsCount + 1;
 
