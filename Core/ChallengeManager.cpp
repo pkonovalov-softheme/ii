@@ -220,7 +220,8 @@ namespace Brans
 	Entity& ChallengeManager::AchiveEffectivity(double targetEffectivity)
 	{
 		GenerateRandomInputs();
-		FillAnswers();
+		FillMixedAnswers();
+		//FillAnswers();
 		Entity& targetEntity = SelectGoodEntity(targetEffectivity);
 		return targetEntity;
 		//Here we need to impliment testing with different _currentLine (=different inputs-correct answers)
