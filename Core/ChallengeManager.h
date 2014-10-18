@@ -41,11 +41,12 @@ namespace Brans
 		static const mainDataType RandomUpperLimit = 10; //max value for random for inputs
 		mainDataType _curChallangeType;
 		mainDataType _correctAnswers[ChallangesCount][ExternalOutputsCount];
-		mainDataType _inputs[ChallangesCount][ExternalInputsCount + 1];/*Generated random inputs for
+		mainDataType _inputs[ChallangesCount][ExternalInputsCount];/*Generated random inputs for
 																   entities testing. 0 index - challange type, 1 - first contact!*/
 		std::vector<Entity*> _goodPopulation;
 
 		void GenerateRandomInputs(); //Filling inputs arrays with random values for all ChallangesCount
+		void FillMixedAnswers(); //Filling mixed correct answers for generated random inputs (GenerateRandomInputs() should be called before)
 		void FillAnswers(); //Filling correct answers for generated random inputs (GenerateRandomInputs() should be called before)
 		void SetContactsCount();
 		void CalculateEffectiveness();
@@ -56,6 +57,7 @@ namespace Brans
 	private:
 		Entity& ChallengeManager::SelectBestInTime(mainDataType seconds);
 		void FillAnswer(mainDataType startChallange, mainDataType curChallangesCount);
+
 		mainDataType _currentLine; //defines place where next real answers will be inserted
 		EntityGenerator* _entityGenerator;
 		RandomValuesProvider _rvp;

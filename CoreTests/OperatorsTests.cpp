@@ -86,7 +86,7 @@ namespace CoreTests
 		TEST_METHOD_INITIALIZE(ClassInitialize)
 		{
 			entity = new Entity();
-			Assert::IsTrue(ExternalInputsCount == 3, L"ExternalInputsCount is incorrect");
+			Assert::IsTrue(ExternalInputsCount == 4, L"ExternalInputsCount is incorrect"); // 0 - challange type + 3 for opers inputs
 
 			//CreateOper(Nothing);
 			//CreateOper(Nothing);
@@ -102,7 +102,7 @@ namespace CoreTests
 		{
 			Assert::IsTrue(ExternalOutputsCount >= 1, L"ExternalOutputsCount is incorrect");
 			Assert::IsTrue(ExternalInputsCount >= 1, L"ExternalInputsCount is incorrect");
-			Assert::IsTrue(ExternalInputsCount - ExternalOutputsCount == 1, L"ExternalInputsCount must be larger then ExternalOutputsCount on one");
+			Assert::IsTrue(ExternalInputsCount - ExternalOutputsCount == 2, L"ExternalInputsCount must be larger then ExternalOutputsCount on two");
 
 			Assert::IsTrue(Entity::_operatorTypeContactCount[Nothing] == 0, L"_operatorTypeContactCount for nothing must be zero");
 			Assert::IsTrue(Entity::_operatorTypeExit[Nothing] == false, L"_operatorTypeContactCount for nothing must be false");

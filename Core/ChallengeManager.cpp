@@ -33,7 +33,9 @@ namespace Brans
 	{
 		for (mainDataType cline = 0; cline < ChallangesCount ; cline++)
 		{
-			for (mainDataType i = 1; i < ExternalInputsCount + 1; i++)
+			_inputs[cline][0] = _curChallangeType; //Setting up challange type in zero contact 
+
+			for (mainDataType i = Entity::FirstContact; i < ExternalInputsCount; i++)
 			{
 				_inputs[cline][i] = _rvp.GetNextValue();
 			}
@@ -42,31 +44,31 @@ namespace Brans
 
 	void ChallengeManager::FillAnswers()
 	{
-		_chManager->SetChallengeType(ChallengeTypes::Plus);
 		FillAnswer(0, ChallangesCount);
-		//_chManager->SetChallengeType(ChallengeTypes::Plus);
-		//FillAnswer(0, ChallangesCount / 2);
-		//_chManager->SetChallengeType(ChallengeTypes::Plus);
-		//FillAnswer(ChallangesCount / 2, ChallangesCount);
+	}
 
-
-
+	void ChallengeManager::FillMixedAnswers()
+	{
+		_chManager->SetChallengeType(ChallengeTypes::Plus);
+		FillAnswer(0, ChallangesCount / 2);
+		_chManager->SetChallengeType(ChallengeTypes::Plus);
+		FillAnswer(ChallangesCount / 2, ChallangesCount);
 	}
 
 	void ChallengeManager::FillAnswer(mainDataType startChallange, mainDataType curChallangesCount)
 	{
 		for (mainDataType cline = startChallange; cline < curChallangesCount; cline++)
 		{
-			mainDataType nextI;
+			mainDataType nextI; //just for perf optimization, ToDo: test
+			mainDataType prevI; //just for perf optimization, ToDo: test
 
-			_inputs[cline][0] = _curChallangeType; //Setting up challange type in zero contact ToDo: Add!
-
-			for (mainDataType i = 0; i < ExternalOutputsCount;)
+			for (mainDataType i = Entity::FirstContact; i <= ExternalOutputsCount;)
 			{
 				nextI = i + 1;
+				prevI = i - 1;
 #define fContValue _inputs[cline][i] //value of first contact
 #define sContValue _inputs[cline][nextI] //value of second contact
-#define outValue _correctAnswers[cline][i] //value of third contact
+#define outValue _correctAnswers[cline][prevI] //value of third contact
 
 				switch (_curChallangeType)
 				{

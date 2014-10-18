@@ -18,23 +18,27 @@ namespace CoreTests
 			ChallengeManager* cm = new ChallengeManager();
 			cm->GenerateRandomInputs();
 			mainDataType stats[ChallengeManager::RandomUpperLimit + 1] = {};
-			mainDataType test = ChallengeManager::ChallangesCount;
 			for (mainDataType cline = 0; cline < ChallengeManager::ChallangesCount; cline++)
 			{
-				for (mainDataType i = 0; i < ExternalInputsCount; i++)
+				for (mainDataType i = Entity::FirstContact; i < ExternalInputsCount; i++)
 				{
 					mainDataType curVal = cm->_inputs[cline][i];
 					stats[curVal]++;
 				}
 			}
 
-			mainDataType totalCount = ChallengeManager::ChallangesCount * ExternalInputsCount;
+			mainDataType totalCount = ChallengeManager::ChallangesCount * (ExternalInputsCount - 1);
 			double avg = 1 / (double)ChallengeManager::RandomUpperLimit;
 			
 			Assert::IsTrue(stats[0] == 0);
 			for (mainDataType i = 1; i < ChallengeManager::RandomUpperLimit; i++)
 			{
 				double freq = stats[i] / (double) totalCount;
+
+				//if (!(freq > 0.7 * avg  && freq < 1.3 * avg))
+				//{
+				//	freq = freq;
+				//}
 				Assert::IsTrue(freq > 0.7 * avg  && freq < 1.3 * avg);
 			}
 			delete (cm);
@@ -83,7 +87,7 @@ namespace CoreTests
 			cm->FillAnswers();
 			for (mainDataType cline = 0; cline < ChallengeManager::ChallangesCount; cline++)
 			{
-				for (mainDataType i = 0; i < ExternalInputsCount - 1; i++)
+				for (mainDataType i = Entity::FirstContact; i < ExternalInputsCount - 1; i++)
 				{
 					mainDataType leftOp = cm->_inputs[cline][i];
 					mainDataType rightOp = cm->_inputs[cline][i + 1];
@@ -120,7 +124,7 @@ namespace CoreTests
 						break;
 					}
 
-					Assert::IsTrue(expr == cm->_correctAnswers[cline][i]);
+					Assert::IsTrue(expr == cm->_correctAnswers[cline][i - 1]);
 				}
 			}
 			delete (cm);
@@ -131,8 +135,8 @@ namespace CoreTests
 			//We will emulate StartSelection method
 			ChallengeManager* cm = new ChallengeManager();
 			//GenerateRandomInputs:
-			cm->_inputs[0][0] = 1;
-			cm->_inputs[0][1] = 2;
+			cm->_inputs[0][FirstExternalValueInputs] = 1;
+			cm->_inputs[0][FirstExternalValueInputs + 1] = 2;
 
 			//FillAnswers:
 			cm->_correctAnswers[0][0] = 3;
@@ -180,8 +184,8 @@ namespace CoreTests
 		TEST_METHOD(CheckEntityCorrectAnswers)
 		{
 			ChallengeManager* cm = new ChallengeManager();
-			cm->_inputs[0][0] = 1;
-			cm->_inputs[0][1] = 2;
+			cm->_inputs[0][FirstExternalValueInputs] = 1;
+			cm->_inputs[0][FirstExternalValueInputs + 1] = 2;
 			cm->_correctAnswers[0][0] = 3;
 			Entity* ent0 = GenerateEntity(Plus);
 			ent0->mProcessAll();
@@ -198,9 +202,6 @@ namespace CoreTests
 			cm->SetChallengeType(ChallengeManager::ChallengeTypes::Plus);
 			cm->GenerateRandomInputs();
 			cm->FillAnswers();
-
-			//Entity* ent = GenerateEntity(Plus);
-
 			Entity* ent = GenerateEntity(Plus, ExternalOutputsCount);
 
 			const static unsigned int RedefEntityProcessCount = 10;
@@ -209,6 +210,11 @@ namespace CoreTests
 			}
 
 			ent->CalculateEffectiveness(RedefEntityProcessCount);
+
+			//if (ent->GetEffectiveness() != 1.00)
+			//{
+			//	int one = 1;
+			//}
 			Assert::IsTrue(ent->GetEffectiveness() == 1.00);
 			delete (ent);
 			delete (cm);
@@ -242,38 +248,38 @@ namespace CoreTests
 			return ent0;
 		}
 
-		Entity* GenerateEntity(OperatorsTypes opT, int inputGroupId)
+		Entity* GenerateEntity(OperatorsTypes opT, int outputsToGenerate)
 		{
 			Assert::IsTrue(ExternalInputsCount >= Entity::mGetOperTypeContactsCount(opT),
 				L"ExternalInputsCount must be larger or the same as generated oper contacts count.");
 
 			Entity* ent0 = new Entity;
 
-			do
+			while (outputsToGenerate > 0)
 			{
 				ent0->mCreateOperator(opT);
 
-				ent0->mCreateChannel(Entity::FirstExtInputPos + inputGroupId,
+				ent0->mCreateChannel(Entity::FirstExtInputPos + outputsToGenerate,
 					ent0->GetOperatorsCount(),
 					Entity::FirstContact);
 
-				ent0->mCreateChannel(Entity::FirstExtInputPos + inputGroupId + 1,
+				ent0->mCreateChannel(Entity::FirstExtInputPos + outputsToGenerate + 1,
 					ent0->GetOperatorsCount(),
 					Entity::SecondContact);
 
 				ent0->mCreateChannel(ent0->GetOperatorsCount(),
-					Entity::FirstExtOutputPos + inputGroupId,
+					outputsToGenerate,
 					Entity::FirstContact); //We will write output value of last created oper to the first external output
 
-				inputGroupId--;
-			} while (inputGroupId >= 0);
+				outputsToGenerate--;
+			} 
 
 			return ent0;
 		}
 
 		Entity* GenerateEntity(OperatorsTypes opT)
 		{
-			return GenerateEntity(opT, 0);
+			return GenerateEntity(opT, 1);
 		}
 	};
 }
