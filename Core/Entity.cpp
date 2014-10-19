@@ -13,7 +13,7 @@ namespace Brans
 		/* Operator-index		  Contacts count */
 		/* Zero - 0*/						0,
 		/* Division - 1*/					2,
-		/* If - 2*/							3,
+		/* If - 2*/							4,
 		/* Minus - 3*/						2,
 		/* Multiplication - 4*/				2,
 		/* One -  5*/						0,
@@ -235,6 +235,7 @@ namespace Brans
 		#define fContValue GetInputValue(operatorId, 1) //value of first contact
 		#define sContValue GetInputValue(operatorId, 2) //value of second contact
 		#define tContValue GetInputValue(operatorId, 3) //value of third contact
+		#define fourthContValue GetInputValue(operatorId, 4) //value of fourth contact
 
 		#define operType   _operators[operatorId][operatorTypeColumn] //type of the operator
 		#define outValue   _operators[operatorId][outputValueColumn] //value of the operators output contact
@@ -271,8 +272,11 @@ namespace Brans
 			outValue = mGetOperatorType(_operators[operatorId][1]);
 			break;
 		case (If):
-			if (fContValue > sContValue) {
+			if (fContValue >= sContValue) {
 				outValue = tContValue;
+			}
+			else {
+				outValue = fourthContValue;
 			}
 			break;
 		case (IsChannelExists):

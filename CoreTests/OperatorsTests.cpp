@@ -23,11 +23,23 @@ namespace CoreTests
 		//Here we setting up values of output column for first 3 operators(nothing) then we will create channels between them
 		//and last operators input contacts, so it will process that values
 		
+		void ProcessArgsValues(
+			mainDataType fContactValue,
+			mainDataType sContactValue,
+			mainDataType tContactValue,
+			mainDataType fourthContactValue)
+		{
+			mainDataType curOper = ExternalOutputsCount + 4;
+			entity->SetContactValue(curOper, entity->outputValueColumn, fourthContactValue);
+			entity->mCreateChannel(curOper, GetLastOper(), Entity::FourthContact);
+			ProcessArgsValues(fContactValue, sContactValue, tContactValue);
+		}
+
 		void ProcessArgsValues(mainDataType fContactValue, mainDataType sContactValue, mainDataType tContactValue)
 		{
 			mainDataType curOper = ExternalOutputsCount + 3;
 			entity->SetContactValue(curOper, entity->outputValueColumn, tContactValue);
-			entity->mCreateChannel(curOper, GetLastOper(), 3);
+			entity->mCreateChannel(curOper, GetLastOper(), Entity::ThirdContact);
 			ProcessArgsValues(fContactValue, sContactValue);
 		}
 
@@ -35,7 +47,7 @@ namespace CoreTests
 		{
 			mainDataType curOper = ExternalOutputsCount + 2;
 			entity->SetContactValue(curOper, entity->outputValueColumn, sContactValue);
-			entity->mCreateChannel(curOper, GetLastOper(), 2);
+			entity->mCreateChannel(curOper, GetLastOper(), Entity::SecondContact);
 			ProcessArgsValues(fContactValue);
 		}
 
@@ -43,7 +55,7 @@ namespace CoreTests
 		{
 			mainDataType curOper = ExternalOutputsCount + 1;
 			entity->SetContactValue(curOper, entity->outputValueColumn, fContactValue);
-			entity->mCreateChannel(curOper, GetLastOper(), 1);
+			entity->mCreateChannel(curOper, GetLastOper(), Entity::FirstContact);
 			entity->mProcessLast();
 		}
 
@@ -187,14 +199,14 @@ namespace CoreTests
 		TEST_METHOD(TestIf_false)
 		{
 			CreateOper(If);
-			ProcessArgsValues(2, 3, 5);
-			Assert::IsTrue(GetResult() == 0);
+			ProcessArgsValues(2, 3, 5, 7);
+			Assert::IsTrue(GetResult() == 7);
 		}
 
 		TEST_METHOD(TestIf_true)
 		{
 			CreateOper(If);
-			ProcessArgsValues(3, 2, 5);
+			ProcessArgsValues(3, 2, 5, 7);
 			Assert::IsTrue(GetResult() == 5);
 		}
 
@@ -229,9 +241,9 @@ namespace CoreTests
 				if (res == 3) three++;
 			}
 
-			double onePerc = one / (double)cycles;
-			double twoPerc = two / (double)cycles;
-			double threePerc = three / (double)cycles;
+			double onePerc = one / static_cast<double>(cycles);
+			double twoPerc = two / static_cast<double>(cycles);
+			double threePerc = three / static_cast<double>(cycles);
 
     		Assert::IsTrue(onePerc > 0.20 && onePerc < 0.40);
 			Assert::IsTrue(twoPerc > 0.20 && twoPerc < 0.40);
