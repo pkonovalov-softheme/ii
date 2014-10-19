@@ -21,11 +21,11 @@ namespace Brans
 	static const unsigned short ExternalOutputsCount = 1; //External Outputs count of the entity (for tests -2)
 	static const unsigned short FirstExternalValueInputs = 1; //Ofsset inside external inputs of first signable inputs, (current firs contact is challange type)
 
-	static const unsigned short EntityInternalOperatorsCount = 1;
+	static const unsigned short EntityInternalOperatorsCount = 2;
 	static const unsigned short EntityOperatorsCount = ExternalInputsCount + ExternalOutputsCount + EntityInternalOperatorsCount + 1;
 
 
-	static const unsigned short EntityProcessCount = 2;
+	static const unsigned short EntityProcessCount = 20;
 	static const mainDataType operatorsMaxCount = EntityOperatorsCount * 2; // maximum acceptable count of operators for one entity
 	static const mainDataType EntitiesStartPopulation = 1000;
 }

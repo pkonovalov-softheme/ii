@@ -51,7 +51,7 @@ namespace Brans
 	{
 		_chManager->SetChallengeType(ChallengeTypes::Plus);
 		FillAnswer(0, ChallangesCount / 2);
-		_chManager->SetChallengeType(ChallengeTypes::Plus);
+		_chManager->SetChallengeType(ChallengeTypes::Multiplication);
 		FillAnswer(ChallangesCount / 2, ChallangesCount);
 	}
 
