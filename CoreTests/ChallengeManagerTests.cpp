@@ -240,26 +240,28 @@ namespace CoreTests
 
 		TEST_METHOD(CheckMixedAnswers)
 		{
+			Assert::IsTrue(ExternalInputsCount == 3, L"ExternalInputsCount must be three");
+			Assert::IsTrue(ExternalOutputsCount == 1, L"ExternalInputsCount must be one");
+
 			int const firstValueInput = Entity::FirstExtInputPos + Entity::FirstExternalValueInput;
 			ChallengeManager cm;
-			cm.GenerateRandomInputs();
-			cm.FillMixedAnswers();
+			cm.FillMixedAnswersAndInputs();
 
 			Entity ent0;
 			ent0.mCreateOperator(Plus);
 			const int PlusId = ent0.GetOperatorsCount();
 			ent0.mCreateOperator(Multiplication);
 			const int MultId = ent0.GetOperatorsCount();
-			ent0.mCreateOperator(If);
-			const int IfId = ent0.GetOperatorsCount();
 			ent0.mCreateOperator(One); // returns realy 6, not 1!
 			const int OneId = ent0.GetOperatorsCount();
+			ent0.mCreateOperator(If);
+			const int IfId = ent0.GetOperatorsCount();
 
 			ent0.mCreateChannel(firstValueInput, IfId, Entity::FirstContact);
 			ent0.mCreateChannel(OneId, IfId, Entity::SecondContact);
 			ent0.mCreateChannel(PlusId, IfId, Entity::ThirdContact);
 			ent0.mCreateChannel(MultId, IfId, Entity::FourthContact);
-			ent0.mCreateChannel(IfId, Entity::FirstExtOutputPos, Entity::FourthContact);
+			ent0.mCreateChannel(IfId, Entity::FirstExtOutputPos, Entity::FirstContact);
 
 			ent0.mCreateChannel(firstValueInput, MultId, Entity::FirstContact);
 			ent0.mCreateChannel(firstValueInput + 1, MultId, Entity::SecondContact);

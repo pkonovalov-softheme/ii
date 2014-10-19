@@ -31,7 +31,12 @@ namespace Brans
 
 	void ChallengeManager::GenerateRandomInputs()
 	{
-		for (mainDataType cline = 0; cline < ChallangesCount ; cline++)
+		GenerateRandomInputs(0, ChallangesCount);
+	}
+
+	void ChallengeManager::GenerateRandomInputs(mainDataType startChallange, mainDataType curChallangesCount)
+	{
+		for (mainDataType cline = startChallange; cline < curChallangesCount; cline++)
 		{
 			_inputs[cline][0] = _curChallangeType; //Setting up challange type in zero contact 
 
@@ -47,11 +52,13 @@ namespace Brans
 		FillAnswer(0, ChallangesCount);
 	}
 
-	void ChallengeManager::FillMixedAnswers()
+	void ChallengeManager::FillMixedAnswersAndInputs()
 	{
 		_chManager->SetChallengeType(Plus);
+		GenerateRandomInputs(0, ChallangesCount / 2);
 		FillAnswer(0, ChallangesCount / 2);
 		_chManager->SetChallengeType(Multiplication);
+		GenerateRandomInputs(ChallangesCount / 2, ChallangesCount);
 		FillAnswer(ChallangesCount / 2, ChallangesCount);
 	}
 
@@ -219,8 +226,7 @@ namespace Brans
 
 	Entity& ChallengeManager::AchiveEffectivity(double targetEffectivity)
 	{
-		GenerateRandomInputs();
-		FillMixedAnswers();
+		FillMixedAnswersAndInputs();
 		//FillAnswers();
 		Entity& targetEntity = SelectGoodEntity(targetEffectivity);
 		return targetEntity;

@@ -46,8 +46,9 @@ namespace Brans
 		std::vector<Entity*> _goodPopulation;
 
 		void GenerateRandomInputs(); //Filling inputs arrays with random values for all ChallangesCount
-		void FillMixedAnswers(); //Filling mixed correct answers for generated random inputs (GenerateRandomInputs() should be called before)
-		void FillAnswers(); //Filling correct answers for generated random inputs (GenerateRandomInputs() should be called before)
+		void GenerateRandomInputs(unsigned startChallange, unsigned curChallangesCount);
+		void FillAnswers(); // Filling correct answers for generated random inputs (GenerateRandomInputs() should be called before)
+		void FillMixedAnswersAndInputs();// Filling mixed correct answers and inputs for generated random inputs (GenerateRandomInputs() should be called before)
 		//void SetContactsCount();
 		//void CalculateEffectiveness();
 		mainDataType* GetCorrectAnswersPtr();
