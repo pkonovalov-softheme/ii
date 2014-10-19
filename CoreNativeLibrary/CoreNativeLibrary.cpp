@@ -4,10 +4,10 @@
 #include "stdafx.h"
 #include "Header.h"
 
-Entity& AchiveEffectivity()
+Entity& AchiveEffectivity(double effectivity)
 {
 	ChallengeManager* cm = new ChallengeManager(); //Leak!
-	Entity& targetEntity = cm->AchiveEffectivity(0.99);
+	Entity& targetEntity = cm->AchiveEffectivity(effectivity);
 	return targetEntity;
 }
 

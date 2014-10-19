@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
@@ -41,16 +42,23 @@ namespace Visualizer
 
         public MainWindow()
         {
-            _entity = Entity.GenerateEntity();
-            _entity.DumpEntity();
-            _operators = _entity.Operators;
-            _opersPoints = new Point[_operators.GetLength(0)];
-            InitializeComponent();
-            InitOper();
-            _lastOperatorNumber = (uint)GetOperatorsCount();
-            _canvas = new Canvas();
-            DrawOperators();
-            DrawConnectionsAndValues();
+            try
+            {
+                _entity = Entity.GenerateEntity();
+                _entity.DumpEntity();
+                _operators = _entity.Operators;
+                _opersPoints = new Point[_operators.GetLength(0)];
+                InitializeComponent();
+                InitOper();
+                _lastOperatorNumber = (uint) GetOperatorsCount();
+                _canvas = new Canvas();
+                DrawOperators();
+                DrawConnectionsAndValues();
+            }
+            catch (Exception ex)
+            {
+                Debug.Write(ex);
+            }
         }
 
         private void InitOper()
@@ -89,7 +97,7 @@ namespace Visualizer
         private void DrawOperators()
         {
             double dw = Math.Sqrt(_lastOperatorNumber);
-            uint gridDim = (uint)Math.Round(dw);
+            var gridDim = (uint)Math.Round(dw);
 
             for (uint i = 1; i < _entity.NextOperatorId; i++)
             {
@@ -223,6 +231,10 @@ namespace Visualizer
                 case 4://       -(
                     celX = cx - OperatorRadius;
                     celY = cy;
+                    break;
+                case 5://       \)
+                    celX = cx;
+                    celY = cy - OperatorRadius;
                     break;
                 default:
                     throw new NotImplementedException("Not implemented contactId");

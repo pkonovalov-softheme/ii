@@ -296,7 +296,7 @@ namespace Brans
 		case (Nothing):
 			break;
 		case (One):
-			outValue = 1;
+			outValue = 4;
 			break;
 		case (Plus):
 			outValue = fContValue + sContValue;
@@ -416,7 +416,7 @@ namespace Brans
 
 	void Entity::CalculateEffectiveness(mainDataType totalAnswersCount)
 	{
-		_effectiveness = _correctAnswersCount / (double)totalAnswersCount;
+		_effectiveness = _correctAnswersCount / static_cast<double>(totalAnswersCount);
 	}
 
 	double Entity::GetEffectiveness()

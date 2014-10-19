@@ -46,7 +46,7 @@ void TestOperators()
 {
 	ChallengeManager cm;
 	TestOperator(Division, 8, 2, 0);
-	TestOperator(Equal, 2, 0, 0);
+	TestOperator(ChallengeManager::Equal, 2, 0, 0);
 	TestOperator(If, 2, 1, 0);
 	TestOperator(Minus, 3, 1, 0);
 	TestOperator(Multiplication, 2, 3, 0);
