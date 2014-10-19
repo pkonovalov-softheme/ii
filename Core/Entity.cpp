@@ -87,6 +87,7 @@ namespace Brans
 			_operators[i][FirstContact] = 0; 
 			_operators[i][SecondContact] = 0;
 			_operators[i][ThirdContact] = 0;
+			_operators[i][FourthContact] = 0;
 			_operators[i][outputValueColumn] = 0;
 		}
 		//memset(array, 0, sizeof(array[0][0]) * m * n); or std::fill( array, array + numberOfElements, 0.0 ) // Todo:// will this be faster
@@ -245,13 +246,13 @@ namespace Brans
 		switch (operType)
 		{
 		case (CreateChannel):
-			Entity::mCreateChannel(fContValue, sContValue, tContValue);
+			mCreateChannel(fContValue, sContValue, tContValue);
 			break;
 		case (CreateOperator):
-			Entity::mCreateOperator(fContValue);
+			mCreateOperator(fContValue);
 			break;
 		case (DeleteChannel):
-			Entity::mDeleteChannel(fContValue, sContValue);
+			mDeleteChannel(fContValue, sContValue);
 			break;
 		case (Division):
 			if (sContValue != 0) {
@@ -386,7 +387,10 @@ namespace Brans
 		for (mainDataType i = 0; i < ExternalOutputsCount;)
 		{
 			mainDataType nextI = i + 1;// external output
-			if (_chmanager->GetCorrectAnswer(i) != GetInputValue(nextI, FirstContact))
+			auto realAnswer = GetInputValue(nextI, FirstContact);
+			auto correctAnswer = _chmanager->GetCorrectAnswer(i);
+
+			if (realAnswer != correctAnswer)
 			{
 				//_chmanager->ReportFailure();
 				_incorrectAnswersCount++;

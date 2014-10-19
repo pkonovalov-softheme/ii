@@ -22,9 +22,9 @@ namespace Brans
 
 		static ChallengeManager* GetChallangeManager();
 
-		//Should be private(public only for tests):
-		void GenerateEntities();
-		void ClearPopulation();
+		////Should be private(public only for tests):
+		//void GenerateEntities();
+		//void ClearPopulation();
 
 		enum ChallengeTypes
 		{
@@ -48,8 +48,8 @@ namespace Brans
 		void GenerateRandomInputs(); //Filling inputs arrays with random values for all ChallangesCount
 		void FillMixedAnswers(); //Filling mixed correct answers for generated random inputs (GenerateRandomInputs() should be called before)
 		void FillAnswers(); //Filling correct answers for generated random inputs (GenerateRandomInputs() should be called before)
-		void SetContactsCount();
-		void CalculateEffectiveness();
+		//void SetContactsCount();
+		//void CalculateEffectiveness();
 		mainDataType* GetCorrectAnswersPtr();
 		mainDataType* GetInputsPtr();
 		Entity& SelectGoodEntity(double targetEffectivity);

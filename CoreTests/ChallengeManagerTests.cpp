@@ -87,6 +87,8 @@ namespace CoreTests
 			cm->FillAnswers();
 			for (mainDataType cline = 0; cline < ChallengeManager::ChallangesCount; cline++)
 			{
+				Assert::IsTrue(cm->_inputs[cline][0] == chType, L"First input value must reflect current challange type");
+
 				for (mainDataType i = Entity::FirstContact; i < ExternalInputsCount - 1; i++)
 				{
 					mainDataType leftOp = cm->_inputs[cline][i];
@@ -135,8 +137,8 @@ namespace CoreTests
 			//We will emulate StartSelection method
 			ChallengeManager* cm = new ChallengeManager();
 			//GenerateRandomInputs:
-			cm->_inputs[0][FirstExternalValueInputs] = 1;
-			cm->_inputs[0][FirstExternalValueInputs + 1] = 2;
+			cm->_inputs[0][Entity::FirstExternalValueInput] = 1;
+			cm->_inputs[0][Entity::FirstExternalValueInput + 1] = 2;
 
 			//FillAnswers:
 			cm->_correctAnswers[0][0] = 3;
@@ -184,8 +186,8 @@ namespace CoreTests
 		TEST_METHOD(CheckEntityCorrectAnswers)
 		{
 			ChallengeManager* cm = new ChallengeManager();
-			cm->_inputs[0][FirstExternalValueInputs] = 1;
-			cm->_inputs[0][FirstExternalValueInputs + 1] = 2;
+			cm->_inputs[0][Entity::FirstExternalValueInput] = 1;
+			cm->_inputs[0][Entity::FirstExternalValueInput + 1] = 2;
 			cm->_correctAnswers[0][0] = 3;
 			Entity* ent0 = GenerateEntity(Plus);
 			ent0->mProcessAll();
@@ -234,6 +236,44 @@ namespace CoreTests
 			Assert::IsTrue(ent0->GetEffectiveness() == 0.00);
 			delete (ent0);
 			delete (cm);
+		}
+
+		TEST_METHOD(CheckMixedAnswers)
+		{
+			int const firstValueInput = Entity::FirstExtInputPos + Entity::FirstExternalValueInput;
+			ChallengeManager cm;
+			cm.GenerateRandomInputs();
+			cm.FillMixedAnswers();
+
+			Entity ent0;
+			ent0.mCreateOperator(Plus);
+			const int PlusId = ent0.GetOperatorsCount();
+			ent0.mCreateOperator(Multiplication);
+			const int MultId = ent0.GetOperatorsCount();
+			ent0.mCreateOperator(If);
+			const int IfId = ent0.GetOperatorsCount();
+			ent0.mCreateOperator(One); // returns realy 6, not 1!
+			const int OneId = ent0.GetOperatorsCount();
+
+			ent0.mCreateChannel(firstValueInput, IfId, Entity::FirstContact);
+			ent0.mCreateChannel(OneId, IfId, Entity::SecondContact);
+			ent0.mCreateChannel(PlusId, IfId, Entity::ThirdContact);
+			ent0.mCreateChannel(MultId, IfId, Entity::FourthContact);
+			ent0.mCreateChannel(IfId, Entity::FirstExtOutputPos, Entity::FourthContact);
+
+			ent0.mCreateChannel(firstValueInput, MultId, Entity::FirstContact);
+			ent0.mCreateChannel(firstValueInput + 1, MultId, Entity::SecondContact);
+
+			ent0.mCreateChannel(firstValueInput, PlusId, Entity::FirstContact);
+			ent0.mCreateChannel(firstValueInput + 1, PlusId, Entity::SecondContact);
+
+			for (int pr = 0; pr < EntityProcessCount; pr++) {
+				ent0.mProcessAll();
+			}
+
+			ent0.CalculateEffectiveness(EntityProcessCount);
+			auto efect = ent0.GetEffectiveness();
+			Assert::IsTrue(efect == 1.00);
 		}
 
 		Entity* GenerateEntityEx(OperatorsTypes opT)

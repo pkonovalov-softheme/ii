@@ -49,9 +49,9 @@ namespace Brans
 
 	void ChallengeManager::FillMixedAnswers()
 	{
-		_chManager->SetChallengeType(ChallengeTypes::Plus);
+		_chManager->SetChallengeType(Plus);
 		FillAnswer(0, ChallangesCount / 2);
-		_chManager->SetChallengeType(ChallengeTypes::Multiplication);
+		_chManager->SetChallengeType(Multiplication);
 		FillAnswer(ChallangesCount / 2, ChallangesCount);
 	}
 

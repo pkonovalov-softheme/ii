@@ -26,6 +26,7 @@ namespace Brans
 		static const unsigned short SecondContact = 2;
 		static const unsigned short ThirdContact = 3;
 		static const unsigned short FourthContact = 4;
+		static const unsigned short FirstExternalValueInput = 1; //offset in external inputs of first signable inputs, (current firs contact is challange type)
 		
 		static const bool _operatorTypeExit[OperatorsTypesCount];
 
