@@ -38,7 +38,7 @@ namespace NativeWrapper
 
     public unsafe class Entity
     {
-        private const double TargetEf = 0.5;
+        private const double TargetEf = 0.99;
         private readonly EntityS _entS;
 
         private readonly uint[,] _operators = new uint[BransGlobals.operatorsMaxCount, EntityConsts.operatorsTableWidth];

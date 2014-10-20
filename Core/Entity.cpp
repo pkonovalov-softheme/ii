@@ -12,21 +12,10 @@ namespace Brans
 	const mainDataType Entity::_operatorTypeContactCount[OperatorsTypesCount] = {
 		/* Operator-index		  Contacts count */
 		/* Zero - 0*/						0,
-		/* Division - 1*/					2,
 		/* If - 2*/							4,
-		/* Minus - 3*/						2,
 		/* Multiplication - 4*/				2,
 		/* One -  5*/						0,
 		/* Plus - 6*/						2,
-		/* RandomNumber - 7*/				1,
-		/* CreateChannel - 8*/				3,
-		/* CreateOperator - 9*/				1,
-		/* DeleteChannel - 10*/				2,
-		/* GetTypeOfOperator - 11*/			1,
-		/* IsChannelExists - 12*/			3,
-		/* RemoveOperator  - 13*/			1,
-		/* GetInputOperatorId - 14*/		1,
-		/* GetOperatorContactsCount - 15*/	1,
 		/* ExternalInput  - 16*/			0,
 		/* ExternalOutput  - 17*/			1,
 		/* Nothing */						0,
@@ -35,21 +24,10 @@ namespace Brans
 	const bool Entity::_operatorTypeExit[OperatorsTypesCount] = {
 		/* Operator-index		  Contacts count */
 		/* Zero - 0 */						false,
-		/* Division - 1*/					true,
 		/* If - 2*/							true,
-		/* Minus - 3*/						true,
 		/* Multiplication - 4*/				true,
 		/* One - 5*/						true,
 		/* Plus - 6*/						true,
-		/* RandomNumber - 7*/				true,
-		/* CreateChannel - 8*/				false,
-		/* CreateOperator - 9*/				false,
-		/* DeleteChannel  - 10*/			false,
-		/* GetTypeOfOperator - 11*/			true,
-		/* IsChannelExists - 12*/			true,
-		/* RemoveOperator - 13*/			false,
-		/* GetInputOperatorId - 14*/		true,
-		/* GetOperatorContactsCount - 15*/	true,
 		/* ExternalInput - 16*/				true,
 		/* ExternalOutput - 17*/			false,
 		/* Nothing - 18*/					false,
@@ -245,33 +223,33 @@ namespace Brans
 
 		switch (operType)
 		{
-		case (CreateChannel):
-			mCreateChannel(fContValue, sContValue, tContValue);
-			break;
-		case (CreateOperator):
-			mCreateOperator(fContValue);
-			break;
-		case (DeleteChannel):
-			mDeleteChannel(fContValue, sContValue);
-			break;
-		case (Division):
-			if (sContValue != 0) {
-				outValue = fContValue / sContValue;}
-			break;
-		//case (Equal):
-		//		outValue = fContValue;
-			break;
-		case (GetOperatorContactsCount) :
-			targetOp = _operators[operatorId][1];
-			targetOpType = _operators[targetOp][0];
-			outValue = mGetOperTypeContactsCount(targetOpType);
-			break;
-		case (GetInputOperatorId): //returns id of the operator witch have channel with the first contact of the GetOperatorId operator
-			outValue = _operators[operatorId][1];
-			break;
-		case (GetTypeOfOperator): //returns the operator type witch have channel with the first contact of this oper
-			outValue = mGetOperatorType(_operators[operatorId][1]);
-			break;
+		//case (CreateChannel):
+		//	mCreateChannel(fContValue, sContValue, tContValue);
+		//	break;
+		//case (CreateOperator):
+		//	mCreateOperator(fContValue);
+		//	break;
+		//case (DeleteChannel):
+		//	mDeleteChannel(fContValue, sContValue);
+		//	break;
+		//case (Division):
+		//	if (sContValue != 0) {
+		//		outValue = fContValue / sContValue;}
+		//	break;
+		////case (Equal):
+		////		outValue = fContValue;
+		//	break;
+		//case (GetOperatorContactsCount) :
+		//	targetOp = _operators[operatorId][1];
+		//	targetOpType = _operators[targetOp][0];
+		//	outValue = mGetOperTypeContactsCount(targetOpType);
+		//	break;
+		//case (GetInputOperatorId): //returns id of the operator witch have channel with the first contact of the GetOperatorId operator
+		//	outValue = _operators[operatorId][1];
+		//	break;
+		//case (GetTypeOfOperator): //returns the operator type witch have channel with the first contact of this oper
+		//	outValue = mGetOperatorType(_operators[operatorId][1]);
+		//	break;
 		case (If):
 			if (fContValue >= sContValue) {
 				outValue = tContValue;
@@ -280,16 +258,16 @@ namespace Brans
 				outValue = fourthContValue;
 			}
 			break;
-		case (IsChannelExists):
-			outValue = mIsChannelExists(fContValue, sContValue, tContValue);
-			break;
-		case (Minus):
-			if (fContValue > sContValue){
-				outValue = fContValue - sContValue;
-			}
-			else
-				outValue = 0;
-			break;
+		//case (IsChannelExists):
+		//	outValue = mIsChannelExists(fContValue, sContValue, tContValue);
+		//	break;
+		//case (Minus):
+		//	if (fContValue > sContValue){
+		//		outValue = fContValue - sContValue;
+		//	}
+			//else
+			//	outValue = 0;
+			//break;
 		case (Multiplication):
 			outValue = fContValue * sContValue;
 			break;
@@ -301,12 +279,12 @@ namespace Brans
 		case (Plus):
 			outValue = fContValue + sContValue;
 			break;
-		case (RandomNumber):
-			outValue = mGetNewRandomVal(fContValue);
-			break;
-		case (RemoveOperator):
-			mRemoveOperator(fContValue);
-			break;
+		//case (RandomNumber):
+		//	outValue = mGetNewRandomVal(fContValue);
+		//	break;
+		//case (RemoveOperator):
+		//	mRemoveOperator(fContValue);
+		//	break;
 		//case (Time):
 		//	outValue = time(NULL);
 			break;

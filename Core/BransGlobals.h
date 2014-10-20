@@ -9,10 +9,7 @@ namespace Brans
 		/*Zero is restricted system value. After the first zero operator _operators array processing will be stopped.
 		Value of the zero operator is assuming as zero-only.
 		Basic operators:*/
-		Zero, Division, If, Minus, Multiplication, One, Plus, RandomNumber,
-		//Meta operators:
-		CreateChannel, CreateOperator, DeleteChannel, GetTypeOfOperator, IsChannelExists,
-		RemoveOperator, GetInputOperatorId, GetOperatorContactsCount, ExternalInput, ExternalOutput, Nothing
+		Zero, If, Multiplication, One, Plus, ExternalInput, ExternalOutput, Nothing
 	};
 
 	const unsigned short OperatorsTypesCount = Nothing + 1;  //with zero and nothing
@@ -24,7 +21,7 @@ namespace Brans
 	static const unsigned short EntityOperatorsCount = ExternalInputsCount + ExternalOutputsCount + EntityInternalOperatorsCount + 1;
 
 
-	static const unsigned short EntityProcessCount = 8;
+	static const unsigned short EntityProcessCount = 2;
 	static const mainDataType operatorsMaxCount = EntityOperatorsCount * 2; // maximum acceptable count of operators for one entity
 	static const mainDataType EntitiesStartPopulation = 1000;
 }
