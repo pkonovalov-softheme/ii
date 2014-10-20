@@ -16,10 +16,7 @@ namespace NativeWrapper
         /*Zero is restricted system value. After the first zero operator _operators array processing will be stopped. 
         Value of the zero operator is assuming as zero-only.
         Basic operators:*/
-        Zero, Divis, If, Minus, Multipl, One, Plus, Random, 
-        //Meta operators:
-        CreateChan, CreateOper, DelChan, GetOperType, IsChanExists,
-        RemoveOperr, GetInpOperId, GetOperContCount, ExternalInput, ExternalOutput, Nothing
+        Zero, If, Multipl, One, Plus, ExternalInput, ExternalOutput, Nothing
     };
 
     [StructLayout(LayoutKind.Sequential)]
