@@ -409,10 +409,70 @@ namespace Brans
 
 	bool Entity::IsEqual(Entity* ent)
 	{
-		if (this->GetOperatorsCount() != ent->GetOperatorsCount()) return false;
+		static ULONGLONG nextstat0[10] = {};
+		static ULONGLONG nextstat1[10] = {};
+		static ULONGLONG nextstat2[10] = {};
+		static ULONGLONG nextstat3[10] = {};
 
-		for (size_t i = FirstInternalOper; i <= GetOperatorsCount(); i++) {
-			if (this->GetContactValue(i, 0) != ent->GetContactValue(i, 0))  return false;
+		static ULONGLONG one = 0;
+		static ULONGLONG two = 0;
+		static ULONGLONG three = 0;
+		//ULONGLONG stats[9999];
+		if (this->GetOperatorsCount() != ent->GetOperatorsCount())
+		{
+			return false;
+		}
+
+		//for (size_t i = FirstInternalOper; i <= GetOperatorsCount(); i++)
+		//{
+		//	if (this->GetContactValue(i, 0) != ent->GetContactValue(i, 0))
+		//	{
+		//		return false;
+		//	}
+
+		//	int one = 1;
+		//}
+
+		//for (size_t i = FirstInternalOper; i <= GetOperatorsCount(); i++)
+		//{
+		//	if (this->GetContactValue(i, 0) != ent->GetContactValue(i, 0))
+		//	{
+		//		return false;
+		//	}
+
+		//	int curOperType = this->GetContactValue(i, 0);
+		//	stats[curOperType]
+		//}
+
+		nextstat0[ent->GetContactValue(5, 0)]++;
+
+		if (this->GetContactValue(5, 0) != ent->GetContactValue(5, 0))
+		{
+			return false;
+		}
+
+		one++;
+		nextstat1[ent->GetContactValue(6, 0)]++;
+
+		if (this->GetContactValue(6, 0) != ent->GetContactValue(6, 0))
+		{
+			return false;
+		}
+
+		two++;
+		nextstat2[ent->GetContactValue(7, 0)]++;
+
+		if (this->GetContactValue(7, 0) != ent->GetContactValue(7, 0))
+		{
+			return false;
+		}
+
+		three++;
+		nextstat3[ent->GetContactValue(7, 0)]++;
+
+		if (this->GetContactValue(8, 0) != ent->GetContactValue(8, 0))
+		{
+			return false;
 		}
 
 		return true;

@@ -128,9 +128,24 @@ namespace Brans
 
 	Entity& ChallengeManager::SelectGoodEntity(double targetEffectivity)
 	{
+		Entity ent0;
+		ent0.mCreateOperator(OperatorsTypes::Plus);
+		const int PlusId = ent0.GetOperatorsCount();
+		ent0.mCreateOperator(OperatorsTypes::Multiplication);
+		const int MultId = ent0.GetOperatorsCount();
+		ent0.mCreateOperator(OperatorsTypes::One); // returns realy 6, not 1!
+		const int OneId = ent0.GetOperatorsCount();
+		ent0.mCreateOperator(OperatorsTypes::If);
+		const int IfId = ent0.GetOperatorsCount();
+
 		while (true)
 		{
 			Entity& ent = _entityGenerator->GenerateEntity();
+
+			if (ent0.IsEqual(&ent))
+			{
+				int one = 1;
+			}
 
 			for (; _currentLine < ChallangesCount; _currentLine++)
 			{

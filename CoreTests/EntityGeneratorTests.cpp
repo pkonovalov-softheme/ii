@@ -28,13 +28,14 @@ namespace CoreTests
 
 		TEST_METHOD(TestExternalOutputs)
 		{
-			OperatorsTypes opType = (OperatorsTypes) testEntity->mGetOperatorType(ExternalOutputsCount);
+			OperatorsTypes opType = static_cast<OperatorsTypes>(testEntity->mGetOperatorType(ExternalOutputsCount));
 			Assert::IsTrue(opType == ExternalOutput);
 		}
 
 		TEST_METHOD(TestExternalInputs)
 		{
-			OperatorsTypes opType = (OperatorsTypes) testEntity->mGetOperatorType(ExternalOutputsCount + ExternalInputsCount);
+			OperatorsTypes opType = static_cast<OperatorsTypes>(testEntity->mGetOperatorType
+				(ExternalOutputsCount + ExternalInputsCount));
 			Assert::IsTrue(opType == ExternalInput);
 		}
 
@@ -45,8 +46,8 @@ namespace CoreTests
 				Entity* curEntity = &entityGenerator->GenerateEntity();
 				for (mainDataType i = Entity::FirstInternalOper; i < EntityOperatorsCount; i++)
 				{
-					OperatorsTypes curOperType = (OperatorsTypes) curEntity->mGetOperatorType(i);
-					Assert::IsTrue(curOperType >  OperatorsTypes::Zero && curOperType < OperatorsTypes::ExternalInput);
+					OperatorsTypes curOperType = static_cast<OperatorsTypes>(curEntity->mGetOperatorType(i));
+					Assert::IsTrue(curOperType >  Zero && curOperType < ExternalInput);
 				}
 			}
 		}
@@ -59,7 +60,7 @@ namespace CoreTests
 				curEntity = &entityGenerator->GenerateEntity();
 				for (mainDataType curOp = Entity::FirstInternalOper; curOp < EntityOperatorsCount; curOp++)
 				{
-					OperatorsTypes curOperType = (OperatorsTypes)curEntity->mGetOperatorType(curOp);
+					OperatorsTypes curOperType = static_cast<OperatorsTypes>(curEntity->mGetOperatorType(curOp));
 					//Assert::IsTrue(curOperType != ExternalOutput, L"Must not be connected with ExternalOutput");
 
 					for (int curContact = Entity::FirstContact; curContact <= Entity::mGetOperTypeContactsCount(curOperType); curContact++)
@@ -107,7 +108,7 @@ namespace CoreTests
 				{
 					int fromOperId = curEntity->GetContactValue(curOper, Entity::FirstContact);
 					OperatorsTypes fromOperType = (OperatorsTypes)curEntity->mGetOperatorType(fromOperId);
-					Assert::IsTrue(fromOperType > OperatorsTypes::Zero && fromOperType < OperatorsTypes::ExternalOutput, L"From Operator must be not Zero or External Output op.");
+					Assert::IsTrue(fromOperType > Zero && fromOperType < ExternalOutput, L"From Operator must be not Zero or External Output op.");
 				}
 			}
 		}

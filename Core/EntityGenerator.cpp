@@ -49,7 +49,7 @@ namespace Brans
 
 	void EntityGenerator::GenerateConnections(mainDataType toOper)
 	{
-		OperatorsTypes operType = (OperatorsTypes)_entity.mGetOperatorTypeUnsafe(toOper);
+		OperatorsTypes operType = static_cast<OperatorsTypes>(_entity.mGetOperatorTypeUnsafe(toOper));
 		mainDataType operTypeCntsCount = Entity::mGetOperTypeContactsCountUnsafe(operType);
 
 		for (int curContact = Entity::FirstContact; curContact <= operTypeCntsCount; curContact++)
