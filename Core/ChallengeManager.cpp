@@ -128,6 +128,11 @@ namespace Brans
 
 	Entity& ChallengeManager::SelectGoodEntity(double targetEffectivity)
 	{
+		static ULONGLONG stat[EntityOperatorsCount][OperatorsTypesCount] = {};
+		static ULONGLONG stat2[OperatorsTypesCount] = {};
+		static ULONGLONG stat3[99] = {};
+		static int prevOper = 0;
+
 		Entity ent0;
 		ent0.mCreateOperator(OperatorsTypes::Plus);
 		const int PlusId = ent0.GetOperatorsCount();
@@ -141,6 +146,15 @@ namespace Brans
 		while (true)
 		{
 			Entity& ent = _entityGenerator->GenerateEntity();
+
+			for (int operId = Entity::FirstInternalOper; operId < EntityOperatorsCount; ++operId)
+			{
+				int curOper = ent.GetContactValue(operId, 0);
+				stat2[curOper]++;
+				stat[operId][curOper]++;
+				stat3[(prevOper * 10) + curOper]++;
+				prevOper = curOper;
+			}
 
 			if (ent0.IsEqual(&ent))
 			{
