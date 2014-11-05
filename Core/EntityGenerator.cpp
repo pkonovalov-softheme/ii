@@ -24,25 +24,29 @@ namespace Brans
 
 	Entity& EntityGenerator::GenerateEntity()
 	{
+		static ULONGLONG stat[OperatorsTypesCount] = {};
+
 		_entity.Reset();
 
 		for (int curOper = Entity::FirstInternalOper; curOper < EntityOperatorsCount; curOper++)
 		{
 			//Creating opers
-			_entity.mCreateOperatorUnsafe(RandomOperatorsProvider::GetNextOperator());
+			int operType = RandomOperatorsProvider::GetNextOperator();
+			stat[operType]++;
+			_entity.mCreateOperatorUnsafe(operType);
 		}
 
 		IsEntityValid();
 
-		for (int curOper = Entity::FirstExtOutputPos; curOper <= ExternalOutputsCount; curOper++)
-		{
-			GenerateConnections(curOper);
-		}
+		//for (int curOper = Entity::FirstExtOutputPos; curOper <= ExternalOutputsCount; curOper++)
+		//{
+		//	GenerateConnections(curOper);
+		//}
 
-		for (int curOper = Entity::FirstInternalOper; curOper < EntityOperatorsCount; curOper++)
-		{
-			GenerateConnections(curOper);
-		}
+		//for (int curOper = Entity::FirstInternalOper; curOper < EntityOperatorsCount; curOper++)
+		//{
+		//	GenerateConnections(curOper);
+		//}
 
 		return _entity;
 	}
