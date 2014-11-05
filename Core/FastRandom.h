@@ -1,6 +1,8 @@
 #pragma once
-#include "emmintrin.h"
 #include <time.h>
+#include "emmintrin.h"
+#include "assert.h"
+
 //define this if you wish to return values similar to the standard rand();
 //#define COMPATABILITY
 
@@ -112,15 +114,24 @@ namespace Brans
 		cur_seed = _mm_set_epi32(seed, seed + 1, seed, seed + 1);
 	}
 
-	static unsigned int GetRandom(unsigned int low, unsigned int high)
+	/// 
+	/// Generates random values from low to high.
+	/// low -- the least legal value for the Random number.
+	/// high -- One greater than the greatest legal return value.
+	///
+	static unsigned int GetRandom(_In_ unsigned int low, _In_ unsigned int high)
 	{
 		static bool firtsTime = true;
 
 		if (curRandIndex >= 0)
 		{
-			unsigned int res = randoms[curRandIndex];
+			unsigned int value = randoms[curRandIndex];
 			curRandIndex--;
-			return res % (high - low + 1) + low;
+
+			//unsigned int returnVal = (value * (high - low)) / UINT_MAX + low;
+			unsigned int returnVal = (((unsigned long long)value  * (high - low) / UINT_MAX)) + low;
+			assert(returnVal >= low && returnVal < high);
+			return returnVal;
 		}
 		else
 		{

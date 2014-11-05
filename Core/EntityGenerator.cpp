@@ -5,11 +5,10 @@
 
 namespace Brans 
 {
-	static const mainDataType reducedOpC = EntityOperatorsCount - 1;
 	static const unsigned short ExternalOutputsCountAdd = ExternalOutputsCount + 1; // We didn't connect  from ExternalOutputs to opers
 
-	EntityGenerator::EntityGenerator() : _entity(), _operatorsConProvider(reducedOpC, ExternalOutputsCountAdd), 
-		_externalOutputsConProvider(reducedOpC, ExternalOutputsCountAdd + ExternalInputsCount)
+	EntityGenerator::EntityGenerator() : _entity(), _operatorsConProvider(EntityOperatorsCount, ExternalOutputsCountAdd),
+		_externalOutputsConProvider(EntityOperatorsCount, ExternalOutputsCountAdd + ExternalInputsCount)
 	{
 	}
 
@@ -38,15 +37,15 @@ namespace Brans
 
 		IsEntityValid();
 
-		//for (int curOper = Entity::FirstExtOutputPos; curOper <= ExternalOutputsCount; curOper++)
-		//{
-		//	GenerateConnections(curOper);
-		//}
+		for (int curOper = Entity::FirstExtOutputPos; curOper <= ExternalOutputsCount; curOper++)
+		{
+			GenerateConnections(curOper);
+		}
 
-		//for (int curOper = Entity::FirstInternalOper; curOper < EntityOperatorsCount; curOper++)
-		//{
-		//	GenerateConnections(curOper);
-		//}
+		for (int curOper = Entity::FirstInternalOper; curOper < EntityOperatorsCount; curOper++)
+		{
+			GenerateConnections(curOper);
+		}
 
 		return _entity;
 	}

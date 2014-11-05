@@ -19,11 +19,11 @@ namespace CoreTests
 		{
 			double onePerc = one / (double)Cycles;
 			double twoPerc = two / (double)Cycles;
-			double threePerc = three / (double)Cycles;
+			//double threePerc = three / (double)Cycles;
 
-			Assert::IsTrue(onePerc > 0.20 && onePerc < 0.40);
-			Assert::IsTrue(twoPerc > 0.20 && twoPerc < 0.40);
-			Assert::IsTrue(threePerc > 0.20 && threePerc < 0.40);
+			Assert::IsTrue(onePerc > 0.45 && onePerc < 0.55);
+			Assert::IsTrue(twoPerc > 0.45 && twoPerc < 0.55);
+			//Assert::IsTrue(threePerc > 0.20 && threePerc < 0.40);
 		}
 
 	public:

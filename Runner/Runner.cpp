@@ -15,4 +15,3 @@ int _tmain(int argc, _TCHAR* argv[])
 	delete (cm);
 	return 0;
 }
-

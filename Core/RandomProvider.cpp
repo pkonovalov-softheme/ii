@@ -3,14 +3,13 @@
 
 namespace Brans
 {
-	static const unsigned short LastInternalOperType = OperatorsTypesCount - 4; //Excluding Zero, External input, Output and Nothing
-	static const unsigned short LastValidOperType = ExternalInput - 1;
+	//static const unsigned short LastValidOperType = ExternalInput - 1;
 	//static uniform_int_distribution<int> operTypes_dist(1, LastValidOperType);
 	//static  FastRandom _fastrandom();
 
 	mainDataType RandomOperatorsProvider::GetNextOperator()
 	{
-		return GetRandom(1, LastValidOperType);
+		return GetRandom(1, ExternalInput);
 	}
 
 	mainDataType  RandomValuesProvider::GetNextValue(mainDataType upperLimit)
