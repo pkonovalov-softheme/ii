@@ -161,7 +161,11 @@ namespace Brans
 	//To do: Add thread safe logic!!!
 	void Entity::mCreateOperator(mainDataType operatorType)//To do: Add thread safe logic!!!
 	{
-		if (!IsOperTypeCorrect(operatorType) || _nextOperatorId >= operatorsMaxCount)	return;
+		if(!IsOperTypeCorrect(operatorType) ||
+		   _nextOperatorId >= operatorsMaxCount)
+		{
+			return;
+		}
 
 		mCreateOperatorUnsafe(operatorType);
 	}
@@ -418,20 +422,24 @@ namespace Brans
 		static ULONGLONG two = 0;
 		static ULONGLONG three = 0;
 		//ULONGLONG stats[9999];
+
 		if (this->GetOperatorsCount() != ent->GetOperatorsCount())
 		{
 			return false;
 		}
 
-		//for (size_t i = FirstInternalOper; i <= GetOperatorsCount(); i++)
-		//{
-		//	if (this->GetContactValue(i, 0) != ent->GetContactValue(i, 0))
-		//	{
-		//		return false;
-		//	}
+		for(size_t curOper = FirstInternalOper; curOper <= GetOperatorsCount(); curOper++)
+		{
+			int curOperType = mGetOperatorType(curOper);
 
-		//	int one = 1;
-		//}
+			for(size_t curContact = FirstContact; curContact <= mGetOperTypeContactsCount(curOperType); curContact++)
+			{
+				if(this->GetContactValue(curOper, curContact) != ent->GetContactValue(curOper, curContact))
+				{
+					return false;
+				}
+			}
+		}
 
 		//for (size_t i = FirstInternalOper; i <= GetOperatorsCount(); i++)
 		//{
@@ -444,7 +452,7 @@ namespace Brans
 		//	stats[curOperType]
 		//}
 
-		nextstat0[ent->GetContactValue(5, 0)]++;
+	/*	nextstat0[ent->GetContactValue(5, 0)]++;
 
 		if (this->GetContactValue(5, 0) != ent->GetContactValue(5, 0))
 		{
@@ -473,7 +481,7 @@ namespace Brans
 		if (this->GetContactValue(8, 0) != ent->GetContactValue(8, 0))
 		{
 			return false;
-		}
+		}*/
 
 		return true;
 	}

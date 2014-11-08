@@ -252,7 +252,7 @@ namespace CoreTests
 			const int PlusId = ent0.GetOperatorsCount();
 			ent0.mCreateOperator(Multiplication);
 			const int MultId = ent0.GetOperatorsCount();
-			ent0.mCreateOperator(One); // returns realy 6, not 1!
+			ent0.mCreateOperator(One); // returns really 6, not 1!
 			const int OneId = ent0.GetOperatorsCount();
 			ent0.mCreateOperator(If);
 			const int IfId = ent0.GetOperatorsCount();

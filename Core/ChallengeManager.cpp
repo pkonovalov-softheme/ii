@@ -38,7 +38,7 @@ namespace Brans
 	{
 		for (mainDataType cline = startChallange; cline < curChallangesCount; cline++)
 		{
-			_inputs[cline][0] = _curChallangeType; //Setting up challange type in zero contact 
+			_inputs[cline][0] = _curChallangeType; //Setting up challenge type in zero contact 
 
 			for (mainDataType i = Entity::FirstContact; i < ExternalInputsCount; i++)
 			{
@@ -138,10 +138,23 @@ namespace Brans
 		const int PlusId = ent0.GetOperatorsCount();
 		ent0.mCreateOperator(OperatorsTypes::Multiplication);
 		const int MultId = ent0.GetOperatorsCount();
-		ent0.mCreateOperator(OperatorsTypes::One); // returns realy 6, not 1!
+		ent0.mCreateOperator(OperatorsTypes::One); // returns really 6, not 1!
 		const int OneId = ent0.GetOperatorsCount();
 		ent0.mCreateOperator(OperatorsTypes::If);
 		const int IfId = ent0.GetOperatorsCount();
+
+		int const firstValueInput = Entity::FirstExtInputPos + Entity::FirstExternalValueInput;
+		ent0.mCreateChannel(firstValueInput, IfId, Entity::FirstContact);
+		ent0.mCreateChannel(OneId, IfId, Entity::SecondContact);
+		ent0.mCreateChannel(PlusId, IfId, Entity::ThirdContact);
+		ent0.mCreateChannel(MultId, IfId, Entity::FourthContact);
+		ent0.mCreateChannel(IfId, Entity::FirstExtOutputPos, Entity::FirstContact);
+
+		ent0.mCreateChannel(firstValueInput, MultId, Entity::FirstContact);
+		ent0.mCreateChannel(firstValueInput + 1, MultId, Entity::SecondContact);
+
+		ent0.mCreateChannel(firstValueInput, PlusId, Entity::FirstContact);
+		ent0.mCreateChannel(firstValueInput + 1, PlusId, Entity::SecondContact);
 
 		while (true)
 		{
