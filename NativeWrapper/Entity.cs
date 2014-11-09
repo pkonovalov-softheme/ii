@@ -22,6 +22,15 @@ namespace NativeWrapper
     [StructLayout(LayoutKind.Sequential)]
     public struct EntityS
     {
+        public EntityS(uint nextOperatorId)
+        {
+            Effectiveness = 0;
+            IncorrectAnswersCount = 0;
+            CorrectAnswersCount = 0;
+            NextOperatorId = nextOperatorId;
+            Chmanager = IntPtr.Zero;
+        }
+
         public readonly double Effectiveness;
 
         public readonly uint IncorrectAnswersCount;
@@ -41,6 +50,11 @@ namespace NativeWrapper
         private readonly uint[,] _operators = new uint[BransGlobals.operatorsMaxCount, EntityConsts.operatorsTableWidth];
 
        // private readonly ChallengeManager _chMng;
+
+        public Entity(EntityS entS)
+        {
+            _entS = entS;
+        }
 
         public Entity(EntityS entS, uint* opersPtr)
         {

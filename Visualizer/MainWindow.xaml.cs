@@ -44,7 +44,9 @@ namespace Visualizer
         {
             try
             {
-                _entity = Entity.GenerateEntity();
+               // _entity = Entity.GenerateEntity();
+                _entity = GenerateTestEntity();
+             
                 _entity.DumpEntity();
                 _operators = _entity.Operators;
                 _opersPoints = new Point[_operators.GetLength(0)];
@@ -59,6 +61,29 @@ namespace Visualizer
             {
                 Debug.Write(ex);
             }
+        }
+
+        private Entity GenerateTestEntity()
+        {
+            var entS = new EntityS(7);
+
+            var entity = new Entity(entS);
+
+            entity.Operators[1, 0] = (int)OperatorsTypes.ExternalOutput;
+            entity.Operators[2, 0] = (int)OperatorsTypes.ExternalOutput;
+            entity.Operators[3, 0] = (int)OperatorsTypes.ExternalOutput;
+            entity.Operators[4, 0] = (int)OperatorsTypes.ExternalOutput;
+            entity.Operators[5, 0] = (int)OperatorsTypes.ExternalInput;
+
+            entity.Operators[6, 0] = (int)OperatorsTypes.If;
+            entity.Operators[6, 1] = 1;
+            entity.Operators[6, 2] = 2;
+            entity.Operators[6, 3] = 3;
+            entity.Operators[6, 4] = 4;
+
+            entity.Operators[5, 1] = 6;
+
+    return entity;
         }
 
         private void InitOper()
@@ -127,14 +152,14 @@ namespace Visualizer
 
         private void DrawConnectionsAndValues()
         {
-            for (int row = 1; row < _entity.NextOperatorId; row++)
+            for (int currentOperator = 1; currentOperator < _entity.NextOperatorId; currentOperator++)
             {
-                for (int column = EntityConsts.FirstContact; column <= EntityConsts.contactsCount; column++)
+                for (int contact = EntityConsts.FirstContact; contact <= EntityConsts.contactsCount; contact++)
                 {
-                    var fromOper = (int)_operators[row, column];
-                    if ((fromOper != (int) OperatorsTypes.Zero) && (fromOper != (int)OperatorsTypes.Nothing))
+                    var fromOper = (int)_operators[currentOperator, contact];
+                    if (fromOper != 0)
                     {
-                        DrawConnectionAndValue(fromOper, row, column);
+                        DrawConnectionAndValue(fromOper, currentOperator, contact);
                     }
                 }
             }
@@ -144,12 +169,16 @@ namespace Visualizer
         {
             Point fromP = GetKontactPoint(fromOper, EntityConsts.outputValueColumn);
             DrawConnectionPoint(fromP, Brushes.Black);
+
             Point toP = GetKontactPoint(toOper, toOperContactId);
             DrawConnectionPoint(toP, Brushes.Red);
-            OperatorsCanvas.Children.Add(DrawLinkArrow(fromP, toP));
-            var val = _operators[fromOper, EntityConsts.outputValueColumn];
-            DrawValue(fromP, val.ToString(), Colors.Brown, 15);
-            DrawValue(toP, toOperContactId.ToString(), Colors.CadetBlue, 10); 
+
+            Shape linkArrow = DrawLinkArrow(fromP, toP);
+            OperatorsCanvas.Children.Add(linkArrow);
+
+            uint val = _operators[fromOper, EntityConsts.outputValueColumn];
+            DrawValue(fromP, val.ToString(), Colors.Brown, 15); // Output value
+            DrawValue(toP, toOperContactId.ToString(), Colors.CadetBlue, 10);  // Contact id
         }
 
         private static Shape DrawLinkArrow(Point p1, Point p2)
@@ -216,7 +245,7 @@ namespace Visualizer
 
             switch (contactId)
             {
-                case 1: //       /)
+                case 1: //       _/)
                     celX = cx + OperatorRadius * Math.Cos(Math.PI / 4);
                     celY = cy + OperatorRadius * Math.Sin(Math.PI / 4);
                     break;
@@ -225,16 +254,16 @@ namespace Visualizer
                     celY = cy;
                     break;
                 case 3://       \)
-                    celX = cx - OperatorRadius * Math.Cos(Math.PI / 4);
+                    celX = cx + OperatorRadius * Math.Cos(Math.PI / 4);
                     celY = cy - OperatorRadius * Math.Sin(Math.PI / 4);
                     break;
-                case 4://       -(
-                    celX = cx - OperatorRadius;
-                    celY = cy;
-                    break;
-                case 5://       \)
+                case 4://       /)
                     celX = cx;
                     celY = cy - OperatorRadius;
+                    break;
+                case 5://       -(
+                    celX = cx - OperatorRadius;
+                    celY = cy;
                     break;
                 default:
                     throw new NotImplementedException("Not implemented contactId");

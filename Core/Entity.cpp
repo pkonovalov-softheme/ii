@@ -78,8 +78,8 @@ namespace Brans
 
 	bool Entity::HasOperExit(mainDataType operId)
 	{
-		mainDataType operType = _operators[operId][0];
-		return _operatorTypeExit[operType];
+		mainDataType curOperType = _operators[operId][0];
+		return _operatorTypeExit[curOperType];
 	}
 
 	void Entity::InitializeInputsAndOutputs()

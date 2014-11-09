@@ -15,7 +15,6 @@ namespace Brans
 	{
 	public:
 		static const unsigned short operatorTypeColumn = 0;
-		static const unsigned short contactsCount = 3;
 		static const unsigned short outputValueColumn = 5;
 		static const unsigned short operatorsTableWidth = 6; // 0 column - operator type, 1 - 3 input values, 4 - output value
 		static const mainDataType FirstInternalOper = ExternalInputsCount + ExternalOutputsCount + 1;

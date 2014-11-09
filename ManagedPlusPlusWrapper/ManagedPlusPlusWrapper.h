@@ -25,7 +25,7 @@ namespace ManagedPlusPlusWrapper {
 	{
 		public:
 		static const unsigned short operatorTypeColumn = Entity::operatorTypeColumn;
-		static const unsigned short contactsCount = Entity::contactsCount;
+		static const unsigned short contactsCount = Entity::operatorsTableWidth - 2;
 		static const unsigned short outputValueColumn = Entity::outputValueColumn;
 		static const unsigned short OperatorsTypesCount = OperatorsTypesCount;
 		static const unsigned short operatorsTableWidth = Entity::operatorsTableWidth; // 0 column - operator type, 1 - 3 input values, 4 - output value
