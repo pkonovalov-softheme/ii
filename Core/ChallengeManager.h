@@ -36,7 +36,7 @@ namespace Brans
 		#if defined(RedefChallangesCount)
 			static const mainDataType ChallangesCount = 500;
 		#else
-			static const mainDataType ChallangesCount = 6;
+			static const mainDataType ChallangesCount = 12;
 		#endif
 		static const mainDataType RandomUpperLimit = 10; //max value for random for inputs
 		mainDataType _curChallangeType;

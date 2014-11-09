@@ -44,8 +44,8 @@ namespace Visualizer
         {
             try
             {
-               // _entity = Entity.GenerateEntity();
-                _entity = GenerateTestEntity();
+               _entity = Entity.GenerateEntity();
+              //  _entity = GenerateTestEntity();
              
                 _entity.DumpEntity();
                 _operators = _entity.Operators;
