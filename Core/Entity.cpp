@@ -60,6 +60,8 @@ namespace Brans
 
 	void Entity::Reset()
 	{
+		static ULONGLONG generatedEntityCounts = 0;
+
 		for (mainDataType i = 0; i < _nextOperatorId; i++)  {
 			// _operators[i][FirstContact] = 0;  Will this be faster?
 			_operators[i][FirstContact] = 0; 
@@ -74,6 +76,8 @@ namespace Brans
 		_correctAnswersCount = 0;
 		_effectiveness = 0;
 		_nextOperatorId = FirstInternalOper;
+
+		generatedEntityCounts++;
 	}
 
 	bool Entity::HasOperExit(mainDataType operId)
@@ -278,7 +282,7 @@ namespace Brans
 		case (Nothing):
 			break;
 		case (One):
-			outValue = 4;
+			outValue = 2;
 			break;
 		case (Plus):
 			outValue = fContValue + sContValue;

@@ -10,6 +10,9 @@ namespace Brans
 		~EntityGenerator(void);
 		Entity& GenerateEntity();
 		Entity& GetEntity();
+		bool EntityGenerator::NextEntityCore();
+		int state[EntityInternalOperatorsCount];
+
 	private:
 	    RandomValuesProvider _operatorsConProvider; //Connection providers for the entity internals operators, it generates connection with any entity operator and external inputs
 		RandomValuesProvider _externalOutputsConProvider; //Connection providers for the external outputs, it generates connection with any entity operator (and not external inputs)

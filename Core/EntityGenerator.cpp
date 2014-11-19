@@ -10,15 +10,32 @@ namespace Brans
 	EntityGenerator::EntityGenerator() : _entity(), _operatorsConProvider(EntityOperatorsCount, ExternalOutputsCountAdd),
 		_externalOutputsConProvider(EntityOperatorsCount, ExternalOutputsCountAdd + ExternalInputsCount)
 	{
+		state[0] = 0;
+
+		for (size_t i = 1; i < EntityInternalOperatorsCount; i++)
+		{
+			state[i] = OperatorsTypes::If;
+		}
 	}
 
 	EntityGenerator::~EntityGenerator(void)
 	{
 	}
 
-	bool EntityGenerator::IsEntityValid()
+	bool EntityGenerator::NextEntityCore()
 	{
-		return true;
+		for (int curOper = 0; curOper < EntityInternalOperatorsCount; curOper++) {
+			state[curOper]++;
+			if (state[curOper] <= OperatorsTypes::Plus) {
+				for (int nextOper = 0; nextOper < curOper; nextOper++) {
+					state[nextOper] = state[curOper];
+				}
+				return true;
+			}
+		}
+
+		// no more legal values
+		return false;
 	}
 
 	Entity& EntityGenerator::GenerateEntity()
@@ -34,8 +51,6 @@ namespace Brans
 			stat[operType]++;
 			_entity.mCreateOperatorUnsafe(operType);
 		}
-
-		IsEntityValid();
 
 		for (int curOper = Entity::FirstExtOutputPos; curOper <= ExternalOutputsCount; curOper++)
 		{

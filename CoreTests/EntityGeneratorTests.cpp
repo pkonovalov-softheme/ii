@@ -112,5 +112,21 @@ namespace CoreTests
 				}
 			}
 		}
+
+		TEST_METHOD(GeneratedCoreEntityIsValid)
+		{
+			EntityGenerator entityGenerator;
+
+			while (entityGenerator.NextEntityCore())
+			{
+				for (size_t i = 0; i < EntityInternalOperatorsCount; i++)
+				{
+					Assert::IsTrue(entityGenerator.state[i] > OperatorsTypes::Zero
+								&& entityGenerator.state[i] < OperatorsTypes::ExternalInput,
+								   L"All generated operators must be valid");
+				}
+			}
+
+		}
 	};
 }

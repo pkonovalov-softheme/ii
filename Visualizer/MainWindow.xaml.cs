@@ -44,8 +44,16 @@ namespace Visualizer
         {
             try
             {
-               _entity = Entity.GenerateEntity();
-              //  _entity = GenerateTestEntity();
+                DateTime start = DateTime.Now;
+
+                _entity = Entity.GenerateEntity();
+
+                TimeSpan elapsed = DateTime.Now - start;
+
+                string msg = string.Format("Entity was found in {0}", elapsed);
+                MessageBox.Show(msg, "Results", MessageBoxButton.OK);
+
+                //  _entity = GenerateTestEntity();
              
                 _entity.DumpEntity();
                 _operators = _entity.Operators;
