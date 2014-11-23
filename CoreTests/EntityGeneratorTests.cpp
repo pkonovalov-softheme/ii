@@ -2,6 +2,7 @@
 #include "stdafx.h"
 #include "CppUnitTest.h"
 #include "..\Core\EntityGenerator.h"
+#include <algorithm>    // std::sort
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 using namespace Brans;
@@ -127,6 +128,35 @@ namespace CoreTests
 				}
 			}
 
+		}
+
+		TEST_METHOD(GeneratedCoreEntitiesAreDifferent)
+		{
+			EntityGenerator entityGenerator;
+			std::vector<int> generetedEnteties;
+			int curVal = 0;
+
+			while (entityGenerator.NextEntityCore())
+			{
+				for (size_t i = 0; i < EntityInternalOperatorsCount; i++)
+				{
+					curVal *= 10;
+					curVal += entityGenerator.state[i];
+				}
+
+				generetedEnteties.push_back(curVal);
+				curVal = 0;
+			}
+
+			std::sort(generetedEnteties.begin(), generetedEnteties.end());
+			std::vector<int>::iterator it;
+			it = std::unique(generetedEnteties.begin(), generetedEnteties.end());
+			size_t size = std::distance(generetedEnteties.end(), it);
+
+			if (size < 0)
+			{
+				Assert::Fail(L"There are duplicates");
+			}
 		}
 	};
 }

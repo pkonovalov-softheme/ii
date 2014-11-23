@@ -26,7 +26,7 @@ namespace Brans
 	{
 		for (int curOper = 0; curOper < EntityInternalOperatorsCount; curOper++) {
 			state[curOper]++;
-			if (state[curOper] <= OperatorsTypes::Plus) {
+			if (state[curOper] < OperatorsTypes::ExternalInput) {
 				for (int nextOper = 0; nextOper < curOper; nextOper++) {
 					state[nextOper] = state[curOper];
 				}
