@@ -2,6 +2,8 @@
 #include "stdafx.h"
 #include "EntityGenerator.h"
 #include "assert.h"
+#include <iostream>     // std::cout
+#include <algorithm>    // std::next_permutation, std::sort
 
 namespace Brans 
 {
@@ -10,12 +12,21 @@ namespace Brans
 	EntityGenerator::EntityGenerator() : _entity(), _operatorsConProvider(EntityOperatorsCount, ExternalOutputsCountAdd),
 		_externalOutputsConProvider(EntityOperatorsCount, ExternalOutputsCountAdd + ExternalInputsCount)
 	{
-		state[0] = 0;
-
-		for (size_t i = 1; i < EntityInternalOperatorsCount; i++)
+		static const int firtsOperType = OperatorsTypes::Zero + 1;
+		for (size_t curOper = Entity::FirstInternalOper + 1; curOper < EntityOperatorsCount; curOper++)
 		{
-			state[i] = OperatorsTypes::If;
+			_entity.SetContactValue(curOper, Entity::operatorTypeColumn, firtsOperType);
 		}
+
+		for (size_t curOper = Entity::FirstExtOutputPos; curOper < EntityOperatorsCount; curOper++)
+		{
+			if (_entity.HasOperExit(curOper))
+			{
+				operators_with_exit.push_back(curOper);
+			}
+		}
+
+		std::sort(operators_with_exit.begin(), operators_with_exit.end());
 	}
 
 	EntityGenerator::~EntityGenerator(void)
@@ -24,11 +35,13 @@ namespace Brans
 
 	bool EntityGenerator::NextEntityCore()
 	{
-		for (int curOper = 0; curOper < EntityInternalOperatorsCount; curOper++) {
-			state[curOper]++;
-			if (state[curOper] < OperatorsTypes::ExternalInput) {
-				for (int nextOper = 0; nextOper < curOper; nextOper++) {
-					state[nextOper] = state[curOper];
+		for (int curOper = Entity::FirstInternalOper; curOper < EntityOperatorsCount; curOper++) {
+			_entity.IncrimentContactValueUnsafe(curOper, Entity::operatorTypeColumn);
+			
+			if (_entity.GetContactValue(curOper, Entity::operatorTypeColumn) < OperatorsTypes::ExternalInput) {
+				for (int nextOper = Entity::FirstInternalOper; nextOper < curOper; nextOper++) {
+					int curVal = _entity.GetContactValue(curOper, Entity::operatorTypeColumn);
+					_entity.SetContactValue(nextOper, Entity::operatorTypeColumn, curVal);
 				}
 				return true;
 			}
@@ -36,6 +49,16 @@ namespace Brans
 
 		// no more legal values
 		return false;
+	}
+
+	bool EntityGenerator::GenerateStartLayout()
+	{
+		return std::next_permutation(operators_with_exit.begin(), operators_with_exit.end());
+	}
+
+	Entity* EntityGenerator::GetEntity()
+	{
+		return &_entity;
 	}
 
 	Entity& EntityGenerator::GenerateEntity()

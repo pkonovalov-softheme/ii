@@ -19,7 +19,7 @@ namespace Brans
 
 	static const unsigned short EntityInternalOperatorsCount = 6;
 	static const unsigned short EntityOperatorsCount = ExternalInputsCount + ExternalOutputsCount + EntityInternalOperatorsCount + 1;
-
+	static const unsigned short EntityOperatorsWithExitCount = ExternalOutputsCount + EntityInternalOperatorsCount;
 
 	static const unsigned short EntityProcessCount = 2;
 	static const mainDataType operatorsMaxCount = EntityOperatorsCount * 2; // maximum acceptable count of operators for one entity

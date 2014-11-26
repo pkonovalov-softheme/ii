@@ -101,6 +101,8 @@ namespace Brans
 
 		mainDataType GetCorrectAnswersCount();
 
+		void IncrimentContactValueUnsafe(mainDataType operatorId, mainDataType contactId);
+
 		static mainDataType Entity::mGetOperTypeContactsCount(mainDataType operatorType);
 
 		static mainDataType Entity::mGetOperTypeContactsCountUnsafe(mainDataType operatorType);

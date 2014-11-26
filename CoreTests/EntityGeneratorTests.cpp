@@ -117,14 +117,18 @@ namespace CoreTests
 		TEST_METHOD(GeneratedCoreEntityIsValid)
 		{
 			EntityGenerator entityGenerator;
+			Entity* ent;
 
 			while (entityGenerator.NextEntityCore())
 			{
-				for (size_t i = 0; i < EntityInternalOperatorsCount; i++)
+				ent = entityGenerator.GetEntity();
+				for (size_t i = Entity::FirstInternalOper; i < EntityOperatorsCount; i++)
 				{
-					Assert::IsTrue(entityGenerator.state[i] > OperatorsTypes::Zero
-								&& entityGenerator.state[i] < OperatorsTypes::ExternalInput,
-								   L"All generated operators must be valid");
+					mainDataType connectedEntity = ent->GetContactValue(i, Entity::operatorTypeColumn);
+
+					Assert::IsTrue(connectedEntity > OperatorsTypes::Zero
+									&& connectedEntity < OperatorsTypes::ExternalInput,
+									 L"All generated operators must be valid");
 				}
 			}
 
@@ -133,15 +137,17 @@ namespace CoreTests
 		TEST_METHOD(GeneratedCoreEntitiesAreDifferent)
 		{
 			EntityGenerator entityGenerator;
-			std::vector<int> generetedEnteties;
-			int curVal = 0;
+			Entity* ent = entityGenerator.GetEntity();
+			std::vector<unsigned long long> generetedEnteties;
+			unsigned long long  curVal = 0;
 
 			while (entityGenerator.NextEntityCore())
 			{
-				for (size_t i = 0; i < EntityInternalOperatorsCount; i++)
+				//ent = entityGenerator.GetEntity();
+				for (size_t i = Entity::FirstInternalOper; i < EntityOperatorsCount; i++)
 				{
 					curVal *= 10;
-					curVal += entityGenerator.state[i];
+					curVal += ent->GetContactValue(i, Entity::operatorTypeColumn);
 				}
 
 				generetedEnteties.push_back(curVal);
@@ -149,11 +155,11 @@ namespace CoreTests
 			}
 
 			std::sort(generetedEnteties.begin(), generetedEnteties.end());
-			std::vector<int>::iterator it;
+			std::vector<unsigned long long>::iterator it;
 			it = std::unique(generetedEnteties.begin(), generetedEnteties.end());
 			size_t size = std::distance(generetedEnteties.end(), it);
 
-			if (size < 0)
+			if (size < 0 | size > generetedEnteties.capacity())
 			{
 				Assert::Fail(L"There are duplicates");
 			}

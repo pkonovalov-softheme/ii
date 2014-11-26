@@ -123,6 +123,11 @@ namespace Brans
 		//	return *val;
 	}
 
+	void Entity::IncrimentContactValueUnsafe(mainDataType operatorId, mainDataType contactId)
+	{
+		_operators[operatorId][contactId]++;
+	}
+
 	void Entity::mCreateChannel(mainDataType fromOperator, mainDataType toOperator, mainDataType toOperatorContactId)
 	{
 		if (!IsOperIdCorrect(fromOperator))		    return;
